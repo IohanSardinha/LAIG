@@ -1,11 +1,11 @@
 # LAIG 2020/2021 - TP1
 
-## Group: T0xG0y
+## Group: T5xG04
 
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Iohan Sardinha   | 201801011 |up201801011@fe.up.pt|
+| Muriel Pinho     | 201700132 |up201700132@fe.up.pt|
 
 ----
 ## Project information
