@@ -627,13 +627,64 @@ class MySceneGraph {
             var descendantsIndex = nodeNames.indexOf("descendants");
 
             //this.onXMLMinorError("To do: Parse nodes.");
-            // Transformations
 
+            // Transformations
+            grandgrandChildren = grandChildren[transformationsIndex].children;
+            for (var k = 0; k < grandgrandChildren.length; k++) {
+                if (grandgrandChildren[k].nodeName == "translation") {
+                    var x = this.reader.getFloat(grandgrandChildren[k], 'x');
+                    var y = this.reader.getFloat(grandgrandChildren[k], 'y');
+                    var z = this.reader.getFloat(grandgrandChildren[k], 'z');
+                  //  mat4.translate(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                }
+                else if (grandgrandChildren[k].nodeName == "rotation") {
+                    var axis = this.reader.getString(grandgrandChildren[k], 'axis');
+                    var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
+                //    mat4.rotate(this.transformMatrix, this.transformMatrix, angle, this.axisCoords[axis]);
+                }
+                else if (grandgrandChildren[k].nodeName == "scale") {
+                    var x = this.reader.getFloat(grandgrandChildren[k], 'sx');
+                    var y = this.reader.getFloat(grandgrandChildren[k], 'sy');
+                    var z = this.reader.getFloat(grandgrandChildren[k], 'sz');
+                    //mat4.scale(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                }
+                else {
+                    this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + ">");
+                    continue;
+                }
+            }
+            
             // Material
+            grandgrandChildren = grandChildren[materialIndex].children;
+            for (var k = 0; k < grandgrandChildren.length; k++) {
+
+            }
 
             // Texture
+            grandgrandChildren = grandChildren[textureIndex].children;
+            for (var k = 0; k < grandgrandChildren.length; k++) {
+            }
 
             // Descendants
+            grandgrandChildren = grandChildren[descendantsIndex].children;
+            for (var k = 0; k < grandgrandChildren.length; k++) {
+                if (grandgrandChildren[k].nodeName == "noderef") {
+                    var refId = this.reader.getString(grandgrandChildren[k], 'id');
+                    if (children[refId] == null) {
+                        this.onXMLMinorError("component '" + refId + "' not defined");
+                        continue;
+                    }
+                    
+                }
+                else if (grandgrandChildren[k].nodeName == "leaf") {
+
+                }
+                else {
+                    this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + "> in children of " + this.id);
+                    continue;
+                }
+            }
+
         }
     }
 
