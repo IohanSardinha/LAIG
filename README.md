@@ -1,10 +1,10 @@
 # LAIG 2020/2021
 
-## Group T0xG0y
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+## Group T05G04
+| Name             | Number    | E-Mail               |
+| ---------------- | --------- | -------------------- |
+| Iohan Soares     | 201801011 | up201801011@fe.up.pt |
+| Muriel Pinho     | 201700132 | up201700132@fe.up.pt |
 
 ----
 
