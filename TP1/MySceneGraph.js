@@ -27,14 +27,19 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
+        this.viewsId = [];
+        this.currView = 0;
 
-        this.idRoot = null; // The id of the root element.
+        this.idRoot = null;                    // The id of the root element.
+
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
+        this.currMatId = [];
+        this.currMat = 0;
         // File reading 
         this.reader = new CGFXMLreader();
 
@@ -245,7 +250,53 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        //this.onXMLMinorError("To do: Parse views and create cameras.");
+
+        //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
+        this.cameras = [];
+        this.defaultViewId = this.reader.getString(viewsNode, 'default');
+        this.viewMap = new Map();
+        for (let i = 0; i < viewsNode.children.length; i++) {
+            let camera = viewsNode.children[i];
+            var fromX, fromY, fromZ, toX, toY, toZ, near, far, id;
+            near = this.reader.getFloat(camera, 'near');
+            far = this.reader.getFloat(camera, 'far');
+
+            let from = camera.children[0];
+            fromX = this.reader.getFloat(from, 'x');
+            fromY = this.reader.getFloat(from, 'y');
+            fromZ = this.reader.getFloat(from, 'z');
+
+            let to = camera.children[1];
+            toX = this.reader.getFloat(to, 'x');
+            toY = this.reader.getFloat(to, 'y');
+            toZ = this.reader.getFloat(to, 'z');
+
+            id = this.reader.getString(camera, 'id');
+            if (viewsNode.children[i].nodeName == "perspective") {
+                var angle;
+                angle = this.reader.getFloat(camera, 'angle');
+
+
+                this.cameras[i] = new CGFcamera(DEGREE_TO_RAD * angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+                this.viewMap.set(id, this.cameras[i]);
+            }
+            else if (viewsNode.children[i].nodeName == "ortho") {
+                var left, right, top, bottom;
+
+                let camera = viewsNode.children[i];
+                left = this.reader.getFloat(camera, 'left');
+                right = this.reader.getFloat(camera, 'right');
+                top = this.reader.getFloat(camera, 'top');
+                bottom = this.reader.getFloat(camera, 'bottom');
+
+                this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0));
+                this.viewMap.set(id, this.cameras[i]);
+            }
+        }
+
+        this.log("Parsed cameras");
+
         return null;
     }
 
@@ -372,8 +423,47 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        //this.onXMLMinorError("To do: Parse textures.");
+        var children = texturesNode.children;
+
+        if (children.length == 0) {
+            return "at least one texture must be defined";
+        }
+
+        this.textures = [];
+        var textId;
+        var path;
+
+        for (var i = 0; i < children.length; i++) {
+            textId = this.reader.getString(children[i], 'id');
+            if (textId == null || textId.length == 0) {
+                return "A texture ID must be defined"
+            }
+            if (this.textures[textId] != null) {
+                return textId + " already defined";
+            }
+
+            path = this.reader.getString(children[i], 'path');
+            if (path == null || path.length == 0) {
+                return "A path must be defined for texture " + textId;
+            }
+
+            if (path.includes('scenes/images')) {
+                this.textures[textId] = new CGFtexture(this.scene, path);
+            }
+            else if (path.includes('images/')) {
+                this.textures[textId] = new CGFtexture(this.scene, './scenes/' + path);
+            }
+            else {
+                this.textures[textId] = new CGFtexture(this.scene, "./scenes/images/" + path);
+            }
+
+        }
+
+        this.log("Parsed textures");
+
         return null;
+
     }
 
     /**
@@ -406,10 +496,92 @@ class MySceneGraph {
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
             //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            //this.onXMLMinorError("To do: Parse materials.");
+            grandChildren = children[i].children;
+
+            //Add tags to auxiliary variable
+            for (let j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }
+
+            //Verify if all tags exists
+            if (nodeNames.indexOf("emissive") == -1) {
+                return "missing <emissive> tag";
+            }
+            else if (nodeNames.indexOf("ambient") == -1) {
+                return "missing <ambient> tag";
+            }
+            else if (nodeNames.indexOf("diffuse") == -1) {
+                return "missing <diffuse> tag";
+            }
+            else if (nodeNames.indexOf("specular") == -1) {
+                return "missing <specular> tag";
+            }
+
+            for (var j = 0; j < grandChildren.length; j++) {
+                if (grandChildren[j].nodeName == "shininess") {
+                    var shininess = this.reader.getFloat(grandChildren[i], 'value')
+                    if (shininess == null) return "Missing shininess of " + grandChildren[j].nodeName;
+                }
+                else if (grandChildren[j].nodeName == "specular") {
+                    var specular = {
+                        red: this.reader.getFloat(grandChildren[j], 'r'),
+                        green: this.reader.getFloat(grandChildren[j], 'g'),
+                        blue: this.reader.getFloat(grandChildren[j], 'b'),
+                        alpha: this.reader.getFloat(grandChildren[j], 'a')
+                    }
+
+                    var aux = this.parseColor(grandChildren[j], "specular");
+                    if (aux == null) return "Missing specular of " + grandChildren[j].nodeName;
+                }
+                else if (grandChildren[j].nodeName == "diffuse") {
+                    var diffuse = {
+                        red: this.reader.getFloat(grandChildren[j], 'r'),
+                        green: this.reader.getFloat(grandChildren[j], 'g'),
+                        blue: this.reader.getFloat(grandChildren[j], 'b'),
+                        alpha: this.reader.getFloat(grandChildren[j], 'a')
+                    }
+                    var aux = this.parseColor(grandChildren[j], "diffuse");
+                    if (aux == null) return "Missing diffuse of " + grandChildren[j].nodeName;
+                }
+                else if (grandChildren[j].nodeName == "ambient") {
+                    var ambient = {
+                        red: this.reader.getFloat(grandChildren[j], 'r'),
+                        green: this.reader.getFloat(grandChildren[j], 'g'),
+                        blue: this.reader.getFloat(grandChildren[j], 'b'),
+                        alpha: this.reader.getFloat(grandChildren[j], 'a')
+                    }
+
+                    var aux = this.parseColor(grandChildren[j], "ambient");
+                    if (aux == null) return "Missing ambient of " + grandChildren[j].nodeName;
+                }
+                else if (grandChildren[j].nodeName == "emissive") {
+                    var emissive = {
+                        red: this.reader.getFloat(grandChildren[j], 'r'),
+                        green: this.reader.getFloat(grandChildren[j], 'g'),
+                        blue: this.reader.getFloat(grandChildren[j], 'b'),
+                        alpha: this.reader.getFloat(grandChildren[j], 'a')
+                    }
+
+                    var aux = this.parseColor(grandChildren[j], "emissive");
+                    if (aux == null) return "Missing emissive of " + grandChildren[j].nodeName;
+                }
+                else {
+                    this.onXMLMinorError("unknown tag <" + grandChildren[i].nodeName + ">");
+                    continue;
+                }
+            }
+            this.materials[materialID] = new CGFappearance(this.scene);
+            this.materials[materialID].setShininess(shininess);
+            //this.materials[materialID].setEmissive(emissive.red, emissive.green, emissive.blue, emissive.alpha);
+            this.materials[materialID].setAmbient(ambient.red, ambient.green, ambient.blue, ambient.alpha);
+            this.materials[materialID].setDiffuse(diffuse.red, diffuse.green, diffuse.blue, diffuse.alpha);
+            this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
+            this.currMatId.push(materialID);
         }
 
-        //this.log("Parsed materials");
+
+        this.log("Parsed materials");
         return null;
     }
 
@@ -449,13 +621,12 @@ class MySceneGraph {
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
-
             var transformationsIndex = nodeNames.indexOf("transformations");
             var materialIndex = nodeNames.indexOf("material");
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
-            this.onXMLMinorError("To do: Parse nodes.");
+            //this.onXMLMinorError("To do: Parse nodes.");
             // Transformations
 
             // Material
