@@ -520,7 +520,7 @@ class MySceneGraph {
 
             for (var j = 0; j < grandChildren.length; j++) {
                 if (grandChildren[j].nodeName == "shininess") {
-                    var shininess = this.reader.getFloat(grandChildren[i], 'value')
+                    var shininess = this.reader.getFloat(grandChildren[j], 'value')
                     if (shininess == null) return "Missing shininess of " + grandChildren[j].nodeName;
                 }
                 else if (grandChildren[j].nodeName == "specular") {
@@ -573,7 +573,7 @@ class MySceneGraph {
             }
             this.materials[materialID] = new CGFappearance(this.scene);
             this.materials[materialID].setShininess(shininess);
-            //this.materials[materialID].setEmissive(emissive.red, emissive.green, emissive.blue, emissive.alpha);
+            this.materials[materialID].setEmission(emissive.red, emissive.green, emissive.blue, emissive.alpha);
             this.materials[materialID].setAmbient(ambient.red, ambient.green, ambient.blue, ambient.alpha);
             this.materials[materialID].setDiffuse(diffuse.red, diffuse.green, diffuse.blue, diffuse.alpha);
             this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
@@ -629,30 +629,37 @@ class MySceneGraph {
             //this.onXMLMinorError("To do: Parse nodes.");
 
             // Transformations
-            grandgrandChildren = grandChildren[transformationsIndex].children;
-            for (var k = 0; k < grandgrandChildren.length; k++) {
-                if (grandgrandChildren[k].nodeName == "translation") {
-                    var x = this.reader.getFloat(grandgrandChildren[k], 'x');
-                    var y = this.reader.getFloat(grandgrandChildren[k], 'y');
-                    var z = this.reader.getFloat(grandgrandChildren[k], 'z');
-                  //  mat4.translate(this.transformMatrix, this.transformMatrix, [x, y, z]);
-                }
-                else if (grandgrandChildren[k].nodeName == "rotation") {
-                    var axis = this.reader.getString(grandgrandChildren[k], 'axis');
-                    var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
-                //    mat4.rotate(this.transformMatrix, this.transformMatrix, angle, this.axisCoords[axis]);
-                }
-                else if (grandgrandChildren[k].nodeName == "scale") {
-                    var x = this.reader.getFloat(grandgrandChildren[k], 'sx');
-                    var y = this.reader.getFloat(grandgrandChildren[k], 'sy');
-                    var z = this.reader.getFloat(grandgrandChildren[k], 'sz');
-                    //mat4.scale(this.transformMatrix, this.transformMatrix, [x, y, z]);
-                }
-                else {
-                    this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + ">");
-                    continue;
+            if (grandChildren[transformationsIndex]==null)
+            {
+                continue;
+            }
+            else{
+                grandgrandChildren = grandChildren[transformationsIndex].children;
+                for (var k = 0; k < grandgrandChildren.length; k++) {
+                    if (grandgrandChildren[k].nodeName == "translation") {
+                        var x = this.reader.getFloat(grandgrandChildren[k], 'x');
+                        var y = this.reader.getFloat(grandgrandChildren[k], 'y');
+                        var z = this.reader.getFloat(grandgrandChildren[k], 'z');
+                        //  mat4.translate(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                    }
+                    else if (grandgrandChildren[k].nodeName == "rotation") {
+                        var axis = this.reader.getString(grandgrandChildren[k], 'axis');
+                        var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
+                        //    mat4.rotate(this.transformMatrix, this.transformMatrix, angle, this.axisCoords[axis]);
+                    }
+                    else if (grandgrandChildren[k].nodeName == "scale") {
+                        var x = this.reader.getFloat(grandgrandChildren[k], 'sx');
+                        var y = this.reader.getFloat(grandgrandChildren[k], 'sy');
+                        var z = this.reader.getFloat(grandgrandChildren[k], 'sz');
+                        //mat4.scale(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                    }
+                    else {
+                        this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + ">");
+                        continue;
+                    }
                 }
             }
+            
             
             // Material
             grandgrandChildren = grandChildren[materialIndex].children;

@@ -4,7 +4,7 @@
 
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| Iohan Sardinha   | 201801011 |up201801011@fe.up.pt|
+| Iohan Soares     | 201801011 |up201801011@fe.up.pt|
 | Muriel Pinho     | 201700132 |up201700132@fe.up.pt|
 
 ----
