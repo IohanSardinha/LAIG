@@ -250,17 +250,20 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        //this.onXMLMinorError("To do: Parse views and create cameras.");
 
-        //var defaultCamera = this.reader.getString(viewsNode, 'defaultCamera');
         this.cameras = [];
         this.defaultViewId = this.reader.getString(viewsNode, 'default');
         this.viewMap = new Map();
         for (let i = 0; i < viewsNode.children.length; i++) {
+            if (viewsNode.children[i].nodeName != "perspective" && viewsNode.children[i].nodeName != "ortho") {
+                this.onXMLMinorError("Unknown camera tag <"+viewsNode.children[i].nodeName+">, ignoring");
+                continue;
+            }
+
             let camera = viewsNode.children[i];
             var fromX, fromY, fromZ, toX, toY, toZ, near, far, id;
-            near = this.reader.getFloat(camera, 'near');
-            far = this.reader.getFloat(camera, 'far');
+            near = this.reader.getFloat(camera, 'near'); if(near == null){this.onXMLMinorError("bad reading for 'near' in '"+id+"' camera"); near =  0.1;}
+            far = this.reader.getFloat(camera, 'far');if(far == null){this.onXMLMinorError("bad reading for 'far' in '"+id+"' camera"); far = 500;}
 
             let from = camera.children[0];
             fromX = this.reader.getFloat(from, 'x');
@@ -290,10 +293,26 @@ class MySceneGraph {
                 top = this.reader.getFloat(camera, 'top');
                 bottom = this.reader.getFloat(camera, 'bottom');
 
-                this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(0, 1, 0));
+                let upVec = vec3.fromValues(0,1,0);
+                if(camera.children.length < 3){
+                    this.onXMLMinorError("no up axis defined for orthogonal camera '"+ id +"'; assuming (0,1,0)");
+                }
+                else{
+                    let up = camera.children[2];
+                    let upX = this.reader.getFloat(up,'x');
+                    let upY = this.reader.getFloat(up,'y');
+                    let upZ = this.reader.getFloat(up,'z');
+                    upVec = vec3.fromValues(upX,upY,upZ);
+                }
+
+                this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), upVec);
                 this.viewMap.set(id, this.cameras[i]);
             }
         }
+
+        this.camera = this.viewMap.get(this.defaultViewId);
+        if(this.camera == null)
+            return "default camera not defined";
 
         this.log("Parsed cameras");
 
@@ -472,13 +491,16 @@ class MySceneGraph {
      */
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
+        
+        if (children.length == 0) {
+            return "at least one material must be defined";
+        }
 
         this.materials = [];
 
         var grandChildren = [];
         var nodeNames = [];
 
-        // Any number of materials.
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "material") {
@@ -592,11 +614,18 @@ class MySceneGraph {
   parseNodes(nodesNode) {
         var children = nodesNode.children;
 
+
         this.nodes = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
+        var nodeIDs = [];
+        for (var i = 0; i < children.length; i++) {
+            nodeIDs.push(this.reader.getString(children[i],'id'));
+        }
+        if(nodeIDs.indexOf(this.idRoot) == -1)
+            return "root id not present";
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
@@ -605,9 +634,8 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
-
-            // Get id of the current node.
-            var nodeID = this.reader.getString(children[i], 'id');
+ 
+            let nodeID = nodeIDs[i];
             if (nodeID == null)
                 return "no ID defined for nodeID";
 
@@ -660,35 +688,53 @@ class MySceneGraph {
                 }
             }
             
-            
             // Material
-            grandgrandChildren = grandChildren[materialIndex].children;
-            for (var k = 0; k < grandgrandChildren.length; k++) {
+            if(grandgrandChildren[materialIndex] == null)
+            {
+                this.onXMLMinorError("Missing tag <material> for '"+nodeID+"'' assuming null");
+            }
+            else {            
+                grandgrandChildren = grandChildren[materialIndex].children;
+                for (var k = 0; k < grandgrandChildren.length; k++) {
 
+                }
             }
 
             // Texture
-            grandgrandChildren = grandChildren[textureIndex].children;
-            for (var k = 0; k < grandgrandChildren.length; k++) {
+            if(grandgrandChildren[textureIndex] == null)
+            {
+                this.onXMLMinorError("Missing tag <texture> for '"+nodeID+"'' assuming null");
+            }
+            else {            
+                grandgrandChildren = grandChildren[textureIndex].children;
+                for (var k = 0; k < grandgrandChildren.length; k++) {
+
+                }
             }
 
             // Descendants
-            grandgrandChildren = grandChildren[descendantsIndex].children;
-            for (var k = 0; k < grandgrandChildren.length; k++) {
-                if (grandgrandChildren[k].nodeName == "noderef") {
-                    var refId = this.reader.getString(grandgrandChildren[k], 'id');
-                    if (children[refId] == null) {
-                        this.onXMLMinorError("component '" + refId + "' not defined");
+            if(grandgrandChildren[descendants] == null)
+            {
+                return "Missing tag <descendants> for '"+nodeID+"''!";
+            }
+            else {            
+                grandgrandChildren = grandChildren[descendantsIndex].children;
+                for (var k = 0; k < grandgrandChildren.length; k++) {
+                    if (grandgrandChildren[k].nodeName == "noderef") {
+                        var refId = this.reader.getString(grandgrandChildren[k], 'id');
+                        if (children[refId] == null) {
+                            this.onXMLMinorError("component '" + refId + "' not defined");
+                            continue;
+                        }
+                        
+                    }
+                    else if (grandgrandChildren[k].nodeName == "leaf") {
+
+                    }
+                    else {
+                        this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + "> in children of " + this.id);
                         continue;
                     }
-                    
-                }
-                else if (grandgrandChildren[k].nodeName == "leaf") {
-
-                }
-                else {
-                    this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + "> in children of " + this.id);
-                    continue;
                 }
             }
 

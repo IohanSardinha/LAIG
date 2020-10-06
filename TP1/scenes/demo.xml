@@ -859,7 +859,7 @@
                               <leaf type="triangle" x1="-0.707" y1="-0.707" x2="0.707" y2="0.707" x3="0" y3="0.5" />
                         </descendants>
                     </node>
-                    <node id="plantVase1">            
+                    <node id="plantVase2">            
                         <material id="null" />
 
                         <texture id="null">
