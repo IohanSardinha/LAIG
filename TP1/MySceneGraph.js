@@ -689,7 +689,7 @@ class MySceneGraph {
             }
             
             // Material
-            if(grandgrandChildren[materialIndex] == null)
+            if(grandChildren[materialIndex] == null)
             {
                 this.onXMLMinorError("Missing tag <material> for '"+nodeID+"'' assuming null");
             }
@@ -701,7 +701,7 @@ class MySceneGraph {
             }
 
             // Texture
-            if(grandgrandChildren[textureIndex] == null)
+            if(grandChildren[textureIndex] == null)
             {
                 this.onXMLMinorError("Missing tag <texture> for '"+nodeID+"'' assuming null");
             }
@@ -713,7 +713,7 @@ class MySceneGraph {
             }
 
             // Descendants
-            if(grandgrandChildren[descendants] == null)
+            if(grandChildren[descendantsIndex] == null)
             {
                 return "Missing tag <descendants> for '"+nodeID+"''!";
             }
@@ -726,10 +726,33 @@ class MySceneGraph {
                             this.onXMLMinorError("component '" + refId + "' not defined");
                             continue;
                         }
+                        else {
+                            
+                        }
                         
                     }
                     else if (grandgrandChildren[k].nodeName == "leaf") {
-
+                        let type = this.reader.getString(grandgrandChildren[k],"type");
+                        if(type === "rectangle")
+                        {
+                            let x1 = this.reader.getString(grandgrandChildren[k],"x1");
+                            let x2 = this.reader.getString(grandgrandChildren[k],"x2");
+                            let y1 = this.reader.getString(grandgrandChildren[k],"y1");
+                            let y2 = this.reader.getString(grandgrandChildren[k],"y2");
+                            let rectangle = new MyRectangle(this.scene,x1,y1,x2,y2);
+                            //this.nodes.push(rectangle);
+                        }
+                        else if(type === "triangle")
+                        {
+                            let x1 = this.reader.getString(grandgrandChildren[k],"x1");
+                            let x2 = this.reader.getString(grandgrandChildren[k],"x2");
+                            let x3 = this.reader.getString(grandgrandChildren[k],"x3");
+                            let y1 = this.reader.getString(grandgrandChildren[k],"y1");
+                            let y2 = this.reader.getString(grandgrandChildren[k],"y2");
+                            let y3 = this.reader.getString(grandgrandChildren[k],"y3");
+                            let triangle = new MyTriangle(this.scene,x1,y1,x2,y2, x3, y3);
+                            this.nodes.push(triangle);
+                        }
                     }
                     else {
                         this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + "> in children of " + this.id);
@@ -844,5 +867,10 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
         //this.nodes[this.idRoot].display()
+
+        for(let i = 0; i < this.nodes.length; i++)
+        {
+            this.nodes[i].display();
+        }
     }
 }

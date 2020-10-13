@@ -84,7 +84,8 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
-        //this.camera = this.graph.camera;
+        this.camera = this.graph.camera;
+        this.interface.setActiveCamera(this.camera);
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
