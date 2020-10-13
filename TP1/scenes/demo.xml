@@ -465,7 +465,7 @@
                         </transformations>
 
                         <descendants>
-                            <leaf type="sphere" radius="1" slices="20" stacks="20"/>
+                            <leaf type="sphere" radius="2" slices="10" stacks="4"/>
                         </descendants>
                     </node>
                     <node id="metalSphereHead">            

@@ -765,12 +765,24 @@ class MySceneGraph {
                         }
                         else if(type === "sphere")
                         {
-                            // <leaf type="sphere" radius="1" slices="20" stacks="20"/>
                             let radius = this.reader.getFloat(grandgrandChildren[k],"radius");
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let sphere = new MySphere(this.scene,radius,stacks,slices);
                             this.nodes.push(sphere);
+                        }
+                        else if(type === "torus")
+                        {
+                            let inner = this.reader.getFloat(grandgrandChildren[k],"inner");
+                            let outer = this.reader.getFloat(grandgrandChildren[k],"outer");
+                            let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
+                            let loops = this.reader.getFloat(grandgrandChildren[k],"loops");
+                            let torus = new MyTorus(this.scene,inner,outer,slices,loops);
+                            //this.nodes.push(torus);
+                        }
+                        else
+                        {
+                            this.onXMLMinorError("unknown type " + type);
                         }
                     }
                     else {
