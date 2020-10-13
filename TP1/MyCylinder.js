@@ -22,42 +22,39 @@ class MyCylinder extends CGFobject {
 
         var ang = 0;
         var alphaAng = 2 * Math.PI / this.slices;
-        var alphaRad = (this.bottomRadius - this.topRadius)/this.stacks;
+        var radius = this.bottomRadius;
+        var alphaRad = (this.topRadius - this.bottomRadius)/this.stacks;
+        var height = 0;
+        var aplhaHeight = this.height/this.stacks;
 
-        for (let i = 0; i <= this.slices; i++) {
-            this.vertices.push(Math.cos(ang), 0.5, -Math.sin(ang));
-            this.vertices.push(Math.cos(ang), -0.5, -Math.sin(ang));
-            if (i !== this.slices) {
-                this.indices.push(i * 2, i * 2 + 1, i * 2 + 2);
-                this.indices.push(i * 2 + 3, i * 2 + 2, i * 2 + 1);
+
+        for (let i = 0; i <= this.stacks; i++)
+        {
+            for (let j= 0; j< this.slices; j++) {
+                this.vertices.push(Math.cos(ang)*radius, -Math.sin(ang)*radius, height);
+                this.normals.push(Math.cos(ang),-Math.sin(ang),Math.atan(height));
+                if(i !== this.stacks)
+                {
+                    this.indices.push(this.slices*i + j, this.slices*(i+1) + j, ((this.slices*i + j + 1)%this.slices)+(this.slices*i));
+                    this.indices.push(this.slices*(i+1) + j, ((this.slices*(i+1) + j + 1)%this.slices)+(this.slices*(i+1)), ((this.slices*i + j + 1)%this.slices)+(this.slices*i));
+                }
+                ang += alphaAng;
             }
-            this.normals.push(Math.cos(ang), 0, -Math.sin(ang));
-            this.normals.push(Math.cos(ang), 0, -Math.sin(ang));
-            this.texCoords.push(i / this.slices, 0);
-            this.texCoords.push(i / this.slices, 1);
-            ang += alphaAng;
+            radius += alphaRad;
+            height += aplhaHeight;
         }
 
-        this.vertices.push(0, 0.7, 0);
-        this.normals.push(0, 0.7, 0);
-        this.vertices.push(0, -0.7, 0);
-        this.normals.push(0, -0.7, 0);
-
-        for (let i = 0; i < this.slices; i++) {
-            this.indices.push(2 * i, 2 * i + 2, this.vertices.length / 3 - 2);
-            this.indices.push(2 * i + 1, this.vertices.length / 3 - 1, 2 * i + 3);
-        }
+        for (let i = 0; i <= this.stacks; i++)
+            for (let j = 0; j <= this.slices; j++)
+                this.texCoords.push((1/this.slices) * j, 1 - (1/this.stacks) * i);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
 
-    updateBuffers(complexity) {
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
+    updateTexCoords(coords) {
+        this.texCoords = [...coords];
+        this.updateTexCoordsGLBuffers();
     }
 }
 

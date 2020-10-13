@@ -735,23 +735,33 @@ class MySceneGraph {
                         let type = this.reader.getString(grandgrandChildren[k],"type");
                         if(type === "rectangle")
                         {
-                            let x1 = this.reader.getString(grandgrandChildren[k],"x1");
-                            let x2 = this.reader.getString(grandgrandChildren[k],"x2");
-                            let y1 = this.reader.getString(grandgrandChildren[k],"y1");
-                            let y2 = this.reader.getString(grandgrandChildren[k],"y2");
+                            let x1 = this.reader.getFloat(grandgrandChildren[k],"x1");
+                            let x2 = this.reader.getFloat(grandgrandChildren[k],"x2");
+                            let y1 = this.reader.getFloat(grandgrandChildren[k],"y1");
+                            let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
                             let rectangle = new MyRectangle(this.scene,x1,y1,x2,y2);
                             //this.nodes.push(rectangle);
                         }
                         else if(type === "triangle")
                         {
-                            let x1 = this.reader.getString(grandgrandChildren[k],"x1");
-                            let x2 = this.reader.getString(grandgrandChildren[k],"x2");
-                            let x3 = this.reader.getString(grandgrandChildren[k],"x3");
-                            let y1 = this.reader.getString(grandgrandChildren[k],"y1");
-                            let y2 = this.reader.getString(grandgrandChildren[k],"y2");
-                            let y3 = this.reader.getString(grandgrandChildren[k],"y3");
+                            let x1 = this.reader.getFloat(grandgrandChildren[k],"x1");
+                            let x2 = this.reader.getFloat(grandgrandChildren[k],"x2");
+                            let x3 = this.reader.getFloat(grandgrandChildren[k],"x3");
+                            let y1 = this.reader.getFloat(grandgrandChildren[k],"y1");
+                            let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
+                            let y3 = this.reader.getFloat(grandgrandChildren[k],"y3");
                             let triangle = new MyTriangle(this.scene,x1,y1,x2,y2, x3, y3);
-                            this.nodes.push(triangle);
+                            //this.nodes.push(triangle);
+                        }
+                        else if(type === "cylinder")
+                        {
+                            let height = this.reader.getFloat(grandgrandChildren[k],"height");
+                            let topRadius = this.reader.getFloat(grandgrandChildren[k],"topRadius");
+                            let bottomRadius = this.reader.getFloat(grandgrandChildren[k],"bottomRadius");
+                            let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
+                            let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
+                            let cylinder = new MyCylinder(this.scene,height,topRadius,bottomRadius,stacks,slices);
+                            this.nodes.push(cylinder);
                         }
                     }
                     else {
