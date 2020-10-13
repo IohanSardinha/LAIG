@@ -761,7 +761,16 @@ class MySceneGraph {
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let cylinder = new MyCylinder(this.scene,height,topRadius,bottomRadius,stacks,slices);
-                            this.nodes.push(cylinder);
+                            //this.nodes.push(cylinder);
+                        }
+                        else if(type === "sphere")
+                        {
+                            // <leaf type="sphere" radius="1" slices="20" stacks="20"/>
+                            let radius = this.reader.getFloat(grandgrandChildren[k],"radius");
+                            let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
+                            let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
+                            let sphere = new MySphere(this.scene,radius,stacks,slices);
+                            this.nodes.push(sphere);
                         }
                     }
                     else {
