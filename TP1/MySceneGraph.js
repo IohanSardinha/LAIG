@@ -662,24 +662,31 @@ class MySceneGraph {
                 continue;
             }
             else{
+                var transformArray = mat4.create();
                 grandgrandChildren = grandChildren[transformationsIndex].children;
                 for (var k = 0; k < grandgrandChildren.length; k++) {
                     if (grandgrandChildren[k].nodeName == "translation") {
                         var x = this.reader.getFloat(grandgrandChildren[k], 'x');
                         var y = this.reader.getFloat(grandgrandChildren[k], 'y');
                         var z = this.reader.getFloat(grandgrandChildren[k], 'z');
-                        //  mat4.translate(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                        mat4.translate(transformArray, transformArray, [x, y, z]);
+
                     }
                     else if (grandgrandChildren[k].nodeName == "rotation") {
                         var axis = this.reader.getString(grandgrandChildren[k], 'axis');
                         var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
-                        //    mat4.rotate(this.transformMatrix, this.transformMatrix, angle, this.axisCoords[axis]);
-                    }
+                        if (axis == "x")
+                            mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "y")
+                            mat4.rotateY(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "z")
+                            mat4.rotateZ(transformArray, transformArray, angle * (Math.PI / 180));
+                    }  
                     else if (grandgrandChildren[k].nodeName == "scale") {
                         var x = this.reader.getFloat(grandgrandChildren[k], 'sx');
                         var y = this.reader.getFloat(grandgrandChildren[k], 'sy');
                         var z = this.reader.getFloat(grandgrandChildren[k], 'sz');
-                        //mat4.scale(this.transformMatrix, this.transformMatrix, [x, y, z]);
+                        mat4.scale(transformArray,transformArray,[x,y,z]);
                     }
                     else {
                         this.onXMLMinorError("unknown tag <" + grandgrandChildren[k].nodeName + ">");
@@ -689,30 +696,63 @@ class MySceneGraph {
             }
             
             // Material
+
+            var materials = [];
             if(grandChildren[materialIndex] == null)
             {
                 this.onXMLMinorError("Missing tag <material> for '"+nodeID+"'' assuming null");
             }
             else {            
-                grandgrandChildren = grandChildren[materialIndex].children;
-                for (var k = 0; k < grandgrandChildren.length; k++) {
+                var materialID = this.reader.getString(grandChildren[materialIndex], 'id');
 
-                }
+                    //Checks if the material exists
+                    if (materialID == null) {
+                        this.onXMLMinorError("Cant parse material of component " + nodeID);
+                    }
+                    //Checks if the material is created
+                    if (materialID != "inherit" && this.materials[materialID] == null && materialID != "null") {
+                        this.onXMLMinorError("No material with ID " + materialID);
+                    }
+                    //First root cannot inherit materials
+                    if (nodeID == this.idRoot && materialID == "inherit") {
+                        this.onXMLMinorError("Initial Root cannot inherit materials");
+                    }
+                    materials.push(materialID);
             }
 
             // Texture
-            if(grandChildren[textureIndex] == null)
-            {
-                this.onXMLMinorError("Missing tag <texture> for '"+nodeID+"'' assuming null");
+            
+            var texID = this.reader.getString(grandChildren[textureIndex], 'id');
+            if (texID == null) {
+                this.onXMLMinorError("Cant parse texture of component " + nodeID);
             }
-            else {            
-                grandgrandChildren = grandChildren[textureIndex].children;
-                for (var k = 0; k < grandgrandChildren.length; k++) {
 
-                }
+            if (this.textures[texID] == null && texID != "null" && texID != "inherit") {
+                this.onXMLMinorError("No texture with ID " + texID);
             }
+
+            //idRoot cannot inherit textures
+            if (nodeID == this.idRoot && texID == "inherit") {
+                this.onXMLMinorError("Initial Root cannot inherit textures");
+            }
+            // Gets length_s and legth_t values from texture declaration
+            var l_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
+            var l_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
+
+            if ((texID == "none" || texID == "inherit") && (l_s != null || l_t != null)) {
+                this.onXMLMinorError("The texture " + texID + "cannot have length_s and length_t values.");
+            }
+            // Values them as 1 if they are null or 0 
+            if (l_s == null || l_s == 0) {
+                l_s = 1;
+            }
+            if (l_t == null || l_t == 0) {
+                l_t = 1;
+            }
+
 
             // Descendants
+
             if(grandChildren[descendantsIndex] == null)
             {
                 return "Missing tag <descendants> for '"+nodeID+"''!";
