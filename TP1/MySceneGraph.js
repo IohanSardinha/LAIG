@@ -614,8 +614,9 @@ class MySceneGraph {
   parseNodes(nodesNode) {
         var children = nodesNode.children;
 
-
         this.nodes = [];
+        this.transformations = [];
+        this.father = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
@@ -666,21 +667,34 @@ class MySceneGraph {
                 grandgrandChildren = grandChildren[transformationsIndex].children;
                 for (var k = 0; k < grandgrandChildren.length; k++) {
                     if (grandgrandChildren[k].nodeName == "translation") {
-                        var x = this.reader.getFloat(grandgrandChildren[k], 'x');
-                        var y = this.reader.getFloat(grandgrandChildren[k], 'y');
-                        var z = this.reader.getFloat(grandgrandChildren[k], 'z');
-                        mat4.translate(transformArray, transformArray, [x, y, z]);
+                        let translation = this.parseCoordinates3D(grandgrandChildren[k]," translation");
+                        if(typeof translation === 'string')
+                            return translation;
+
+                        mat4.translate(transformArray, transformArray, translation);
 
                     }
                     else if (grandgrandChildren[k].nodeName == "rotation") {
                         var axis = this.reader.getString(grandgrandChildren[k], 'axis');
                         var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
-                        if (axis == "x")
-                            mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
-                        else if (axis == "y")
-                            mat4.rotateY(transformArray, transformArray, angle * (Math.PI / 180));
-                        else if (axis == "z")
-                            mat4.rotateZ(transformArray, transformArray, angle * (Math.PI / 180));
+                        if (axis == "xx")
+                        {
+                            console.log(transformArray);
+                            mat4.rotateX(transformArray, transformArray, angle );
+                            console.log(transformArray);
+                        }
+                        else if (axis == "yy")
+                         {
+                            mat4.rotateY(transformArray, transformArray, angle );
+                         }
+                        else if (axis == "zz")
+                        {
+                            mat4.rotateZ(transformArray, transformArray, angle );
+                        }
+                        else
+                        {
+                            this.onXMLMinorError("error on reading axis of rotation on "+nodeID);
+                        }
                     }  
                     else if (grandgrandChildren[k].nodeName == "scale") {
                         var x = this.reader.getFloat(grandgrandChildren[k], 'sx');
@@ -693,7 +707,7 @@ class MySceneGraph {
                         continue;
                     }
                 }
-            }
+                this.transformations[nodeID] = transformArray;            }
             
             // Material
 
@@ -759,6 +773,9 @@ class MySceneGraph {
             }
             else {            
                 grandgrandChildren = grandChildren[descendantsIndex].children;
+
+                this.nodes[nodeID] = [];
+
                 for (var k = 0; k < grandgrandChildren.length; k++) {
                     if (grandgrandChildren[k].nodeName == "noderef") {
                         var refId = this.reader.getString(grandgrandChildren[k], 'id');
@@ -767,7 +784,7 @@ class MySceneGraph {
                             continue;
                         }
                         else {
-                            
+                            this.father[refId] = nodeID;
                         }
                         
                     }
@@ -780,7 +797,7 @@ class MySceneGraph {
                             let y1 = this.reader.getFloat(grandgrandChildren[k],"y1");
                             let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
                             let rectangle = new MyRectangle(this.scene,x1,y1,x2,y2);
-                            //this.nodes.push(rectangle);
+                            this.nodes[nodeID].push(rectangle);
                         }
                         else if(type === "triangle")
                         {
@@ -791,7 +808,7 @@ class MySceneGraph {
                             let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
                             let y3 = this.reader.getFloat(grandgrandChildren[k],"y3");
                             let triangle = new MyTriangle(this.scene,x1,y1,x2,y2, x3, y3);
-                            //this.nodes.push(triangle);
+                            this.nodes[nodeID].push(triangle);
                         }
                         else if(type === "cylinder")
                         {
@@ -801,7 +818,7 @@ class MySceneGraph {
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let cylinder = new MyCylinder(this.scene,height,topRadius,bottomRadius,stacks,slices);
-                            //this.nodes.push(cylinder);
+                            this.nodes[nodeID].push(cylinder);
                         }
                         else if(type === "sphere")
                         {
@@ -809,7 +826,7 @@ class MySceneGraph {
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let sphere = new MySphere(this.scene,radius,stacks,slices);
-                            this.nodes.push(sphere);
+                            this.nodes[nodeID].push(sphere);
                         }
                         else if(type === "torus")
                         {
@@ -818,7 +835,7 @@ class MySceneGraph {
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let loops = this.reader.getFloat(grandgrandChildren[k],"loops");
                             let torus = new MyTorus(this.scene,inner,outer,slices,loops);
-                            //this.nodes.push(torus);
+                            this.nodes[nodeID].push(torus);
                         }
                         else
                         {
@@ -833,6 +850,7 @@ class MySceneGraph {
             }
 
         }
+
     }
 
 
@@ -939,9 +957,31 @@ class MySceneGraph {
         
         //this.nodes[this.idRoot].display()
 
-        for(let i = 0; i < this.nodes.length; i++)
+        this.scene.pushMatrix();
+        this.scene.scale(10,10,10);
+        for(let nodeID in this.nodes)
         {
-            this.nodes[i].display();
+            this.scene.pushMatrix();
+            let currNode = nodeID;
+            let node = this.father[currNode];
+            let familyTree = [];
+            while (node != null) {
+                
+                familyTree.push(node);
+                currNode = node;
+                node = this.father[currNode];
+            }
+            for(let i = familyTree.length -1; i >= 0; i--)
+            {
+                this.scene.multMatrix(this.transformations[familyTree[i]]);
+            }
+            this.scene.multMatrix(this.transformations[nodeID]);
+            for(let i = 0; i < this.nodes[nodeID].length; i++)
+            {
+                this.nodes[nodeID][i].display();
+            }
+            this.scene.popMatrix();
         }
+        this.scene.popMatrix();
     }
 }
