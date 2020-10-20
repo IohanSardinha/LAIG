@@ -25,7 +25,7 @@
         <light id="mainLight">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="0" y="5" z="10" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="0" y="1.5" z="2" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="1.0" g="1" b="1" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -123,6 +123,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+                <!--<scale sx="10" sy="10" sz="10"/>-->
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -134,6 +135,7 @@
                 <noderef id="table" />      <!--DONE-->
                 <noderef id="chair" />      <!--DONE-->
                 <noderef id="dresser" />    <!--DONE-->
+                <noderef id="dresserCap" />
                 <noderef id="shelf" />      <!--DONE-->
                 <noderef id="plants" />     <!--DONE-->
             </descendants>
@@ -600,7 +602,7 @@
 
                         <transformations>
                             <translation x="-1.83" y="0.52" z="0.7" />
-                            <scale sx="0.15" sy="0.02" sz="0.25" />
+                            <scale sx="0.16" sy="0.025" sz="0.25" />
                             <rotation axis="yy" angle="180"/>
                         </transformations>
 
@@ -625,6 +627,41 @@
 
                         <descendants>
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                        </descendants>
+                    </node>
+                    <node id="monitorCap1">            
+                        <material id="null" />
+
+                        <texture id="darkMetalMaterial">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.94" y="0.59" z="0.95" />
+                            <rotation axis="zz" angle=  "-60" />
+                            <scale sx="0.2" sy="0.025" sz="0.25" />
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                        </descendants>
+                    </node>
+                    <node id="monitorCap2">            
+                        <material id="null" />
+
+                        <texture id="darkMetalMaterial">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.94" y="0.59" z="0.7" />
+                            <rotation axis="zz" angle=  "-60" />
+                            <scale sx="0.2" sy="0.025" sz="0.25" />
+                            <rotation axis="yy" angle="180"/>
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
                         </descendants>
                     </node>
                 <node id="tableLight">            
@@ -919,6 +956,23 @@
                      <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                 </descendants>
             </node>
+            <node id="dresserCap">            
+                <material id="null" />
+
+                <texture id="drawerTexture">
+                    <amplification afs="2.0" aft="2.0" />
+                </texture>
+
+                <transformations>
+                    <translation x="-1.86" y="1" z="-0.45" />
+                    <scale sx="0.28 " sy="1" sz="0.57" />
+                    <rotation axis="xx" angle="-90"/>
+                </transformations>
+
+                <descendants>
+                     <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
 
             <node id="shelf">            
                 <material id="null" />
@@ -932,9 +986,15 @@
 
                 <descendants>
                     <noderef id="shelfBase" />
+                    <noderef id="shelfBaseCap1" />
+                    <noderef id="shelfBaseCap2" />
                     <noderef id="shelfLegRight" />
+                    <noderef id="shelfLegRightCap" />
                     <noderef id="shelfLegLeft" />
-                    <noderef id="books" />
+                    <noderef id="shelfLegLeftCap" />
+                    <noderef id="books"/>
+                    <noderef id="booksCap1"/>
+                    <noderef id="booksCap2"/>
                 </descendants>
             </node>
                 <node id="shelfBase">            
@@ -952,6 +1012,39 @@
 
                     <descendants>
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                    </descendants>
+                </node>
+                <node id="shelfBaseCap1">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="1.2" z="0.2" />
+                        <scale sx="0.22" sy="0.03" sz="1" />
+                        <rotation axis="yy" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                <node id="shelfBaseCap2">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="1.2" z="1" />
+                        <scale sx="0.22" sy="0.03" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
                 <node id="shelfLegLeft">            
@@ -972,6 +1065,23 @@
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
                 </node>
+                <node id="shelfLegLeftCap">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.925" y="1.09" z="0.9" />
+                        <scale sx="0.13" sy="0.1" sz="0.03" />
+                        <rotation axis="xx" angle="90"/>
+                    </transformations>
+
+                    <descendants>
+                       <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
                 <node id="shelfLegRight">            
                     <material id="woodMaterial" />
 
@@ -988,6 +1098,23 @@
 
                     <descendants>
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                    </descendants>
+                </node>
+                <node id="shelfLegRightCap">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.925" y="1.09" z="0.3" />
+                        <scale sx="0.13" sy="0.1" sz="0.03" />
+                        <rotation axis="xx" angle="90"/>
+                    </transformations>
+
+                    <descendants>
+                       <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
                 <node id="books">            
@@ -1007,6 +1134,39 @@
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
                 </node>
+                <node id="booksCap1">            
+                    <material id="null" />
+
+                    <texture id="booksTexture">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.925" y="1.29" z="0.5" />
+                        <scale sx="0.14" sy="0.15" sz="0.3" />
+                        <rotation axis="yy" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                <node id="booksCap2">            
+                    <material id="null" />
+
+                    <texture id="booksTexture">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.925" y="1.29" z="0.8" />
+                        <scale sx="0.14" sy="0.15" sz="0.3" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
 
             <node id="plants">            
                 <material id="null" />
@@ -1022,6 +1182,7 @@
                     <noderef id="plantsHeads" />
                     <noderef id="plantsTrunks" />
                     <noderef id="plantsVases" />
+                    <noderef id="plantsVasesCaps" />
                 </descendants>
             </node>
                 <node id="plantsHeads">            
@@ -1166,6 +1327,55 @@
 
                         <descendants>
                             <leaf type="cylinder" height="1" topRadius="0" bottomRadius="1" stacks="1" slices="4"/>
+                        </descendants>
+                    </node>
+                <node id="plantsVasesCaps">            
+                    <material id="vaseMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.45" z="-1.1" />
+                        <scale sx="0.2" sy="1" sz="0.2" />
+                        <rotation axis="xx" angle=  "-90" />
+                        <rotation axis="zz" angle=  "45" />
+                    </transformations>
+
+                    <descendants>
+                        <noderef id="plantVaseCap1" />
+                        <noderef id="plantVaseCap2" />
+                    </descendants>
+                </node>
+                    <node id="plantVaseCap1">            
+                        <material id="vaseMaterial" />
+
+                        <texture id="null">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-2.65" y="2.65" z="0" />   
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                        </descendants>
+                    </node>
+                    <node id="plantVaseCap2">            
+                        <material id="vaseMaterial" />
+
+                        <texture id="null">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="2.65" y="-2.65" z="0" /> 
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                         </descendants>
                     </node>
     </nodes>
