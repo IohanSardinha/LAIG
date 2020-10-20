@@ -594,7 +594,10 @@ class MySceneGraph {
                 }
             }
 
-
+            if(i == 0)
+            {
+                this.defaultMaterialID = materialID;
+            }
             this.materials[materialID] = new CGFappearance(this.scene);
             this.materials[materialID].setShininess(shininess);
             this.materials[materialID].setEmission(emissive.red, emissive.green, emissive.blue, emissive.alpha);
@@ -951,10 +954,6 @@ class MySceneGraph {
      */
     displayScene() {
         
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
-        this.scene.pushMatrix();
-        this.scene.scale(10,10,10);
 
         for(let nodeID in this.nodes)
         {
@@ -970,17 +969,30 @@ class MySceneGraph {
                 currNode = node;
                 node = this.father[currNode];
             }
-      
+
             for(let i = familyTree.length -1; i >= 0; i--)
             {
                 this.scene.multMatrix(this.transformations[familyTree[i]]);
+                
             }
             this.scene.multMatrix(this.transformations[nodeID]);
 
             materialID = this.nodeInfo[nodeID].getMaterialID();
-            if (materialID != "null"  )
+            if (materialID != "null")
             {
                 this.materials[materialID].apply();
+            }
+            else
+            {
+                for(let i = 0; i < familyTree.length; i++)
+                {
+                    materialID = this.nodeInfo[familyTree[i]].getMaterialID();
+                    if (materialID != "null")
+                    {
+                        this.materials[materialID].apply();
+                        break;
+                    }
+                }
             }
 
             for(let i = 0; i < this.nodes[nodeID].length; i++)
@@ -988,7 +1000,7 @@ class MySceneGraph {
                 this.nodes[nodeID][i].display();
             }
             this.scene.popMatrix();
+            this.materials[this.defaultMaterialID].apply();
         }
-        this.scene.popMatrix();
     }
 }

@@ -1,6 +1,6 @@
 <lsf>
     <initials>
-        <reference length="3" />
+        <reference length="10" />
         <!-- axis length; "0" means no axis displayed -->
         <root id="room" />
         <!-- identifier of root node of the scene graph; this node -->
@@ -50,25 +50,25 @@
         <material id="whiteMaterial">
             <shininess value="0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
         </material>
 
         <material id="redMaterial">
             <shininess value="0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.7" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
         </material>
 
         <material id="woodMaterial">
             <shininess value="0" />
-            <ambient r="0.5" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.38" g="0.2" b="0.07" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
         </material>
 
         <material id="darkMetalMaterial">
@@ -81,18 +81,18 @@
 
         <material id="yellowMaterial">
             <shininess value="1" />
-            <ambient r="1.0" g="1.0" b="0.0" a="1.0" />
+            <ambient r="0" g="0" b="0.0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.5" g="0.5" b="0.0" a="1.0" />
+            <emissive r="1" g="1" b="0.0" a="1.0" />
         </material>
 
         <material id="whiteMetalMaterial">
             <shininess value="0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="1.0" g="1.0" b="1.0" a="0.5" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
         </material>
 
         <material id="chairMaterial">
@@ -105,7 +105,7 @@
 
         <material id="vaseMaterial">
             <shininess value="0" />
-            <ambient r="0.7" g="0.4" b="0.9" a="1.0" />
+            <ambient r="0.6" g="0.2" b="0.2" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -113,7 +113,15 @@
 
         <material id="greenWall">
             <shininess value="0" />
-            <ambient r="0.29" g="0.325" b="0.125" a="1.0" />
+            <ambient r="0.47" g="0.59" b="0.25" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="leafGreen">
+            <shininess value="0" />
+            <ambient r="0.49" g="0.99" b="0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -131,7 +139,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <!--<scale sx="10" sy="10" sz="10"/>-->
+                <scale sx="10" sy="10" sz="10"/>
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -150,7 +158,7 @@
         </node>
 
         <node id="floor">            
-                <material id="null" />
+                <material id="woodMaterial" />
 
                 <texture id="woodTexture">
                     <amplification afs="2.0" aft="2.0" />
@@ -170,6 +178,8 @@
 
                 <texture id="clear">
                 </texture>
+                 <transformations>
+                </transformations>
 
                 <descendants>
                     <noderef id="backwall" />
@@ -179,7 +189,7 @@
             </node>       
 
                 <node id="backwall">            
-                    <material id="null" />
+                    <material id="greenWall" />
 
                     <texture id="windowTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -196,7 +206,7 @@
                 </node>
 
                 <node id="backwallExtrudes">            
-                    <material id="null" />
+                    <material id="greenWall" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -215,7 +225,7 @@
                 </node>
 
                     <node id="backwallExtrudeRight">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -233,7 +243,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeRightCap">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -250,7 +260,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeLeft">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -268,7 +278,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeLeftCap">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -285,7 +295,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeMiddle">            
-                        <material id="greenWall" />
+                        <material id="woodMaterial" />
 
                         <texture id="woodTexture">
                             <amplification afs="2.0" aft="2.0" />
@@ -411,7 +421,7 @@
                     </descendants>
                 </node>
                 <node id="pillowCap1">            
-                    <material id="redMaterial" />
+                    <material id="whiteMaterial" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -427,7 +437,7 @@
                     </descendants>
                 </node>
                 <node id="pillowCap2">            
-                    <material id="redMaterial" />
+                    <material id="whiteMaterial" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -445,7 +455,7 @@
                 </node>          
 
             <node id="table">            
-                <material id="null" />
+                <material id="woodMaterial" />
 
                 <texture id="null">
                     <amplification afs="2.0" aft="2.0" />
@@ -465,7 +475,7 @@
                 </descendants>
             </node>
                 <node id="tableBase">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -482,7 +492,7 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap1">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -498,7 +508,7 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap2">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -533,7 +543,7 @@
                     </descendants>
                 </node>
                 <node id="tableLeg">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -551,7 +561,7 @@
                     </descendants>
                 </node>
                 <node id="computer">            
-                    <material id="null" />
+                    <material id="darkMetalMaterial" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -674,7 +684,7 @@
                         </descendants>
                     </node>
                 <node id="tableLight">            
-                    <material id="null" />
+                    <material id="whiteMetalMaterial" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -711,7 +721,7 @@
                         </descendants>
                     </node>
                     <node id="metalSphereHead">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -727,7 +737,7 @@
                         </descendants>
                     </node>
                     <node id="lightTorus">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -745,7 +755,7 @@
                         </descendants>
                     </node>
                     <node id="headCylinder">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -763,34 +773,34 @@
                         </descendants>
                     </node>
                     <node id="headCylinderCap">            
-                    <material id="darkMetalMaterial" />
+                        <material id="null" />
 
-                    <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
+                        <texture id="null">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
 
-                    <transformations>
-                        <translation x="-1.759" y="0.99" z="1.103" />
-                        <rotation axis="zz" angle=  "50" />
-                        <scale sx="0.057" sy="1" sz="0.057" />
-                        <rotation axis="xx" angle="-90"/>
-                    </transformations>
+                        <transformations>
+                            <translation x="-1.759" y="0.99" z="1.103" />
+                            <rotation axis="zz" angle=  "50" />
+                            <scale sx="0.057" sy="1" sz="0.057" />
+                            <rotation axis="xx" angle="-90"/>
+                        </transformations>
 
-                    <descendants>
-                        <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0.8090169943749475" y3="0.5877852522924731"/>
-                        <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494745" y3="0.9510565162951535" x2="0.8090169943749475" y2="0.5877852522924731"/>
-                        <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494745" y2="0.9510565162951535" x3="-0.30901699437494734" y3="0.9510565162951536"/>
-                        <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749473" y3="0.5877852522924732" x2="-0.30901699437494734" y2="0.9510565162951536"/>
-                        <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749473" y2="0.5877852522924732" x3="-1.0" y3="0"/>
-                        <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749475" y3="-0.587785252292473" x2="-1.0" y2="0"/>
-                        <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749475" y2="-0.587785252292473" x3="-0.30901699437494756" y3="-0.9510565162951535"/>
-                        <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494723" y3="-0.9510565162951536" x2="-0.30901699437494756" y2="-0.9510565162951535"/>
-                        <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494723" y2="-0.9510565162951536" x3="0.8090169943749473" y3="-0.5877852522924734"/>
-                        <leaf type="triangle" x1="0" y1="0" x3="1" y3="0" x2="0.8090169943749473" y2="-0.5877852522924734"/>
-                    </descendants>
+                        <descendants>
+                            <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0.8090169943749475" y3="0.5877852522924731"/>
+                            <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494745" y3="0.9510565162951535" x2="0.8090169943749475" y2="0.5877852522924731"/>
+                            <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494745" y2="0.9510565162951535" x3="-0.30901699437494734" y3="0.9510565162951536"/>
+                            <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749473" y3="0.5877852522924732" x2="-0.30901699437494734" y2="0.9510565162951536"/>
+                            <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749473" y2="0.5877852522924732" x3="-1.0" y3="0"/>
+                            <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749475" y3="-0.587785252292473" x2="-1.0" y2="0"/>
+                            <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749475" y2="-0.587785252292473" x3="-0.30901699437494756" y3="-0.9510565162951535"/>
+                            <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494723" y3="-0.9510565162951536" x2="-0.30901699437494756" y2="-0.9510565162951535"/>
+                            <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494723" y2="-0.9510565162951536" x3="0.8090169943749473" y3="-0.5877852522924734"/>
+                            <leaf type="triangle" x1="0" y1="0" x3="1" y3="0" x2="0.8090169943749473" y2="-0.5877852522924734"/>
+                        </descendants>
                 </node>
                     <node id="upperBaseCylinder">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -808,7 +818,7 @@
                         </descendants>
                     </node>
                     <node id="junctionSphere">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -824,7 +834,7 @@
                         </descendants>
                     </node>
                     <node id="lowerBaseCylinder">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -843,7 +853,7 @@
                     </node>
 
             <node id="chair">            
-                <material id="null" />
+                <material id="chairMaterial" />
 
                 <texture id="null">
                     <amplification afs="2.0" aft="2.0" />
@@ -860,7 +870,7 @@
                 </descendants>
             </node>
                 <node id="chairSeat">            
-                    <material id="chairMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -894,7 +904,7 @@
                     </descendants>
                 </node>
                 <node id="chairCapUp">            
-                    <material id="darkMetalMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -920,7 +930,7 @@
                     </descendants>
                 </node>
                 <node id="chairCapDown">            
-                    <material id="darkMetalMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -948,7 +958,7 @@
                 
 
             <node id="dresser">            
-                <material id="null" />
+                <material id="woodMaterial" />
 
                 <texture id="drawerTexture">
                     <amplification afs="2.0" aft="2.0" />
@@ -966,7 +976,7 @@
                 </descendants>
             </node>
             <node id="dresserCap">            
-                <material id="null" />
+                <material id="woodMaterial" />
 
                 <texture id="drawerTexture">
                     <amplification afs="2.0" aft="2.0" />
@@ -984,7 +994,7 @@
             </node>
 
             <node id="shelf">            
-                <material id="null" />
+                <material id="woodMaterial" />
 
                 <texture id="null">
                     <amplification afs="2.0" aft="2.0" />
@@ -1007,7 +1017,7 @@
                 </descendants>
             </node>
                 <node id="shelfBase">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1024,7 +1034,7 @@
                     </descendants>
                 </node>
                 <node id="shelfBaseCap1">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1041,7 +1051,7 @@
                     </descendants>
                 </node>
                 <node id="shelfBaseCap2">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1057,7 +1067,7 @@
                     </descendants>
                 </node>
                 <node id="shelfLegLeft">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1075,7 +1085,7 @@
                     </descendants>
                 </node>
                 <node id="shelfLegLeftCap">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1092,7 +1102,7 @@
                     </descendants>
                 </node>
                 <node id="shelfLegRight">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1110,7 +1120,7 @@
                     </descendants>
                 </node>
                 <node id="shelfLegRightCap">            
-                    <material id="woodMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1195,7 +1205,7 @@
                 </descendants>
             </node>
                 <node id="plantsHeads">            
-                    <material id="null" />
+                    <material id="leafGreen" />
 
                     <texture id="leavesTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -1242,7 +1252,7 @@
                         </descendants>
                     </node>
                 <node id="plantsTrunks">            
-                    <material id="null" />
+                    <material id="woodMaterial" />
 
                     <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
