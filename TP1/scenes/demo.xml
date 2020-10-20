@@ -25,7 +25,7 @@
         <light id="mainLight">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="0" y="0" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="0" y="5" z="10" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="1.0" g="1" b="1" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -398,6 +398,39 @@
                     <descendants>
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
+                </node>
+                <node id="pillowCap1">            
+                    <material id="redMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="1.57" y="0.31" z="1.2" />
+                        <scale sx="0.78" sy="0.05" sz="1.8" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                <node id="pillowCap2">            
+                    <material id="redMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="1.57" y="0.31" z="0.7" />
+                        <scale sx="0.78" sy="0.05" sz="1.8" />
+                        <rotation axis="yy" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
                 </node>          
 
             <node id="table">            
@@ -412,6 +445,8 @@
 
                 <descendants>
                     <noderef id="tableBase" />
+                    <noderef id="tableBaseCap1" />
+                    <noderef id="tableBaseCap2" />
                     <noderef id="tableDrawer" />
                     <noderef id="tableLeg" />
                     <noderef id="computer" />
@@ -433,6 +468,39 @@
 
                     <descendants>
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                    </descendants>
+                </node>
+                <node id="tableBaseCap1">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.85" y="0.48" z="1.24" />  
+                        <scale sx="0.29" sy="0.055" sz="1.14" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                    </descendants>
+                </node>
+                <node id="tableBaseCap2">            
+                    <material id="woodMaterial" />
+
+                    <texture id="null">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.85" y="0.48" z="0.1" />  
+                        <scale sx="0.29" sy="0.055" sz="1.14" />
+                         <rotation axis="yy" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
                     </descendants>
                 </node>
                 <node id="tableDrawer">            
@@ -462,7 +530,7 @@
 
                     <transformations>
                         <translation x="-1.85" y="0" z="1.2" />
-                        <scale sx="0.2" sy="0.45" sz="0.05" />
+                        <scale sx="0.2" sy="0.46" sz="0.05" />
                         <rotation axis="xx" angle="-90"/>
                         <rotation axis="zz" angle="45"/>
                     </transformations>
@@ -483,7 +551,11 @@
 
                     <descendants>
                         <noderef id="keyboard" />
+                        <noderef id="keyboardCap1" />
+                        <noderef id="keyboardCap2" />
                         <noderef id="monitor" />
+                        <noderef id="monitorCap1" />
+                        <noderef id="monitorCap2" />
                     </descendants>
                 </node>
                     <node id="keyboard">            
@@ -501,6 +573,39 @@
 
                         <descendants>
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                        </descendants>
+                    </node>
+                    <node id="keyboardCap1">            
+                        <material id="null" />
+
+                        <texture id="darkMetalMaterial">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.83" y="0.52" z="0.95" />
+                            <scale sx="0.15" sy="0.02" sz="0.25" />
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                        </descendants>
+                    </node>
+                    <node id="keyboardCap2">            
+                        <material id="null" />
+
+                        <texture id="darkMetalMaterial">
+                            <amplification afs="2.0" aft="2.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.83" y="0.52" z="0.7" />
+                            <scale sx="0.15" sy="0.02" sz="0.25" />
+                            <rotation axis="yy" angle="180"/>
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
                         </descendants>
                     </node>
                     <node id="monitor">            
@@ -894,7 +999,7 @@
 
                     <transformations>
                         <translation x="-1.925" y="1.29" z="0.5" />
-                        <scale sx="0.1" sy="0.15" sz="0.3" />
+                        <scale sx="0.1" sy="0.1" sz="0.3" />
                         <rotation axis="zz" angle="45"/>
                     </transformations>
 
