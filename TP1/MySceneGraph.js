@@ -593,15 +593,17 @@ class MySceneGraph {
                     continue;
                 }
             }
+
+
             this.materials[materialID] = new CGFappearance(this.scene);
             this.materials[materialID].setShininess(shininess);
             this.materials[materialID].setEmission(emissive.red, emissive.green, emissive.blue, emissive.alpha);
             this.materials[materialID].setAmbient(ambient.red, ambient.green, ambient.blue, ambient.alpha);
             this.materials[materialID].setDiffuse(diffuse.red, diffuse.green, diffuse.blue, diffuse.alpha);
             this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
+            
             this.currMatId.push(materialID);
         }
-
 
         this.log("Parsed materials");
         return null;
@@ -617,6 +619,8 @@ class MySceneGraph {
         this.nodes = [];
         this.transformations = [];
         this.father = [];
+        this.nodeInfo = [];
+        this.material ;
 
         var grandChildren = [];
         var grandgrandChildren = [];
@@ -679,9 +683,7 @@ class MySceneGraph {
                         var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
                         if (axis == "xx")
                         {
-                            console.log(transformArray);
                             mat4.rotateX(transformArray, transformArray, angle );
-                            console.log(transformArray);
                         }
                         else if (axis == "yy")
                          {
@@ -711,7 +713,6 @@ class MySceneGraph {
             
             // Material
 
-            var materials = [];
             if(grandChildren[materialIndex] == null)
             {
                 this.onXMLMinorError("Missing tag <material> for '"+nodeID+"'' assuming null");
@@ -724,14 +725,11 @@ class MySceneGraph {
                         this.onXMLMinorError("Cant parse material of component " + nodeID);
                     }
                     //Checks if the material is created
-                    if (materialID != "inherit" && this.materials[materialID] == null && materialID != "null") {
+                    if (materialID != "inherit" && this.materials[materialID] == null) {
                         this.onXMLMinorError("No material with ID " + materialID);
                     }
-                    //First root cannot inherit materials
-                    if (nodeID == this.idRoot && materialID == "inherit") {
-                        this.onXMLMinorError("Initial Root cannot inherit materials");
-                    }
-                    materials.push(materialID);
+                    
+                    this.material = materialID;
             }
 
             // Texture
@@ -848,9 +846,9 @@ class MySceneGraph {
                     }
                 }
             }
-
+            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, this.material, texID, l_s, l_t);
+            this.nodeInfo[nodeID].transformations = transformArray;
         }
-
     }
 
 
@@ -955,27 +953,36 @@ class MySceneGraph {
         
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
-        //this.nodes[this.idRoot].display()
-
         this.scene.pushMatrix();
         this.scene.scale(10,10,10);
+
         for(let nodeID in this.nodes)
         {
+
             this.scene.pushMatrix();
             let currNode = nodeID;
             let node = this.father[currNode];
             let familyTree = [];
+            let materialID;
             while (node != null) {
                 
                 familyTree.push(node);
                 currNode = node;
                 node = this.father[currNode];
             }
+      
             for(let i = familyTree.length -1; i >= 0; i--)
             {
                 this.scene.multMatrix(this.transformations[familyTree[i]]);
             }
             this.scene.multMatrix(this.transformations[nodeID]);
+
+            materialID = this.nodeInfo[nodeID].getMaterialID();
+            if (materialID != "null"  )
+            {
+                this.materials[materialID].apply();
+            }
+
             for(let i = 0; i < this.nodes[nodeID].length; i++)
             {
                 this.nodes[nodeID][i].display();
