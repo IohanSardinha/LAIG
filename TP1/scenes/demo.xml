@@ -111,6 +111,14 @@
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
+        <material id="greenWall">
+            <shininess value="0" />
+            <ambient r="0.29" g="0.325" b="0.125" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
     </materials>
 
     <nodes>
@@ -123,6 +131,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+            
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -139,6 +148,22 @@
             </descendants>
         </node>
 
+        <node id="floor">            
+                <material id="null" />
+
+                <texture id="woodTexture">
+                    <amplification afs="2.0" aft="2.0" />
+                </texture>
+
+                <transformations>
+                    <rotation axis="xx" angle=  "-90" />
+                    <scale sx="4" sy="2.5" sz="1" />
+                </transformations>
+
+                <descendants>
+                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
             <node id="walls">
                 <material id="null" />
 
@@ -259,7 +284,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeMiddle">            
-                        <material id="null" />
+                        <material id="greenWall" />
 
                         <texture id="woodTexture">
                             <amplification afs="2.0" aft="2.0" />
@@ -296,22 +321,7 @@
                     </descendants>
                 </node>
 
-            <node id="floor">            
-                <material id="null" />
-
-                <texture id="woodTexture">
-                    <amplification afs="2.0" aft="2.0" />
-                </texture>
-
-                <transformations>
-                    <rotation axis="xx" angle=  "-90" />
-                    <scale sx="4" sy="2.5" sz="1" />
-                </transformations>
-
-                <descendants>
-                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                </descendants>
-            </node>
+            
 
             <node id="bed">            
                 <material id="null" />
