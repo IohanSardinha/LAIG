@@ -38,6 +38,10 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance=new CGFappearance(this);
 
+        this.scaleFactor = 1;
+        this.displayAxis = true;
+        this.selectedView = null;
+
     }
 
     /**
@@ -84,6 +88,8 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
+        this.cameraIDs = [];
+
         this.camera = this.graph.camera;
         this.interface.setActiveCamera(this.camera);
 
@@ -95,7 +101,25 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        for (var id in this.graph.cameras) {
+            this.cameraIDs.push(id);
+        }      
+
+        //this.selectedCamera = this.graph.defaultId;
+        this.selectedView = this.cameraIDs[0];
+        this.changeCamera();
+
+        this.interface.setInterface();
+
         this.sceneInited = true;
+    }
+
+    changeCamera() {
+
+        // this creates a camera with the selectedView
+        this.camera = this.graph.cameras[this.selectedView];
+        // this enables the camera movement
+        this.interface.setActiveCamera(this.camera);
     }
 
     /**
@@ -116,6 +140,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
+        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
@@ -124,7 +149,8 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            if(this.displayAxis)
+                this.axis.display();
  
             this.defaultAppearance.apply();
 

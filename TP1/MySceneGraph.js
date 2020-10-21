@@ -594,7 +594,10 @@ class MySceneGraph {
                 }
             }
 
-
+            if(i == 0)
+            {
+                this.defaultMaterialID = materialID;
+            }
             this.materials[materialID] = new CGFappearance(this.scene);
             this.materials[materialID].setShininess(shininess);
             this.materials[materialID].setEmission(emissive.red, emissive.green, emissive.blue, emissive.alpha);
@@ -745,7 +748,7 @@ class MySceneGraph {
             grandgrandChildren = grandChildren[textureIndex].children;
             
             // Gets length_s and legth_t values from texture declaration
-            if(texID != "null")
+            if (texID != "null" && texID != "clear" )
             {
                 var afs = this.reader.getFloat(grandgrandChildren[0], 'afs', false);
                 var aft = this.reader.getFloat(grandgrandChildren[0], 'aft', false);  
@@ -760,11 +763,11 @@ class MySceneGraph {
                 this.onXMLMinorError("The texture " + texID + "cannot have length_s and length_t values.");
             }
             // Values them as 1 if they are null or 0 
-            if ((afs == null || afs == 0) && texID != "null" ) {
+            if ((afs == null || afs == 0) && texID != "null" && texID != "clear" ) {
                 this.onXMLMinorError("The texture " + texID + "must have both amplification factors, afs was set to default.");
                 afs = 1;
             }
-            if ((aft == null || aft == 0) && texID != "null" ) {
+            if ((aft == null || aft == 0) && texID != "null" && texID != "clear") {
                 this.onXMLMinorError("The texture " + texID + "must have both amplification factors, aft was set to default.");
                 aft = 1;
             }
@@ -955,10 +958,6 @@ class MySceneGraph {
      */
     displayScene() {
         
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
-        this.scene.pushMatrix();
-        this.scene.scale(10,10,10);
 
         for(let nodeID in this.nodes)
         {
@@ -975,7 +974,7 @@ class MySceneGraph {
                 currNode = node;
                 node = this.father[currNode];
             }
-      
+
             for(let i = familyTree.length -1; i >= 0; i--)
             {
                 this.scene.multMatrix(this.nodeInfo[familyTree[i]].transformations);
@@ -1000,13 +999,25 @@ class MySceneGraph {
                 this.materials[materialID].apply();  
 
             }
+            else
+            {
+                for(let i = 0; i < familyTree.length; i++)
+                {
+                    materialID = this.nodeInfo[familyTree[i]].getMaterialID();
+                    if (materialID != "null")
+                    {
+                        this.materials[materialID].apply();
+                        break;
+                    }
+                }
+            }
 
             for(let i = 0; i < this.nodes[nodeID].length; i++)
             {
                 this.nodes[nodeID][i].display();
             }
             this.scene.popMatrix();
+            this.materials[this.defaultMaterialID].apply();
         }
-        this.scene.popMatrix();
     }
 }
