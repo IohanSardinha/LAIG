@@ -617,15 +617,15 @@ class MySceneGraph {
         var children = nodesNode.children;
 
         this.nodes = [];
-        this.transformations = [];
         this.father = [];
         this.nodeInfo = [];
-        this.material ;
+       
 
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
         var nodeIDs = [];
+        var material ;
         for (var i = 0; i < children.length; i++) {
             nodeIDs.push(this.reader.getString(children[i],'id'));
         }
@@ -709,7 +709,7 @@ class MySceneGraph {
                         continue;
                     }
                 }
-                this.transformations[nodeID] = transformArray;            }
+           }
             
             // Material
 
@@ -725,11 +725,11 @@ class MySceneGraph {
                         this.onXMLMinorError("Cant parse material of component " + nodeID);
                     }
                     //Checks if the material is created
-                    if (materialID != "inherit" && this.materials[materialID] == null) {
+                    if (materialID != "null" && this.materials[materialID] == null) {
                         this.onXMLMinorError("No material with ID " + materialID);
                     }
                     
-                    this.material = materialID;
+                    material = materialID;
             }
 
             // Texture
@@ -739,30 +739,35 @@ class MySceneGraph {
                 this.onXMLMinorError("Cant parse texture of component " + nodeID);
             }
 
-            if (this.textures[texID] == null && texID != "null" && texID != "inherit") {
+            if (this.textures[texID] == null && texID != "null" && texID != "clear") {
                 this.onXMLMinorError("No texture with ID " + texID);
             }
-
-            //idRoot cannot inherit textures
-            if (nodeID == this.idRoot && texID == "inherit") {
-                this.onXMLMinorError("Initial Root cannot inherit textures");
-            }
+            grandgrandChildren = grandChildren[textureIndex].children;
+            
             // Gets length_s and legth_t values from texture declaration
-            var l_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
-            var l_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
+            if(texID != "null")
+            {
+                var afs = this.reader.getFloat(grandgrandChildren[0], 'afs', false);
+                var aft = this.reader.getFloat(grandgrandChildren[0], 'aft', false);  
+            }
+            else
+            {
+                afs = null;
+                aft = null;
+            }
 
-            if ((texID == "none" || texID == "inherit") && (l_s != null || l_t != null)) {
+            if ((texID == "clear" || texID == "null") && (afs != null || aft != null)) {
                 this.onXMLMinorError("The texture " + texID + "cannot have length_s and length_t values.");
             }
             // Values them as 1 if they are null or 0 
-            if (l_s == null || l_s == 0) {
-                l_s = 1;
+            if ((afs == null || afs == 0) && texID != "null" ) {
+                this.onXMLMinorError("The texture " + texID + "must have both amplification factors, afs was set to default.");
+                afs = 1;
             }
-            if (l_t == null || l_t == 0) {
-                l_t = 1;
+            if ((aft == null || aft == 0) && texID != "null" ) {
+                this.onXMLMinorError("The texture " + texID + "must have both amplification factors, aft was set to default.");
+                aft = 1;
             }
-
-
             // Descendants
 
             if(grandChildren[descendantsIndex] == null)
@@ -846,8 +851,7 @@ class MySceneGraph {
                     }
                 }
             }
-            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, this.material, texID, l_s, l_t);
-            this.nodeInfo[nodeID].transformations = transformArray;
+            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray);
         }
     }
 
@@ -964,6 +968,7 @@ class MySceneGraph {
             let node = this.father[currNode];
             let familyTree = [];
             let materialID;
+            let textureID;
             while (node != null) {
                 
                 familyTree.push(node);
@@ -973,14 +978,27 @@ class MySceneGraph {
       
             for(let i = familyTree.length -1; i >= 0; i--)
             {
-                this.scene.multMatrix(this.transformations[familyTree[i]]);
+                this.scene.multMatrix(this.nodeInfo[familyTree[i]].transformations);
             }
-            this.scene.multMatrix(this.transformations[nodeID]);
+            this.scene.multMatrix(this.nodeInfo[nodeID].transformations);
 
             materialID = this.nodeInfo[nodeID].getMaterialID();
+            textureID = this.nodeInfo[nodeID].texture;
             if (materialID != "null"  )
             {
-                this.materials[materialID].apply();
+                this.materials[materialID].setTexture(null);
+                if(textureID != "null")
+                {
+                    if (textureID == "clear"){
+                        this.materials[materialID].setTexture(null);
+                    }
+                    else
+                    {
+                        this.materials[materialID].setTexture(this.textures[textureID]);
+                    }
+                }
+                this.materials[materialID].apply();  
+
             }
 
             for(let i = 0; i < this.nodes[nodeID].length; i++)

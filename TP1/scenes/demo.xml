@@ -36,11 +36,15 @@
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="windowTexture" path="./scenes/images/window.jpg" />
-        <texture id="woodTexture" path="./scenes/images/wood-table.jpg" />
+        <texture id="woodTexture" path="./scenes/images/wood.jpg" />
         <texture id="drawerTexture" path="./scenes/images/drawer.jpg" />
         <texture id="computerTexture" path="./scenes/images/computer.jpg" />
         <texture id="booksTexture" path="./scenes/images/books.jpg" />
         <texture id="leavesTexture" path="./scenes/images/leaves.jpg" />
+        <texture id="metalTexture" path="./scenes/images/Metal.jpg" />
+        <texture id="wallTexture" path="./scenes/images/wall.jpg" />
+        <texture id="floorTexture" path="./scenes/images/floor.jpg" />
+        <texture id="plasticTexture" path="./scenes/images/plastic.jpg" />
     </textures>
 
 
@@ -103,6 +107,14 @@
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
+        <material id="tableMaterial">
+            <shininess value="0" />
+            <ambient r="0.56" g="0.44" b="0.22" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
         <material id="vaseMaterial">
             <shininess value="0" />
             <ambient r="0.7" g="0.4" b="0.9" a="1.0" />
@@ -113,7 +125,7 @@
 
         <material id="greenWall">
             <shininess value="0" />
-            <ambient r="0.29" g="0.325" b="0.125" a="1.0" />
+            <ambient r="0.17" g="0.36" b="0.28" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -149,22 +161,6 @@
             </descendants>
         </node>
 
-        <node id="floor">            
-                <material id="null" />
-
-                <texture id="woodTexture">
-                    <amplification afs="2.0" aft="2.0" />
-                </texture>
-
-                <transformations>
-                    <rotation axis="xx" angle=  "-90" />
-                    <scale sx="4" sy="2.5" sz="1" />
-                </transformations>
-
-                <descendants>
-                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                </descendants>
-            </node>
             <node id="walls">
                 <material id="null" />
 
@@ -179,7 +175,7 @@
             </node>       
 
                 <node id="backwall">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
                     <texture id="windowTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -196,9 +192,9 @@
                 </node>
 
                 <node id="backwallExtrudes">            
-                    <material id="null" />
+                    <material id="greenWall" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -215,7 +211,7 @@
                 </node>
 
                     <node id="backwallExtrudeRight">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -233,7 +229,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeRightCap">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -250,7 +246,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeLeft">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -268,7 +264,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeLeftCap">            
-                        <material id="greenWall" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -285,7 +281,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeMiddle">            
-                        <material id="greenWall" />
+                        <material id="tableMaterial" />
 
                         <texture id="woodTexture">
                             <amplification afs="2.0" aft="2.0" />
@@ -307,7 +303,7 @@
                 <node id="sidewall">            
                     <material id="whiteMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -322,6 +318,22 @@
                     </descendants>
                 </node>
 
+        <node id="floor">            
+                <material id="tableMaterial" />
+
+                <texture id="floorTexture">
+                    <amplification afs="2.0" aft="2.0" />
+                </texture>
+
+                <transformations>
+                    <rotation axis="xx" angle=  "-90" />
+                    <scale sx="4" sy="2.5" sz="1" />
+                </transformations>
+
+                <descendants>
+                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
             
 
             <node id="bed">            
@@ -346,7 +358,7 @@
                 <node id="bedBed">            
                     <material id="redMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -363,7 +375,7 @@
                 <node id="bedBedCap1">            
                     <material id="redMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -379,7 +391,7 @@
                 <node id="bedBedCap2">            
                     <material id="redMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -413,7 +425,7 @@
                 <node id="pillowCap1">            
                     <material id="redMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -429,7 +441,7 @@
                 <node id="pillowCap2">            
                     <material id="redMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -465,9 +477,9 @@
                 </descendants>
             </node>
                 <node id="tableBase">            
-                    <material id="woodMaterial" />
+                    <material id="tableMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -482,9 +494,9 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap1">            
-                    <material id="woodMaterial" />
+                    <material id="tableMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -498,9 +510,9 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap2">            
-                    <material id="woodMaterial" />
+                    <material id="tableMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -515,7 +527,7 @@
                     </descendants>
                 </node>
                 <node id="tableDrawer">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
                     <texture id="drawerTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -533,7 +545,7 @@
                     </descendants>
                 </node>
                 <node id="tableLeg">            
-                    <material id="woodMaterial" />
+                    <material id="tableMaterial" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -570,9 +582,9 @@
                     </descendants>
                 </node>
                     <node id="keyboard">            
-                        <material id="null" />
+                        <material id="whiteMetalMaterial" />
 
-                        <texture id="darkMetalMaterial">
+                        <texture id="plasticTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -589,7 +601,7 @@
                     <node id="keyboardCap1">            
                         <material id="null" />
 
-                        <texture id="darkMetalMaterial">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -605,7 +617,7 @@
                     <node id="keyboardCap2">            
                         <material id="null" />
 
-                        <texture id="darkMetalMaterial">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -620,7 +632,7 @@
                         </descendants>
                     </node>
                     <node id="monitor">            
-                        <material id="null" />
+                        <material id="whiteMaterial" />
 
                         <texture id="computerTexture">
                             <amplification afs="2.0" aft="2.0" />
@@ -639,9 +651,9 @@
                         </descendants>
                     </node>
                     <node id="monitorCap1">            
-                        <material id="null" />
+                        <material id="whiteMetalMaterial" />
 
-                        <texture id="darkMetalMaterial">
+                        <texture id="plasticTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -656,9 +668,9 @@
                         </descendants>
                     </node>
                     <node id="monitorCap2">            
-                        <material id="null" />
+                        <material id="whiteMetalMaterial" />
 
-                        <texture id="darkMetalMaterial">
+                        <texture id="plasticTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -713,7 +725,7 @@
                     <node id="metalSphereHead">            
                         <material id="whiteMetalMaterial" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -727,7 +739,7 @@
                         </descendants>
                     </node>
                     <node id="lightTorus">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="darkMetalMaterial" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -747,7 +759,7 @@
                     <node id="headCylinder">            
                         <material id="whiteMetalMaterial" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -765,7 +777,7 @@
                     <node id="headCylinderCap">            
                     <material id="darkMetalMaterial" />
 
-                    <texture id="null">
+                    <texture id="metalTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -792,7 +804,7 @@
                     <node id="upperBaseCylinder">            
                         <material id="whiteMetalMaterial" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -808,9 +820,9 @@
                         </descendants>
                     </node>
                     <node id="junctionSphere">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="darkMetalMaterial" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -826,7 +838,7 @@
                     <node id="lowerBaseCylinder">            
                         <material id="whiteMetalMaterial" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
@@ -862,7 +874,7 @@
                 <node id="chairSeat">            
                     <material id="chairMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -894,9 +906,9 @@
                     </descendants>
                 </node>
                 <node id="chairCapUp">            
-                    <material id="darkMetalMaterial" />
+                    <material id="chairMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -948,9 +960,9 @@
                 
 
             <node id="dresser">            
-                <material id="null" />
+                <material id="tableMaterial" />
 
-                <texture id="drawerTexture">
+                <texture id="null">
                     <amplification afs="2.0" aft="2.0" />
                 </texture>
 
@@ -966,9 +978,9 @@
                 </descendants>
             </node>
             <node id="dresserCap">            
-                <material id="null" />
+                <material id="tableMaterial" />
 
-                <texture id="drawerTexture">
+                <texture id="null">
                     <amplification afs="2.0" aft="2.0" />
                 </texture>
 
@@ -995,7 +1007,7 @@
 
                 <descendants>
                     <noderef id="shelfBase" />
-                    <noderef id="shelfBaseCap1" />
+                    <noderef id="shelfBaseCap1" /> 
                     <noderef id="shelfBaseCap2" />
                     <noderef id="shelfLegRight" />
                     <noderef id="shelfLegRightCap" />
@@ -1009,7 +1021,7 @@
                 <node id="shelfBase">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1026,7 +1038,7 @@
                 <node id="shelfBaseCap1">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1043,7 +1055,7 @@
                 <node id="shelfBaseCap2">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1059,7 +1071,7 @@
                 <node id="shelfLegLeft">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1077,7 +1089,7 @@
                 <node id="shelfLegLeftCap">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1094,7 +1106,7 @@
                 <node id="shelfLegRight">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1112,7 +1124,7 @@
                 <node id="shelfLegRightCap">            
                     <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1127,7 +1139,7 @@
                     </descendants>
                 </node>
                 <node id="books">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
                     <texture id="booksTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -1195,7 +1207,7 @@
                 </descendants>
             </node>
                 <node id="plantsHeads">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
                     <texture id="leavesTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -1242,7 +1254,7 @@
                         </descendants>
                     </node>
                 <node id="plantsTrunks">            
-                    <material id="null" />
+                    <material id="woodMaterial" />
 
                     <texture id="woodTexture">
                         <amplification afs="2.0" aft="2.0" />
@@ -1293,7 +1305,7 @@
                 <node id="plantsVases">            
                     <material id="vaseMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -1339,7 +1351,7 @@
                         </descendants>
                     </node>
                 <node id="plantsVasesCaps">            
-                    <material id="vaseMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -1358,7 +1370,7 @@
                     </descendants>
                 </node>
                     <node id="plantVaseCap1">            
-                        <material id="vaseMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
@@ -1373,7 +1385,7 @@
                         </descendants>
                     </node>
                     <node id="plantVaseCap2">            
-                        <material id="vaseMaterial" />
+                        <material id="null" />
 
                         <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
