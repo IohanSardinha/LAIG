@@ -26,8 +26,7 @@ class MySceneGraph {
         this.scene = scene;
         scene.graph = this;
 
-        this.viewsId = [];
-        this.currView = 0;
+        this.cameraIDs = [];
 
         this.idRoot = null;                    // The id of the root element.
 
@@ -50,6 +49,7 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
+       
     }
 
     /*
@@ -281,7 +281,7 @@ class MySceneGraph {
                 var angle;
                 angle = this.reader.getFloat(camera, 'angle');
 
-
+                this.cameraIDs[i] = id;
                 this.cameras[i] = new CGFcamera(DEGREE_TO_RAD * angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
                 this.viewMap.set(id, this.cameras[i]);
             }
@@ -305,7 +305,7 @@ class MySceneGraph {
                     let upZ = this.reader.getFloat(up,'z');
                     upVec = vec3.fromValues(upX,upY,upZ);
                 }
-
+                this.cameraIDs[i] = id;
                 this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), upVec);
                 this.viewMap.set(id, this.cameras[i]);
             }

@@ -19,7 +19,7 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.sceneInited = false;
+        this.sceneInitiated = false;
 
         this.initCameras();
 
@@ -40,7 +40,8 @@ class XMLscene extends CGFscene {
 
         this.scaleFactor = 1;
         this.displayAxis = true;
-        this.selectedView = null;
+        this.selectedView = "d";
+        this.lightON = true;
 
     }
 
@@ -88,8 +89,6 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
-        this.cameraIDs = [];
-
         this.camera = this.graph.camera;
         this.interface.setActiveCamera(this.camera);
 
@@ -101,25 +100,26 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        for (var id in this.graph.cameras) {
-            this.cameraIDs.push(id);
-        }      
+       
+        this.selectedView = this.graph.defaultViewId;
 
-        //this.selectedCamera = this.graph.defaultId;
-        this.selectedView = this.cameraIDs[0];
         this.changeCamera();
 
         this.interface.setInterface();
 
-        this.sceneInited = true;
+        this.sceneInitiated = true;
     }
 
     changeCamera() {
 
-        // this creates a camera with the selectedView
-        this.camera = this.graph.cameras[this.selectedView];
+        // this set the camera to the selectedView
+        this.camera = this.graph.viewMap.get(this.selectedView);
         // this enables the camera movement
         this.interface.setActiveCamera(this.camera);
+    }
+
+    updateLights(){
+        console.log(this.lights);
     }
 
     /**
@@ -141,17 +141,35 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-
+        
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
             this.lights[i].enable();
         }
 
-        if (this.sceneInited) {
+        if (this.sceneInitiated) {
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
- 
+
+            if (this.lightON) {
+                for (var i = 0; i < this.lights.length; i++) {
+                    // this.lights[i].disable();
+                    // this.lights[i].update();
+                }  
+                this.lights[0].setVisible(false);
+                this.lights[0].enable();
+                this.lights[0].update();
+            }
+            else
+            {
+                this.lights[0].setVisible(false);
+                this.lights[0].disable();
+                this.lights[0].update();
+                for (var i = 0; i < this.lights.length; i++) {
+                    
+                } 
+            }
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
