@@ -470,6 +470,7 @@ class MySceneGraph {
 
             if (path.includes('scenes/images')) {
                 this.textures[textId] = new CGFtexture(this.scene, path);
+
             }
             else if (path.includes('images/')) {
                 this.textures[textId] = new CGFtexture(this.scene, './scenes/' + path);
@@ -605,6 +606,7 @@ class MySceneGraph {
             this.materials[materialID].setAmbient(ambient.red, ambient.green, ambient.blue, ambient.alpha);
             this.materials[materialID].setDiffuse(diffuse.red, diffuse.green, diffuse.blue, diffuse.alpha);
             this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
+            this.materials[materialID].setTextureWrap('REPEAT', 'REPEAT');
             
             this.currMatId.push(materialID);
         }
@@ -949,44 +951,7 @@ class MySceneGraph {
         return color;
     }
 
-/*
-
-                this.materials[currNode.material].setTexture(null);
-                if(this.activateTextures)
-                {
-                    if(currNode.texture == "clear")
-                    {
-                        this.materials[currNode.material].setTexture(null);
-                        currTexture = "clear";
-                    }
-                    else if(currNode.texture == "null")
-                    {   
-                        this.materials[currNode.material].setTexture(this.textures[currTexture]);
-                    }
-                    else
-                    {
-                        this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
-                        currTexture = currNode.texture;
-                    }
-                }
-
-                if(this.activateTextures)
-                {
-                    if(currNode.texture != "null")
-                    {
-                        if (currNode.texture == "clear"){
-                            this.materials[currNode.material].setTexture(null);
-                        }
-                        else
-                        {
-                            this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
-                        }
-                    }
-                }
-                else
-                    this.materials[currNode.material].setTexture(null);
-*/
-    displayNode(currNode,currMaterial,currTexture)
+    displayNode(currNode,currMaterial,currTexture,amplification)
     {
         this.scene.pushMatrix();
         this.scene.multMatrix(currNode.transformations);
@@ -999,13 +964,21 @@ class MySceneGraph {
         if(currNode.texture == "clear")
             currTexture = "null";
         else if(currNode.texture != "null")
+        {
+            amplification.s = currNode.l_s;
+            amplification.t = currNode.l_t;
             currTexture = currNode.texture;
+        }
+
 
         for(let i = 0; i < currNode.children.length; i++)
         {
 
             if(this.activateTextures && currTexture != "null")
+            {
+                this.updateTexCoords(amplification,currNode.children[i]);
                 this.materials[currMaterial].setTexture(this.textures[currTexture]);
+            }
             else
                 this.materials[currMaterial].setTexture(null);
 
@@ -1013,17 +986,51 @@ class MySceneGraph {
                 this.materials[currMaterial].apply();
 
             if(typeof currNode.children[i] == "string")
-               this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture);
+               this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture,amplification);
             else
                 currNode.children[i].display();
         }
         this.scene.popMatrix();
     }
 
+    updateTexCoords(amplification,primitive)
+    {
+        if(primitive instanceof MyRectangle)
+        {
+            primitive.updateTexCoords([
+                        0,              1/amplification.t,
+                1/amplification.s,      1/amplification.t,
+                        0,                     0,
+                1/amplification.s,             0
+            ]);
+
+        }
+        else if(primitive instanceof MyTriangle)
+        {
+            let a = Math.sqrt(Math.pow(primitive.x2-primitive.x1,2)+Math.pow(primitive.y2-primitive.y1,2));
+            let b = Math.sqrt(Math.pow(primitive.x3-primitive.x2,2)+Math.pow(primitive.y3-primitive.y2,2));
+            let c = Math.sqrt(Math.pow(primitive.x1-primitive.x3,2)+Math.pow(primitive.y1-primitive.y3,2));
+
+            let cosA = (Math.pow(a,2) - Math.pow(b,2) + Math.pow(c,2)) /(2*a*c);
+            let sinA = Math.sqrt(1 - Math.pow(cosA,2));
+
+            let t1 = {s: 0, t: 0};
+            let t2 = {s: (a/amplification.s), t: 0};
+            let t3 = {s: ((c*cosA)/amplification.s), t:((c*sinA)/amplification.t)};
+
+            primitive.updateTexCoords([
+                t1.s, t1.t,
+                t2.s, t2.t,
+                t3.s, t3.t
+                ]);
+        }   
+
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null");
+        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1});
     }
 }
