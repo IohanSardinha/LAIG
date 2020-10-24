@@ -195,7 +195,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="windowTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="0.2" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -212,7 +212,7 @@
                     <material id="greenWall" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -231,7 +231,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -249,7 +249,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -266,7 +266,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -284,7 +284,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -301,7 +301,7 @@
                         <material id="tableMaterial" />
 
                         <texture id="woodTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -321,7 +321,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -339,7 +339,7 @@
                 <material id="tableMaterial" />
 
                 <texture id="floorTexture">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -357,7 +357,7 @@
                 <material id="null" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -376,7 +376,7 @@
                     <material id="redMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -393,7 +393,7 @@
                     <material id="redMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -409,7 +409,7 @@
                     <material id="redMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -426,7 +426,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -443,7 +443,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -459,7 +459,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -477,7 +477,7 @@
                 <material id="woodMaterial" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -498,7 +498,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -515,7 +515,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -531,7 +531,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -548,7 +548,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -566,7 +566,7 @@
                     <material id="null" />
 
                     <texture id="drawerTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -583,7 +583,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -601,7 +601,7 @@
                     <material id="darkMetalMaterial" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -620,7 +620,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -637,7 +637,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -653,7 +653,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -670,7 +670,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -689,7 +689,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -706,7 +706,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -724,7 +724,7 @@
                     <material id="whiteMetalMaterial" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -745,7 +745,7 @@
                         <material id="yellowMaterial" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -761,7 +761,7 @@
                         <material id="null" />
 
                         <texture id="metalTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -777,7 +777,7 @@
                         <material id="darkMetalMaterial" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -795,7 +795,7 @@
                         <material id="null" />
 
                         <texture id="metalTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -813,7 +813,7 @@
                         <material id="null" />
 
                     <texture id="metalTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                         <transformations>
@@ -831,7 +831,7 @@
                         <material id="null" />
 
                         <texture id="metalTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -849,7 +849,7 @@
                         <material id="darkMetalMaterial" />
 
                         <texture id="metalTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -865,7 +865,7 @@
                         <material id="null" />
 
                         <texture id="metalTexture">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -884,7 +884,7 @@
                 <material id="chairMaterial" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -901,7 +901,7 @@
                     <material id="chairMaterial" />
 
                     <texture id="floorTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -918,7 +918,7 @@
                     <material id="darkMetalMaterial" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -935,7 +935,7 @@
                     <material id="chairMaterial" />
 
                     <texture id="floorTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -952,7 +952,7 @@
                     <material id="null" />
 
                     <texture id="null">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -969,7 +969,7 @@
                 <material id="tableMaterial" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -988,7 +988,7 @@
                 <material id="tableMaterial" />
 
                 <texture id="dresserTexture">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -1006,7 +1006,7 @@
                 <material id="tableMaterial" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -1024,7 +1024,7 @@
                 <material id="woodMaterial" />
 
                 <texture id="woodTexture">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -1047,7 +1047,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1064,7 +1064,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1081,7 +1081,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1097,7 +1097,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1115,7 +1115,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1132,7 +1132,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1150,7 +1150,7 @@
                     <material id="null" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1167,7 +1167,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="booksTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1184,7 +1184,7 @@
                     <material id="null" />
 
                     <texture id="booksTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1201,7 +1201,7 @@
                     <material id="null" />
 
                     <texture id="booksTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1218,7 +1218,7 @@
                 <material id="null" />
 
                 <texture id="null">
-                    <amplification afs="2.0" aft="2.0" />
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
@@ -1235,7 +1235,7 @@
                     <material id="whiteMaterial" />
 
                     <texture id="leavesTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1252,7 +1252,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1267,7 +1267,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1282,7 +1282,7 @@
                     <material id="woodMaterial" />
 
                     <texture id="woodTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1299,7 +1299,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1315,7 +1315,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1331,7 +1331,7 @@
                     <material id="vaseMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1349,7 +1349,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1364,7 +1364,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1379,7 +1379,7 @@
                     <material id="woodMaterial" />
 
                     <texture id="wallTexture">
-                        <amplification afs="2.0" aft="2.0" />
+                        <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
@@ -1398,7 +1398,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1413,7 +1413,7 @@
                         <material id="null" />
 
                         <texture id="null">
-                            <amplification afs="2.0" aft="2.0" />
+                            <amplification afs="1.0" aft="1.0" />
                         </texture>
 
                         <transformations>
@@ -1429,7 +1429,7 @@
             <material id="null" />
 
             <texture id="null">
-                <amplification afs="2.0" aft="2.0" />
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
