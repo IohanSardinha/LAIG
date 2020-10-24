@@ -26,12 +26,13 @@ class MySceneGraph {
         this.scene = scene;
         scene.graph = this;
 
-        this.nodes = [];
         this.viewsId = [];
         this.currView = 0;
 
         this.idRoot = null;                    // The id of the root element.
 
+        this.activateMaterials = true;
+        this.activateTextures = true;
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -619,7 +620,6 @@ class MySceneGraph {
   parseNodes(nodesNode) {
         var children = nodesNode.children;
 
-        this.nodes = [];
         this.father = [];
         this.nodeInfo = [];
        
@@ -647,10 +647,6 @@ class MySceneGraph {
             let nodeID = nodeIDs[i];
             if (nodeID == null)
                 return "no ID defined for nodeID";
-
-            // Checks for repeated IDs.
-            if (this.nodes[nodeID] != null)
-                return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
 
             grandChildren = children[i].children;
 
@@ -781,8 +777,6 @@ class MySceneGraph {
             else {            
                 grandgrandChildren = grandChildren[descendantsIndex].children;
 
-                this.nodes[nodeID] = [];
-
                 for (var k = 0; k < grandgrandChildren.length; k++) {
                     if (grandgrandChildren[k].nodeName == "noderef") {
                         var refId = this.reader.getString(grandgrandChildren[k], 'id');
@@ -805,7 +799,7 @@ class MySceneGraph {
                             let y1 = this.reader.getFloat(grandgrandChildren[k],"y1");
                             let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
                             let rectangle = new MyRectangle(this.scene,x1,y1,x2,y2);
-                            this.nodes[nodeID].push(rectangle);
+                            nodeChildren.push(rectangle);
                         }
                         else if(type === "triangle")
                         {
@@ -816,7 +810,7 @@ class MySceneGraph {
                             let y2 = this.reader.getFloat(grandgrandChildren[k],"y2");
                             let y3 = this.reader.getFloat(grandgrandChildren[k],"y3");
                             let triangle = new MyTriangle(this.scene,x1,y1,x2,y2, x3, y3);
-                            this.nodes[nodeID].push(triangle);
+                            nodeChildren.push(triangle);
                         }
                         else if(type === "cylinder")
                         {
@@ -826,7 +820,7 @@ class MySceneGraph {
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let cylinder = new MyCylinder(this.scene,height,topRadius,bottomRadius,stacks,slices);
-                            this.nodes[nodeID].push(cylinder);
+                            nodeChildren.push(cylinder);
                         }
                         else if(type === "sphere")
                         {
@@ -834,7 +828,7 @@ class MySceneGraph {
                             let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let sphere = new MySphere(this.scene,radius,stacks,slices);
-                            this.nodes[nodeID].push(sphere);
+                            nodeChildren.push(sphere);
                         }
                         else if(type === "torus")
                         {
@@ -843,7 +837,7 @@ class MySceneGraph {
                             let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
                             let loops = this.reader.getFloat(grandgrandChildren[k],"loops");
                             let torus = new MyTorus(this.scene,inner,outer,slices,loops);
-                            this.nodes[nodeID].push(torus);
+                            nodeChildren.push(torus);
                         }
                         else
                         {
@@ -955,35 +949,29 @@ class MySceneGraph {
         return color;
     }
 
-    displayNode(currNode)
-    {
-        this.scene.pushMatrix();
-        this.scene.multMatrix(currNode.transformations);
-        if (currNode.material != "null"  )
-        {
-            this.materials[currNode.material].setTexture(null);
-                if(currNode.texture != "null")
+/*
+
+                this.materials[currNode.material].setTexture(null);
+                if(this.activateTextures)
                 {
-                    if (currNode.texture == "clear"){
+                    if(currNode.texture == "clear")
+                    {
                         this.materials[currNode.material].setTexture(null);
+                        currTexture = "clear";
+                    }
+                    else if(currNode.texture == "null")
+                    {   
+                        this.materials[currNode.material].setTexture(this.textures[currTexture]);
                     }
                     else
                     {
                         this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
+                        currTexture = currNode.texture;
                     }
                 }
-            this.materials[currNode.material].apply();
-        }
-        for(let i = 0; i < this.nodes[currNode.id].length; i++)
-        {
-            this.nodes[currNode.id][i].display();
-        }
 
-        for(let i = 0; i < currNode.children.length; i++)
-        {
-            if (currNode.material != "null"  )
-            {
-                this.materials[currNode.material].setTexture(null);
+                if(this.activateTextures)
+                {
                     if(currNode.texture != "null")
                     {
                         if (currNode.texture == "clear"){
@@ -994,9 +982,40 @@ class MySceneGraph {
                             this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
                         }
                     }
-                this.materials[currNode.material].apply();
-            }
-            this.displayNode(this.nodeInfo[currNode.children[i]]);
+                }
+                else
+                    this.materials[currNode.material].setTexture(null);
+*/
+    displayNode(currNode,currMaterial,currTexture)
+    {
+        this.scene.pushMatrix();
+        this.scene.multMatrix(currNode.transformations);
+        
+        if(currNode.material == "clear")
+            currMaterial = this.defaultMaterialID;
+        else if(currNode.material != "null")
+            currMaterial = currNode.material;
+
+        if(currNode.texture == "clear")
+            currTexture = "null";
+        else if(currNode.texture != "null")
+            currTexture = currNode.texture;
+
+        for(let i = 0; i < currNode.children.length; i++)
+        {
+
+            if(this.activateTextures && currTexture != "null")
+                this.materials[currMaterial].setTexture(this.textures[currTexture]);
+            else
+                this.materials[currMaterial].setTexture(null);
+
+            if (this.activateMaterials)
+                this.materials[currMaterial].apply();
+
+            if(typeof currNode.children[i] == "string")
+               this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture);
+            else
+                currNode.children[i].display();
         }
         this.scene.popMatrix();
     }
@@ -1005,6 +1024,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        this.displayNode(this.nodeInfo[this.idRoot]);
+        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null");
     }
 }

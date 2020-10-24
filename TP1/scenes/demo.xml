@@ -36,6 +36,7 @@
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="windowTexture" path="./scenes/images/window.jpg" />
+        <texture id="dresserTexture" path="./scenes/images/dresser.jpg" />
         <texture id="woodTexture" path="./scenes/images/wood.jpg" />
         <texture id="drawerTexture" path="./scenes/images/drawer.jpg" />
         <texture id="computerTexture" path="./scenes/images/computer.jpg" />
@@ -158,15 +159,16 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <noderef id="walls" />      <!--DONE-->
-                <noderef id="floor" />      <!--DONE-->
-                <noderef id="bed" />        <!--DONE-->
-                <noderef id="table" />      <!--DONE-->
-                <noderef id="chair" />      <!--DONE-->
-                <noderef id="dresser" />    <!--DONE-->
-                <noderef id="dresserCap" />
-                <noderef id="shelf" />      <!--DONE-->
-                <noderef id="plants" />     <!--DONE-->
+                <noderef id="walls" />             <!--DONE-->
+                <noderef id="floor" />             <!--DONE-->
+                <noderef id="bed" />               <!--DONE-->
+                <noderef id="table" />             <!--DONE-->
+                <noderef id="chair" />             <!--DONE-->
+                <noderef id="dresser" />           <!--DONE-->
+                <noderef id="dresserCap" />        <!--DONE-->
+                <noderef id="dresserDisplay" />    <!--DONE-->
+                <noderef id="shelf" />             <!--DONE-->
+                <noderef id="plants" />            <!--DONE-->
             </descendants>
         </node>
             <node id="walls">
@@ -230,8 +232,8 @@
                         <transformations>
                             <translation x="1.508" y="0" z="-1.12" />
                             <scale sx="0.7" sy="1.5" sz="0.18" />
-                            <rotation axis="xx" angle="-90"/>
-                            <rotation axis="zz" angle="45"/>
+                            <rotation axis="x" angle="-90"/>
+                            <rotation axis="z" angle="45"/>
                         </transformations>
 
                         <descendants>
@@ -248,7 +250,7 @@
                         <transformations>
                             <translation x="1.508" y="1.5" z="-1.12" />
                             <scale sx="1" sy="1" sz="0.26" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -265,8 +267,8 @@
                         <transformations>
                             <translation x="-1.508" y="0" z="-1.12" />
                             <scale sx="0.7" sy="1.5" sz="0.18" />
-                            <rotation axis="xx" angle="-90"/>
-                            <rotation axis="zz" angle="45"/>
+                            <rotation axis="x" angle="-90"/>
+                            <rotation axis="z" angle="45"/>
                         </transformations>
 
                         <descendants>
@@ -283,7 +285,7 @@
                         <transformations>
                             <translation x="-1.508" y="1.5" z="-1.12" />
                             <scale sx="1" sy="1" sz="0.26" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -301,8 +303,8 @@
                             <translation x="0" y="0.15" z="-1.12" />
                             <scale sx="2.04" sy="0.2" sz="0.18" />
                             <translation x="-0.5" y="0" z="0" />
-                            <rotation axis="yy" angle="90"/>
-                            <rotation axis="zz" angle="45"/>
+                            <rotation axis="y" angle="90"/>
+                            <rotation axis="z" angle="45"/>
                         </transformations>
 
                         <descendants>
@@ -319,7 +321,7 @@
 
                     <transformations>
                         <translation x="-2" y="0.75" z="0" />
-                        <rotation axis="yy" angle=  "90" />   
+                        <rotation axis="y" angle=  "90" />   
                         <scale sx="2.5" sy="1.5" sz="1" />
                     </transformations>
 
@@ -336,7 +338,7 @@
                 </texture>
 
                 <transformations>
-                    <rotation axis="xx" angle=  "-90" />
+                    <rotation axis="x" angle=  "-90" />
                     <scale sx="4" sy="2.5" sz="1" />
                 </transformations>
 
@@ -375,7 +377,7 @@
                     <transformations>
                         <scale sx="0.6" sy="0.2" sz="1.8" />
                         <translation x="2.62" y="0.7" z="-0.31" />
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -408,7 +410,7 @@
                     <transformations>
                         <translation x="1.57" y="0.14" z="-0.54" />
                         <scale sx="0.85" sy="0.28" sz="1.8" />
-                        <rotation axis="yy" angle="180"/>
+                        <rotation axis="y" angle="180"/>
                     </transformations>
 
                     <descendants>
@@ -425,7 +427,7 @@
                     <transformations>
                         <scale sx="0.55" sy="0.05" sz="0.5" />
                         <translation x="2.86" y="6" z="1.4" />
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -458,7 +460,7 @@
                     <transformations>
                         <translation x="1.57" y="0.31" z="0.7" />
                         <scale sx="0.78" sy="0.05" sz="1.8" />
-                        <rotation axis="yy" angle="180"/>
+                        <rotation axis="y" angle="180"/>
                     </transformations>
 
                     <descendants>
@@ -481,22 +483,23 @@
                     <noderef id="tableBaseCap1" />
                     <noderef id="tableBaseCap2" />
                     <noderef id="tableDrawer" />
+                    <noderef id="tableDrawerDisplay" />
                     <noderef id="tableLeg" />
                     <noderef id="computer" />
                     <noderef id="tableLight" />
                 </descendants>
             </node>
                 <node id="tableBase">            
-                    <material id="tableMaterial" />
+                    <material id="null" />
 
-                    <texture id="woodTexture">
+                    <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
                     <transformations>
                         <translation x="-1.85" y="0.48" z="0.1" />  
                         <scale sx="0.2" sy="0.04" sz="1.14" />
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -504,9 +507,9 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap1">            
-                    <material id="tableMaterial" />
+                    <material id="null" />
 
-                    <texture id="woodTexture">
+                    <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
@@ -520,16 +523,16 @@
                     </descendants>
                 </node>
                 <node id="tableBaseCap2">            
-                    <material id="tableMaterial" />
+                    <material id="null" />
 
-                    <texture id="woodTexture">
+                    <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
                     <transformations>
                         <translation x="-1.85" y="0.48" z="0.1" />  
                         <scale sx="0.29" sy="0.055" sz="1.14" />
-                         <rotation axis="yy" angle="180"/>
+                         <rotation axis="y" angle="180"/>
                     </transformations>
 
                     <descendants>
@@ -537,25 +540,42 @@
                     </descendants>
                 </node>
                 <node id="tableDrawer">            
-                    <material id="whiteMaterial" />
+                    <material id="null" />
 
-                    <texture id="drawerTexture">
+                    <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
                     <transformations>
                         <translation x="-1.85" y="0" z="0.28" />
                         <scale sx="0.2" sy="0.45" sz="0.25" />
-                        <rotation axis="xx" angle="-90"/>
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="x" angle="-90"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
                 </node>
+                <node id="tableDrawerDisplay">            
+                    <material id="null" />
+
+                    <texture id="drawerTexture">
+                        <amplification afs="2.0" aft="2.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.708" y="0.22" z="0.28" />
+                        <scale sx="1" sy="0.4" sz="0.3" />
+                        <rotation axis="y" angle="90"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                    </descendants>
+                </node>
                 <node id="tableLeg">            
-                    <material id="tableMaterial" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="2.0" aft="2.0" />
@@ -564,8 +584,8 @@
                     <transformations>
                         <translation x="-1.85" y="0" z="1.2" />
                         <scale sx="0.2" sy="0.46" sz="0.05" />
-                        <rotation axis="xx" angle="-90"/>
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="x" angle="-90"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -592,16 +612,16 @@
                     </descendants>
                 </node>
                     <node id="keyboard">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
-                        <texture id="plasticTexture">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
                         <transformations>
                             <translation x="-1.83" y="0.52" z="0.7" />
                             <scale sx="0.12" sy="0.02" sz="0.25" />
-                             <rotation axis="zz" angle="45"/>
+                             <rotation axis="z" angle="45"/>
                         </transformations>
 
                         <descendants>
@@ -634,7 +654,7 @@
                         <transformations>
                             <translation x="-1.83" y="0.52" z="0.7" />
                             <scale sx="0.16" sy="0.025" sz="0.25" />
-                            <rotation axis="yy" angle="180"/>
+                            <rotation axis="y" angle="180"/>
                         </transformations>
 
                         <descendants>
@@ -642,18 +662,18 @@
                         </descendants>
                     </node>
                     <node id="monitor">            
-                        <material id="whiteMaterial" />
+                        <material id="null" />
 
-                        <texture id="computerTexture">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
                         <transformations>
 
                             <translation x="-1.95" y="0.6" z="0.7" />
-                            <rotation axis="zz" angle=  "-60" />
+                            <rotation axis="z" angle=  "-60" />
                             <scale sx="0.12" sy="0.02" sz="0.25" />
-                            <rotation axis="zz" angle=  "45" />
+                            <rotation axis="z" angle=  "45" />
                         </transformations>
 
                         <descendants>
@@ -661,16 +681,16 @@
                         </descendants>
                     </node>
                     <node id="monitorCap1">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
-                        <texture id="plasticTexture">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
                         <transformations>
-                            <translation x="-1.94" y="0.59" z="0.95" />
-                            <rotation axis="zz" angle=  "-60" />
-                            <scale sx="0.2" sy="0.025" sz="0.25" />
+                            <translation x="-1.945" y="0.59" z="0.95" />
+                            <rotation axis="z" angle=  "-60" />
+                            <scale sx="0.2" sy="0.03" sz="0.25" />
                         </transformations>
 
                         <descendants>
@@ -678,17 +698,17 @@
                         </descendants>
                     </node>
                     <node id="monitorCap2">            
-                        <material id="whiteMetalMaterial" />
+                        <material id="null" />
 
-                        <texture id="plasticTexture">
+                        <texture id="null">
                             <amplification afs="2.0" aft="2.0" />
                         </texture>
 
                         <transformations>
-                            <translation x="-1.94" y="0.59" z="0.7" />
-                            <rotation axis="zz" angle=  "-60" />
-                            <scale sx="0.2" sy="0.025" sz="0.25" />
-                            <rotation axis="yy" angle="180"/>
+                            <translation x="-1.945" y="0.59" z="0.7" />
+                            <rotation axis="z" angle=  "-60" />
+                            <scale sx="0.2" sy="0.03" sz="0.25" />
+                            <rotation axis="y" angle="180"/>
                         </transformations>
 
                         <descendants>
@@ -758,8 +778,8 @@
                         <transformations>
                             <translation x="-1.671" y="0.915" z="1.103" />
                             <scale sx="0.087" sy="0.087" sz="0.087" />
-                            <rotation axis="zz" angle="-40"/>
-                            <rotation axis="yy" angle="90"/>
+                            <rotation axis="z" angle="-40"/>
+                            <rotation axis="y" angle="90"/>
                         </transformations>
 
                         <descendants>
@@ -775,9 +795,9 @@
 
                         <transformations>
                             <translation x="-1.72" y="0.96" z="1.103" />
-                            <rotation axis="zz" angle=  "50" />
+                            <rotation axis="z" angle=  "50" />
                             <scale sx="0.057" sy="0.05" sz="0.057" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -793,9 +813,9 @@
 
                         <transformations>
                             <translation x="-1.759" y="0.99" z="1.103" />
-                            <rotation axis="zz" angle=  "50" />
+                            <rotation axis="z" angle=  "50" />
                             <scale sx="0.057" sy="1" sz="0.057" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -811,9 +831,9 @@
 
                         <transformations>
                             <translation x="-1.85" y="0.75" z="1.103" />
-                            <rotation axis="zz" angle=  "-33" />
+                            <rotation axis="z" angle=  "-33" />
                             <scale sx="0.029" sy="0.19" sz="0.029" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -845,9 +865,9 @@
 
                         <transformations>
                             <translation x="-1.76" y="0.5" z="1.103" />
-                            <rotation axis="zz" angle=  "22" />
+                            <rotation axis="z" angle=  "22" />
                             <scale sx="0.029" sy="0.25" sz="0.029" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -882,7 +902,7 @@
                     <transformations>
                         <translation x="-1.3" y="0.4" z="0.7" />
                         <scale sx="0.2" sy="0.02" sz="0.2" />
-                        <rotation axis="xx" angle="-90"/>
+                        <rotation axis="x" angle="-90"/>
                     </transformations>
 
                     <descendants>
@@ -899,7 +919,7 @@
                     <transformations>
                         <translation x="-1.3" y="0" z="0.7" />
                         <scale sx="0.03" sy="0.4" sz="0.03" />
-                        <rotation axis="xx" angle="-90"/>
+                        <rotation axis="x" angle="-90"/>
                     </transformations>
 
                     <descendants>
@@ -916,7 +936,7 @@
                     <transformations>
                         <translation x="-1.3" y="0.42" z="0.7" />
                          <scale sx="0.2" sy="1" sz="0.2" />
-                        <rotation axis="xx" angle="-90"/>
+                        <rotation axis="x" angle="-90"/>
                     </transformations>
 
                     <descendants>
@@ -933,7 +953,7 @@
                     <transformations>
                         <translation x="-1.3" y="0.4" z="0.7" />
                          <scale sx="0.2" sy="1" sz="0.2" />
-                        <rotation axis="xx" angle="90"/>
+                        <rotation axis="x" angle="90"/>
                     </transformations>
 
                     <descendants>
@@ -950,14 +970,33 @@
                 <transformations>
                     <translation x="-1.86" y="0" z="-0.45" />
                     <scale sx="0.2 " sy="1" sz="0.4" />
-                    <rotation axis="xx" angle="-90"/>
-                    <rotation axis="zz" angle="45"/>
+                    <rotation axis="x" angle="-90"/>
+                    <rotation axis="z" angle="45"/>
                 </transformations>
 
                 <descendants>
                      <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                 </descendants>
             </node>
+
+            <node id="dresserDisplay">            
+                <material id="tableMaterial" />
+
+                <texture id="dresserTexture">
+                    <amplification afs="2.0" aft="2.0" />
+                </texture>
+
+                <transformations>
+                    <translation x="-1.708" y="0.5" z="-0.45" />
+                    <scale sx="0.2 " sy="0.9" sz="0.45" />
+                    <rotation axis="y" angle="90"/>
+                </transformations>
+
+                <descendants>
+                     <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
+
             <node id="dresserCap">            
                 <material id="tableMaterial" />
 
@@ -968,7 +1007,7 @@
                 <transformations>
                     <translation x="-1.86" y="1" z="-0.45" />
                     <scale sx="0.28 " sy="1" sz="0.57" />
-                    <rotation axis="xx" angle="-90"/>
+                    <rotation axis="x" angle="-90"/>
                 </transformations>
 
                 <descendants>
@@ -1009,7 +1048,7 @@
                     <transformations>
                         <translation x="-1.9" y="1.2" z="0.2" />
                         <scale sx="0.15" sy="0.02" sz="0.8" />
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -1026,7 +1065,7 @@
                     <transformations>
                         <translation x="-1.9" y="1.2" z="0.2" />
                         <scale sx="0.22" sy="0.03" sz="1" />
-                        <rotation axis="yy" angle="180"/>
+                        <rotation axis="y" angle="180"/>
                     </transformations>
 
                     <descendants>
@@ -1059,8 +1098,8 @@
                     <transformations>
                         <translation x="-1.925" y="1.09" z="0.9" />
                         <scale sx="0.1" sy="0.1" sz="0.02" />
-                        <rotation axis="xx" angle="-90"/>
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="x" angle="-90"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -1077,7 +1116,7 @@
                     <transformations>
                         <translation x="-1.925" y="1.09" z="0.9" />
                         <scale sx="0.13" sy="0.1" sz="0.03" />
-                        <rotation axis="xx" angle="90"/>
+                        <rotation axis="x" angle="90"/>
                     </transformations>
 
                     <descendants>
@@ -1094,8 +1133,8 @@
                     <transformations>
                         <translation x="-1.925" y="1.09" z="0.3" />
                         <scale sx="0.1" sy="0.1" sz="0.02" />
-                        <rotation axis="xx" angle="-90"/>
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="x" angle="-90"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -1112,7 +1151,7 @@
                     <transformations>
                         <translation x="-1.925" y="1.09" z="0.3" />
                         <scale sx="0.13" sy="0.1" sz="0.03" />
-                        <rotation axis="xx" angle="90"/>
+                        <rotation axis="x" angle="90"/>
                     </transformations>
 
                     <descendants>
@@ -1129,7 +1168,7 @@
                     <transformations>
                         <translation x="-1.925" y="1.29" z="0.5" />
                         <scale sx="0.1" sy="0.1" sz="0.3" />
-                        <rotation axis="zz" angle="45"/>
+                        <rotation axis="z" angle="45"/>
                     </transformations>
 
                     <descendants>
@@ -1146,7 +1185,7 @@
                     <transformations>
                         <translation x="-1.925" y="1.29" z="0.5" />
                         <scale sx="0.14" sy="0.15" sz="0.3" />
-                        <rotation axis="yy" angle="180"/>
+                        <rotation axis="y" angle="180"/>
                     </transformations>
 
                     <descendants>
@@ -1260,7 +1299,7 @@
 
                         <transformations>
                             <translation x="-37" y="0" z="0" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -1276,7 +1315,7 @@
 
                         <transformations>
                             <translation x="37" y="0" z="0" />
-                            <rotation axis="xx" angle="-90"/>
+                            <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
@@ -1293,7 +1332,7 @@
                     <transformations>
                         <translation x="0" y="0.45" z="-1.1" />
                         <scale sx="0.15" sy="0.3" sz="0.15" />
-                        <rotation axis="xx" angle=  "90" />
+                        <rotation axis="x" angle=  "90" />
                     </transformations>
 
                     <descendants>
@@ -1332,17 +1371,17 @@
                         </descendants>
                     </node>
                 <node id="plantsVasesCaps">            
-                    <material id="null" />
+                    <material id="woodMaterial" />
 
-                    <texture id="null">
+                    <texture id="wallTexture">
                         <amplification afs="2.0" aft="2.0" />
                     </texture>
 
                     <transformations>
                         <translation x="0" y="0.45" z="-1.1" />
                         <scale sx="0.2" sy="1" sz="0.2" />
-                        <rotation axis="xx" angle=  "-90" />
-                        <rotation axis="zz" angle=  "45" />
+                        <rotation axis="x" angle=  "-90" />
+                        <rotation axis="z" angle=  "45" />
                     </transformations>
 
                     <descendants>

@@ -2,767 +2,1413 @@
     <initials>
         <reference length="0" />
         <!-- axis length; "0" means no axis displayed -->
-        <root id="CenaRoot" />
-        <!-- identifier of root node of the scene graph; this node -->
-        <!-- must be defined in one of the following NODE declarations -->
+        <root id="root" />
     </initials>
     <views default="defaultCamera">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="30" />
-            <to x="0" y="-2" z="0" />
+        <perspective id="defaultCamera" near="0.1" far="1000" angle="40">
+            <from x="5" y="7" z="17" />
+            <to x="-2" y="4" z="-2" />
         </perspective>
+        <perspective id="frontCamera" near="0.1" far="1000" angle="90">
+            <from x="0" y="5" z="10" />
+            <to x="0" y="4" z="0" />
+        </perspective>
+        <perspective id="topCamera" near="0.1" far="1000" angle="90">
+            <from x="0" y="12.5" z="0" />
+            <to x="-1" y="0" z="0" />
+        </perspective>
+        <perspective id="couchCamera" near="0.1" far="1000" angle="90">
+            <from x="-6" y="5" z="0" />
+            <to x="-1" y="5" z="0" />
+        </perspective>
+        <perspective id="tvCamera" near="0.1" far="1000" angle="90">
+            <from x="6" y="5" z="0" />
+            <to x="-1" y="5" z="0" />
+        </perspective>
+         <ortho id="orthoCamera" near="0.1" far="100" left="-20" right="20" top="18" bottom="-18">
+            <from x="-10" y="15" z="90" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+
+
+        
     </views>
 
     <illumination>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           <!-- global ambient -->
-        <background r="0.25" g="0.80" b="0.98" a="1.0" />        <!-- background color -->
+        <background r="0.11" g="0.11" b="0.11" a="1.0" />        <!-- background color -->
     </illumination>
 
 
     <lights>
         <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
-        <light id="defaultLight">            <!-- light identifier -->
+        <light id="lamp">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="10" y="12" z="9.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="-5.2" y="5.5" z="6" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
+        <light id="lamp2">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="-5.2" y="5.5" z="4" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
+        <light id="top">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="0" y="10" z="0.0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
+        <light id="behindTV">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="6.5" y="5" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="0.87" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
+        <!--light id="window">        
+            <enable value="1" />
+            <position x="4" y="7.5" z="-5" w="1.0"/>
+            <ambient r="0" g="0" b="0" a="1.0" />                  
+            <diffuse r="0.98" g="0.98" b="0.82" a="1.0" />           
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
+        </light-->
     </lights>
 
 
     <textures>
-        <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-        <texture id="defaultTexture" path="./scenes/images/vidral.jpg" />
+        
+        <texture id="floor" path="./TP1/scenes/images/wood_floor.jpg" />
+        <texture id="wall" path="./TP1/scenes/images/wall.jpg" />
+        <texture id="window" path="./TP1/scenes/images/window.jpg" />
+        <texture id="couch" path="./TP1/scenes/images/couch.png" />
+        <texture id="couch_base" path="./TP1/scenes/images/wood_table_tv.jpg" />
+        <texture id="gold" path="./TP1/scenes/images/gold.jpg" />
+        <texture id="coffee_table" path="./TP1/scenes/images/coffee_table.jpg" />
+        <texture id="wood_table_tv" path="./TP1/scenes/images/wood_table_tv.jpg" />
+        <texture id="tv_table_door" path="./TP1/scenes/images/tv_table_door.jpg" />
+        <texture id="tv" path="./TP1/scenes/images/tv.jpg" />
+        <texture id="rug" path="./TP1/scenes/images/rug.jpg" />
+        <texture id="top_lamp" path="./TP1/scenes/images/top_lamp.jpg" />
+        
     </textures>
 
 
     <materials>
-        <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
-         requires a distinct "id". At least one material should be present. -->
+         
         <material id="defaultMaterial">
-            <shininess value="ff" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-
-        <material id="wood">
-            <shininess value="0.01" />
-            <ambient r="0.54" g="0.27" b="0.07" a="1.0" />
-            <diffuse r="0.54" g="0.27" b="0.07" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-
-        <material id="porcelain">
-            <shininess value="0.25" />
-            <ambient r="0.87" g="0.86" b="0.85" a="1.0" />
-            <diffuse r="0.87" g="0.86" b="0.85" a="1.0" />
-            <specular r="0.87" g="0.86" b="0.85" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-
-        <material id="lightsteel">
-            <shininess value="0.62" />
-            <ambient r="0.847" g="0.847" b="0.847" a="1.0" />
-            <diffuse r="0.847" g="0.847" b="0.847" a="1.0" />
-            <specular r="0.847" g="0.847" b="0.847" a="1.0" />
-            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
-        </material>
-
-        <material id="bright">
             <shininess value="1.0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <emissive r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
-
+        <material id="woodMaterial">
+            <shininess value="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <nodes>
-        <!-- Define o root da Cena -->
-        <node id="CenaRoot">          
-            <!-- next two lines are mandatory -->
-            <material id="defaultMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+        <node id="root">             
+             
+            <material id="defaultMaterial" /> 
 
-            <texture id="defaultTexture"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-                <amplification afs="2.0" aft="2.0" /><!-- for primitives = dx/afs, dy/aft -->
-            </texture>
+            <texture id="floor"></texture>
 
+             
+            <transformations></transformations>
+
+             
+            <descendants>
+                <noderef id="walls" />
+                <noderef id="floor" />
+                <noderef id="rug" />
+                <noderef id="tv" />
+                <noderef id="tv_table" />
+                <noderef id="coffee_table" />
+                <noderef id="window" />
+                <noderef id="lamp" />
+                <noderef id="couch" />
+                <noderef id = "top_lamp" />
+            </descendants>
+        </node>
+
+        <!--WALLS-->
+        <node id="walls">             
+             
+            <material id="null" /> 
+
+            <texture id="wall"></texture>
+
+             
             <transformations>
-                <!-- TO-DO LIST -->
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="wall_couch" />
+                <noderef id="wall_window" />
+                <noderef id="wall_tv" />
+                 
+            </descendants>
+        </node>
+        <node id="wall_couch">             
+             
+            <material id="null" /> 
+
+            <texture id="wall"></texture>
+
+             
+            <transformations>
+                <translation x="-6.5" y="5" z="0.0" />
+                <scale sx="0.1" sy="10" sz="13.5"/>
+            </transformations>
+            <descendants>
+                <noderef id="wall" />
+            </descendants>
+        </node>
+        <node id="wall_window">             
+             
+            <material id="null" /> 
+
+            <texture id="wall"></texture>
+
+             
+            <transformations>
+                <translation x="0.0" y="4.975" z="-6.75" />
+                <scale sx="13.1" sy="10.05" sz="0.1"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="wall" />
+            </descendants>
+        </node>
+        <node id="wall_tv">             
+             
+            <material id="null" /> 
+
+            <texture id="wall"></texture>
+
+             
+            <transformations>
+                <translation x="6.5" y="5" z="0.0" />
+                <scale sx="0.1" sy="10" sz="13.5"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="wall" />
+            </descendants>
+        </node>
+        <node id="wall">             
+             
+            <material id="null" /> 
+
+            <texture id="wall"></texture>
+
+             
+            <transformations>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+
+        <!--FLOOR-->
+        <node id="floor">             
+             
+            <material id="woodMaterial" /> 
+
+            <texture id="floor"></texture>
+
+             
+            <transformations>
+            <scale sx="13.1" sy="0.1" sz="13.5"/>
+            </transformations>
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+
+        <!--RUG-->
+        <node id="rug">             
+             
+            <material id="null" /> 
+
+            <texture id="rug"></texture>
+
+             
+            <transformations>
+            <translation x="0.0" y="0.1" z="0.0" />
+            <scale sx="9" sy="0.05" sz="10"/>
+            
             </transformations>
 
             <descendants>
-                <noderef id="MesaPrato" />      <!-- Objeto que representará o conjunto MESA + PRATO -->
-                <noderef id="Caldeirao">        <!-- Objeto que representará o Caldeirão -->
-                <noderef id="Cadeira">          <!-- Objeto que representará o Cadeira -->
-                <noderef id="Luz"/>
+                <noderef id="unitCube" />
+                 
             </descendants>
         </node>
 
-        <!-- DEFINE O CONJUNTO MESA+PRATO -->
-        <node id="MesaPrato">
-            <material id="null" />
+        <!--TV-->
+        <node id="tv">             
+             
+            <material id="null" /> 
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="tv"></texture>
 
+             
+            <transformations>
+                <translation x="6.4" y="5.5" z="0.0" />
+                <scale sx="0.2" sy="3.0" sz="5.0"/>
+            </transformations>
+
+             
             <descendants>
-                <noderef id="Mesa" />       <!-- Objeto que representará a Mesa -->
-                <noderef id="Prato">        <!-- Objeto que representará o Prato -->
+                <noderef id="unitCube" />
+                 
             </descendants>
         </node>
 
-        <node id="Mesa">
-            <material id="wood" />
+        <!--TV_TABLE-->
+        <node id="tv_table">             
+             
+            <material id="null" /> 
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="wood_table_tv"></texture>
+
+             
+            <transformations>
+                <translation x="0.6" y="0.0" z="0.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_box" />
+                <noderef id="tv_table_doors" />
+                <noderef id="tv_table_legs" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_legs">             
+             
+            <material id="woodMaterial" /> 
+
+            <texture id="wood_table_tv"></texture>
+
+             
+            <transformations>
+            <translation x="6.0" y="0.0" z=".0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_leg1" />
+                <noderef id="tv_table_leg2" />
+                <noderef id="tv_table_leg3" />
+                <noderef id="tv_table_leg4" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_leg1"> <!--esquerda tras-->            
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+            <translation x="-0.25" y="0.0" z="3.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_leg2"> <!--direita tras-->          
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+            
+            <transformations>
+            <translation x="-0.25" y="0.0" z="-3.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_leg3"> <!--esquerda frente-->         
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+            <translation x="-0.95" y="0.0" z="3.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_leg4"> <!--direita frente-->            
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+            <translation x="-0.95" y="0.0" z="-3.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_leg">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="0.0" y="0.8" z="0.0" />
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+             
+            <descendants>
+                <leaf type="cylinder" height="0.8" topRadius="0.07" bottomRadius="0.15" stacks="10" slices="10" />   
+            </descendants>
+        </node>
+        <node id="tv_table_doors">             
+             
+            <material id="null" /> 
+
+            <texture id="tv_table_door"></texture>
+
+        
+            <transformations>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_door_left" />
+                <noderef id="tv_table_door_right" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_door_left">             
+             
+            <material id="null" /> 
+
+            <texture id="tv_table_door"></texture>
+
+             
+            <transformations>
+                <translation x="4.88" y="2.0" z="1.78" />
+            </transformations>
 
             <descendants>
-                <noderef id="PernasDaMesa" />
-                <noderef id="TampoMesa"> 
+                <noderef id="tv_table_door" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_door_right">             
+             
+            <material id="null" /> 
+
+            <texture id="tv_table_door"></texture>
+             
+            <transformations>
+                <translation x="4.88" y="2.0" z="-1.78" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tv_table_door" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_door">             
+             
+            <material id="null" /> 
+
+            <texture id="tv_table_door"></texture>
+
+             
+            <transformations>
+                <scale sx="0.05" sy="2.4" sz="3.45"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        <node id="tv_table_box">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="5.4" y="2.0" z="0.0" />
+                <scale sx="1" sy="2.5" sz="7"/>
+            </transformations>
+             
+            <descendants>-
+                <noderef id="unitCube" />   
             </descendants>
         </node>
         
-        <node id="PernasDaMesa">
-            <material id="null" />
+        <!--COFFEE_TABLE-->
+        <node id="coffee_table">             
+             
+            <material id="null" /> 
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="null"></texture>
 
+             
             <transformations>
-                <rotation axis="x" angle="-90" />
+                <translation x="1" y="0.0" z="0.5"/>
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="coffee_torus" />
+                <noderef id="coffee_top" />
+                 
+            </descendants>
+        </node>
+        <node id="coffee_torus">             
+             
+            <material id="null" /> 
+
+            <texture id="coffee_table"></texture>
+
+             
+            <transformations>
+                <translation x="0" y="0.6" z="0.0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <node id="MesaPernaFrenteEsquerda">
-                    <material id="null" />
+                <leaf type="torus" inner="0.6" outer="1.6" slices="30" loops="20" />
+                 
+            </descendants>
+        </node>
+        <node id="coffee_top">             
+             
+            <material id="null" /> 
 
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
+            <texture id="wood_table_tv"></texture>
 
-                    <transformations>
-                        <translation x="10.0" y="0.0" z="10.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="MesaPernaFrenteDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="10.0" y="0.0" z="-10.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="MesaPernaTraseiraEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-10.0" y="0.0" z="10.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="MesaPernaTraseiraDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-10.0" y="0.0" z="-10.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
+             
+            <transformations>
+                <translation x="0.0" y="1.22" z="0.0" />
+                <scale sx="1" sy="0.05" sz="1"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+             
+            <descendants>
+                <leaf type="sphere" radius="1.6" slices="30" stacks="30" />     
             </descendants>
         </node>
 
-        <node id="TampoMesa">
-            <material id="null" />
+        <!--WINDOW-->
+        <node id="window">             
+             
+            <material id="null" /> 
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="window"></texture>
 
+             
             <transformations>
-                <scale sx="1" sy="0.2" sz="1"/>             <!-- Achatar a mesa -->
-                <translation x="0.0" y="6.2" z="0.0" />     <!-- y = Altura das pernas (5) + Metade do tampo (1.2) -->
+                <translation x="0.0" y="5.0" z="-6.7" />
+                <scale sx="10" sy="10" sz="0.13"/>
             </transformations>
 
             <descendants>
-                <node id="FaceEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <rotation axis="y" angle="-90" />
-                        <translation x="0.0" y="0.0" z="12.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
-                <node id="FaceDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <rotation axis="y" angle="-90" />
-                        <translation x="0.0" y="0.0" z="-12.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
-                <node id="FaceFrente">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="12.0" y="0.0" z="0.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
-                <node id="FaceTraseira">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-12.0" y="0.0" z="0.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
-                <node id="FaceSuperior">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <rotation axis="z" angle="90" />
-                        <translation x="0.0" y="12.0" z="0.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
-                <node id="FaceInferior">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <rotation axis="z" angle="-90" />
-                        <translation x="0.0" y="12.0" z="-10.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="rectangleObject">
-                    </descendants>
-                </node>
+                <noderef id="unitCube" />
+                 
             </descendants>
         </node>
 
-        <node id="rectangleObject">
-            <material id="null" />
+        <!--LAMP-->
+        <node id="lamp">             
+             
+            <material id="null" /> 
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="null"></texture>
 
-            <descendants>
-                <leaf type="rectangle" x1="12" y1="12" x2="12" y2="12"/>
-            </descendants>
-        </node>
-
-        <node id="Prato">
-            <material id="porcelain" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
+             
             <transformations>
-                <translation x="0.0" y="6.2" z="0.0" />
+                <translation x="-6" y="0.0" z="5.8" />
+                <rotation axis="y" angle="60"/>
             </transformations>
 
             <descendants>
-                <noderef id="BaseDoPrato" />
-                <noderef id="PerimetroDoPrato">
+                <noderef id="lamp_legs" />
+                <noderef id="lamp_ball" />
+                 
             </descendants>
         </node>
+        <node id="lamp_ball">             
+             
+            <material id="null" /> 
 
-        <node id="BaseDoPrato">
-            <material id="null" />
+            <texture id="tv_table_door"></texture>
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
+             
             <transformations>
-                <rotation axis="x" angle="90" />
+                <translation x="0.95" y="5.5" z="0.2" />
+                <scale sx="0.46" sy="0.46" sz="0.46"/>
             </transformations>
 
+             
             <descendants>
-                <leaf type="cylinder" bottomRadius="3.0" topRadius="3.0" height="0.4" slices="32" stacks="12"/>
+                <leaf type="sphere" radius="1.0" slices="30" stacks="30" />                 
             </descendants>
         </node>
+        <node id="lamp_legs">             
+             
+            <material id="null" /> 
 
-        <node id="PerimetroDoPrato">
-            <material id="null" />
+            <texture id="gold"></texture>
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
+             
             <transformations>
-                <rotation axis="x" angle="90" />
-                <translation x="0.0" y="0.2" z="0.0" />
+                <translation x="0.0" y="6" z="0" />
             </transformations>
 
+             
             <descendants>
-                <leaf type="torus" innerRadius="1" outterRadius="3" slices="16" loops="48"/>
+                <noderef id="lamp_leg1" />
+                <noderef id="lamp_leg2" />
+                <noderef id="lamp_leg3" />
             </descendants>
         </node>
-        
+        <node id="lamp_leg1">             
+             
+            <material id="null" /> 
 
+            <texture id="gold"></texture>
 
-        <!-- DEFINE O CALDEIRÃO -->
-        <node id="Caldeirao">
-            <material id="lightsteel" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <!-- TO-DO LIST -->
-            </transformations>
-
-            <descendants>
-                <noderef id="ArcoDoCaldeirao">              <!-- Objeto que representará o Arco do Caldeirão (Torus) -->
-                <noderef id="PernasDoCaldeirao">            <!-- Objeto que representará as Pernas do Caldeirão -->
-                <noderef id="CilindroDoCaldeirao">          <!-- Objeto que representará o Cilindro do Caldeirão (Cylinder) -->
-            </descendants>
-        </node>
-
-        <node id="CilindroDoCaldeirao">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <translation x="20.0" y="0.0" z="0.0" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="cylinder" bottomRadius="4.0" topRadius="4.0" height="2.0" slices="24" stacks="12"/>
-            </descendants>
-        </node>
-
-        <node id="ArcoDoCaldeirao">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <translation x="20.0" y="6.0" z="0.0" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="torus" innerRadius="1.0" outterRadius="4.0" slices="12.0" loops="12.0"/>
-            </descendants>
-        </node>
-
-        <node id="PernasDoCaldeirao">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <translation x="25.0" y="0.0" z="0.0" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <node id="CaldeiraoPernaFrenteEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-5.0" y="0.0" z="5.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="CaldeiraoPernaFrenteDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                       <translation x="5.0" y="0.0" z="5.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="CaldeiraoPernaTraseiraEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-5.0" y="0.0" z="-5.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="CaldeiraoPernaTraseiraDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="5.0" y="0.0" z="-5.0" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-            </descendants>
-        </node>
-
-        <node id="Perna">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <descendants>
-                <leaf type="cylinder" bottomRadius="2.0" topRadius="2.0" height="5.0" slices="32" stacks="12"/>
-            </descendants>
-        </node>
-
-
-        <!-- DEFINE A CADEIRA -->
-        <node id="Cadeira">
-            <material id="wood" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <descendants>
-                <noderef id="PernasDaCadeira" />
-                <noderef id="Encosto">
-                <noderef id="Assento"> 
-            </descendants>
-        </node>
-
-        <node id="Assento">
-            <material id="wood" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <transformations>
-                <translation x="0.0" y="5.0" z="4.0" />
-                 <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-2.0" y1="-2.0" x2="2.0" y2="2.0"/>
-            </descendants>
-        </node>
-
-        <node id="PernasDaCadeira">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
+             
             <transformations>
                 
+                <translation x="1.5" y="-0.15" z="0.0" />
+                <rotation axis="z" angle="-10.0"/>
+                <rotation axis="x" angle="-5.0"/>
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="lamp_leg" />
+            </descendants>
+        </node>
+        <node id="lamp_leg2">             
+             
+            <material id="null" /> 
+
+            <texture id="gold"></texture>
+
+            
+            <transformations>
+                <translation x="0.7" y="0.0" z="0.78" />
+                <rotation axis="x" angle="10"/>
+                <rotation axis="z" angle="5"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="lamp_leg" />
+            </descendants>
+        </node>
+        <node id="lamp_leg3">             
+             
+            <material id="null" /> 
+
+            <texture id="gold"></texture>
+             
+            <transformations>
+                <translation x="0.4" y="-0.19" z="-0.1" />
+                <rotation axis="x" angle="-5.0"/>
+                <rotation axis="z" angle="12.0"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="lamp_leg" />
+            </descendants>
+        </node>
+        <node id="lamp_leg">             
+             
+            <material id="null" /> 
+
+            <texture id="gold"></texture>
+
+             
+            <transformations>
+                
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+             
+            <descendants>
+                <leaf type="cylinder" height="6.0" topRadius="0.07" bottomRadius="0.07" stacks="20" slices="20" />
                  
-            </transformations>
-
-            <descendants>
-                <node id="CadeiraPernaFrenteEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-2.0" y="5.0" z="2.0" />
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-
-                <node id="CadeiraPernaFrenteDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="2.0" y="5.0" z="2.0" />
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="CadeiraPernaTraseiraEsquerda">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-2.0" y="5.0" z="4.0" />
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="CadeiraPernaTraseiraDireita">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="2.0" y="5.0" z="4.0" />
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
             </descendants>
         </node>
 
-        <node id="Encosto">
-            <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+        <!--COUCH-->
+        <node id="couch">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="-3.9" y="0.0" z="-2.0" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="couch_legs" />
+                <noderef id="structures" />
+                <noderef id="bottom_pillows" />
+                <noderef id="arm_suports" />
+                <noderef id="back_suport" />
+                <noderef id="back_pillows" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_legs">             
+            <!--
+                4..........5
+                ............
+                .....3.....6
+                ......
+                ......
+                2....1
+            -->
+             
+            <material id="woodMaterial" /> 
+
+            <texture id="wood_table_tv"></texture>
+
+             
+            <transformations>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg1" />
+                <noderef id="couch_leg2" />
+                <noderef id="couch_leg3" />
+                <noderef id="couch_leg4" />
+                <noderef id="couch_leg5" />
+                <noderef id="couch_leg6" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg1">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="0.2" y="0.0" z="5.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg2">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="-2.2" y="0.0" z="5.0" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg3">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="0.2" y="0.0" z="-0.5" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg4">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="-2.2" y="0.0" z="-2.6" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg5">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="2.8" y="0.0" z="-2.6" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg6">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="2.8" y="0.0" z="-0.5" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="couch_leg" />
+                 
+            </descendants>
+        </node>
+        <node id="couch_leg">             
+             
+            <material id="null" /> 
+
+            <texture id="null"></texture>
+
+             
+            <transformations>
+                <translation x="0.0" y="0.8" z="0.0" />
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+             
+            <descendants>
+                <leaf type="cylinder" height="0.8" topRadius="0.07" bottomRadius="0.15" stacks="10" slices="10" />
+            </descendants>
+        </node>
+        <node id="structures">             
+             
+            <material id="null" /> 
+
+            <texture id="couch_base"></texture>
+
+             
+            <transformations>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="structure_2" />
+                <noderef id="structure_chaise_longue" />
+                 
+            </descendants>
+        </node>
+        <node id="structure_2">             
+             
+            <material id="null" /> 
+
+            <texture id="couch_base"></texture>
+
+             
+            <transformations>
+                <translation x="-0.96" y="0.8" z="2.75" />
+                <scale sx="3.0" sy="0.08" sz="5.5"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        <node id="structure_chaise_longue">             
+             
+            <material id="null" /> 
+
+            <texture id="couch_base"></texture>
+
+             
+            <transformations>
+                <translation x="0.325" y="0.8" z="-1.5" />
+                <scale sx="5.56" sy="0.08" sz="3.0"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+
+        <node id="bottom_pillows">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="0.0" y="1.025" z="0.0" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="bottom_pillow_left" />
+                <noderef id="bottom_pillow_middle" />
+                <noderef id="chaise_longue" />
+                 
+            </descendants>
+        </node>
+        <node id="bottom_pillow_left">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-0.95" y="0.0" z="3.75" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="bottom_pillow" />
+                 
+            </descendants>
+        </node>
+        <node id="bottom_pillow_middle">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-0.95" y="0.0" z="1.2" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="bottom_pillow" />
+                 
+            </descendants>
+        </node>
+        <node id="bottom_pillow">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <scale sx="2.75" sy="0.425" sz="2.5"/>
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        <node id="chaise_longue">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="0.48" y="0.0" z="-1.3" />
+                <scale sx="5" sy="0.425" sz="2.4"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        
+        <node id="arm_suports">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="arm_suport_left" />
+                <noderef id="arm_suport_right" />
+                 
+            </descendants>
+        </node>
+        <node id="arm_suport_left">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-1.0" y="1.4" z="5.22" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="arm_suport" />
+                 
+            </descendants>
+        </node>
+        <node id="arm_suport_right">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-1.0" y="1.4" z="-2.72" />
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="arm_suport" />
+                 
+            </descendants>
+        </node>
+        <node id="arm_suport">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <scale sx="2.85" sy="1.2" sz="0.4"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        
+        <node id="back_suport">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-2.25" y="1.85" z="1.25" />
+                <scale sx="0.35" sy="1.8" sz="7.45"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        <node id="back_pillows">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="back_pillow_right" />
+                <noderef id="back_pillow_middle" />
+                <noderef id="back_pillow_left" />
+                 
+            </descendants>
+        </node>
+        <node id="back_pillow_right">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-1.89" y="2.07" z="-1.3" />
+                <scale sx="1" sy="1" sz="0.96"/>
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="back_pillow" />
+                 
+            </descendants>
+        </node>
+        <node id="back_pillow_middle">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-1.89" y="2.07" z="1.2" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="back_pillow" />
+                 
+            </descendants>
+        </node>
+        <node id="back_pillow_left">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <translation x="-1.89" y="2.07" z="3.75" />
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="back_pillow" />
+                 
+            </descendants>
+        </node>
+        <node id="back_pillow">             
+             
+            <material id="null" /> 
+
+            <texture id="couch"></texture>
+
+             
+            <transformations>
+                <rotation axis="z" angle="7"/>
+                <scale sx="0.35" sy="2.5" sz="2.5"/>
+            </transformations>
+
+             
+            <descendants>-
+                <noderef id="unitCube" />
+                 
+            </descendants>
+        </node>
+        
+        <!--TOP_LAMP-->
+        <node id="top_lamp">             
+             
+            <material id="null" /> 
+
+            <texture id="top_lamp"></texture>
+
+             
+            <transformations>
+            <translation x="0" y="7.5" z="0.0"/>
+            <scale sx="1.5" sy="1.5" sz="1.5"/>
+            </transformations>
+
+             
+            <descendants>
+                <noderef id="tl_front" />
+                <noderef id="tl_back" />
+                <noderef id="tl_left" />
+                <noderef id="tl_right" />
+                <noderef id="tl_cable" />
+                 
+            </descendants>
+        </node>
+        <node id="tl_front">             
+             
+            <material id="null" /> 
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+             
+            <transformations>   
+            </transformations>
+
+            <descendants>
+                <leaf type = "triangle" x1="0.5" y1="1" z1="0" x2="-0.5" y2="1" z2 ="0" x3="0" y3="0" z3="0.5"/>
+            </descendants>
+        </node>
+        <node id="tl_back">             
+             
+            <material id="null" /> 
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+             
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type = "triangle" x1="-0.5" y1="1" z1="0" x2="0.5" y2="1" z2 ="0" x3="0" y3="0" z3="-0.5"/>
+            </descendants>
+        </node>
+        <node id="tl_left">             
+             
+            <material id="null" /> 
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+             
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type = "triangle" x1="0" y1="0" z1="0.5" x2="0" y2="0" z2 ="-0.5" x3="0.5" y3="1" z3="0"/>
+            </descendants>
+        </node>
+        <node id="tl_right">             
+             
+            <material id="null" /> 
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+             
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type = "triangle" x1="0" y1="0" z1="0.5" x2="0" y2="0" z2 = "-0.5" x3="-0.5" y3="1" z3="0"/>
+            </descendants>
+        </node>
+        <node id="tl_cable">             
+             
+            <material id="null" /> 
+
+            <texture id="tv"></texture>
+
+             
+            <transformations>
+                <translation x="0" y="1.55" z="0.0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+             
+            <descendants>
+                <leaf type="cylinder" height="1.0" topRadius="0.01" bottomRadius="0.01" stacks="20" slices="20" />
+                 
+            </descendants>
+        </node>
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--UNIT_CUBE-->
+        <node id="unitCube">
+            <material id="null"/>
+
+            <texture id="null"></texture>
 
             <transformations>
-                <!-- TO-DO LIST -->
             </transformations>
 
             <descendants>
-                <node id="EncostoBracoEsquerdo">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-2.0" y="5.0" z="4.0"/>
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="EncostoBracoDireito">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="2.0" y="5.0" z="4.0" />
-                        <rotation axis="x" angle="-90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="EncostoConexaoHorizontalSuperior">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-2.0" y="10.0" z="4.0" />
-                        <rotation axis="y" angle="90" />
-
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
-                <node id="EncostoConexaoHorizontalInferior">
-                    <material id="null" />
-
-                    <texture id="clear">
-                        <amplification afs="2.0" aft="2.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="-2.0" y="7.0" z="4.0" />
-                        <rotation axis="y" angle="90" />
-                    </transformations>
-
-                    <descendants>
-                        <noderef id="Perna">
-                    </descendants>
-                </node>
+                <noderef id="front"/>
+                <noderef id="back"/>
+                <noderef id="left"/>
+                <noderef id="right"/>
+                <noderef id="bottom"/>
+                <noderef id="top"/>
             </descendants>
         </node>
 
-        <node id="Light">
-            <material id="null" />
+        <node id="front">
+            <material id="null"/>
 
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
-
-            <descendants>
-                <noderef id="Base" />
-                <noderef id="Bulb"> 
-            </descendants>
-        </node>
-
-        <node id="Bulb">
-            <material id="bright" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
 
             <transformations>
-                 <translation x="0.0" y="13.0" z="0.0" />
+                <translation x="0" y="0" z="0.5"/>
             </transformations>
 
             <descendants>
-                <leaf type="sphere" radius="2.0" slices="10" stacks="10"/>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
             </descendants>
         </node>
+        
+        <node id="back">
+            <material id="null"/>
 
-        <node id="Base">
-            <material id="wood" />
-
-            <texture id="clear">
-                <amplification afs="2.0" aft="2.0" />
-            </texture>
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
 
             <transformations>
-                 <translation x="0.0" y="12.0" z="0.0" />
-                 <rotation axis="x" angle="-90" />
+                <translation x="0" y="0" z="-0.5"/>
+                <rotation axis="y" angle="180"/>
             </transformations>
 
             <descendants>
-                 <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
             </descendants>
         </node>
 
+        <node id="left">
+            <material id="null"/>
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+            <transformations>
+                <translation x="-0.5" y="0" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="right">
+            <material id="null"/>
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+            <transformations>
+                <translation x="0.5" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="bottom">
+            <material id="null"/>
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+            <transformations>
+                <translation x="0" y="-0.5" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+            </descendants>
+        </node>
+
+        <node id="top">
+            <material id="null"/>
+
+            <texture id="null"><amplification afs="1.0" aft="1.0" /></texture>
+
+            <transformations>
+                <translation x="0" y="0.5" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+            </descendants>
+        </node>
     </nodes>
 </lsf>

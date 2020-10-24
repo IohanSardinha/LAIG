@@ -31,6 +31,9 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
 
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
+
+        this.gui.add(this.scene.graph, 'activateMaterials').name('Materials Active');
+        this.gui.add(this.scene.graph, 'activateTextures').name('Textures Active');
         
         this.gui.add(this.scene, 'selectedView', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.changeCamera.bind(this.scene));
         
