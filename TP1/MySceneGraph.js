@@ -643,6 +643,7 @@ class MySceneGraph {
                 continue;
             }
  
+            let nodeChildren = [];
             let nodeID = nodeIDs[i];
             if (nodeID == null)
                 return "no ID defined for nodeID";
@@ -684,15 +685,15 @@ class MySceneGraph {
                     else if (grandgrandChildren[k].nodeName == "rotation") {
                         var axis = this.reader.getString(grandgrandChildren[k], 'axis');
                         var angle = this.reader.getFloat(grandgrandChildren[k], 'angle') * DEGREE_TO_RAD;
-                        if (axis == "xx")
+                        if (axis == "xx" || axis == "x")
                         {
                             mat4.rotateX(transformArray, transformArray, angle );
                         }
-                        else if (axis == "yy")
+                        else if (axis == "yy" || axis == "y")
                          {
                             mat4.rotateY(transformArray, transformArray, angle );
                          }
-                        else if (axis == "zz")
+                        else if (axis == "zz" || axis == "z")
                         {
                             mat4.rotateZ(transformArray, transformArray, angle );
                         }
@@ -791,6 +792,7 @@ class MySceneGraph {
                         }
                         else {
                             this.father[refId] = nodeID;
+                            nodeChildren.push(refId);
                         }
                         
                     }
@@ -854,7 +856,7 @@ class MySceneGraph {
                     }
                 }
             }
-            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray);
+            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren);
         }
     }
 
@@ -953,71 +955,56 @@ class MySceneGraph {
         return color;
     }
 
+    displayNode(currNode)
+    {
+        this.scene.pushMatrix();
+        this.scene.multMatrix(currNode.transformations);
+        if (currNode.material != "null"  )
+        {
+            this.materials[currNode.material].setTexture(null);
+                if(currNode.texture != "null")
+                {
+                    if (currNode.texture == "clear"){
+                        this.materials[currNode.material].setTexture(null);
+                    }
+                    else
+                    {
+                        this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
+                    }
+                }
+            this.materials[currNode.material].apply();
+        }
+        for(let i = 0; i < this.nodes[currNode.id].length; i++)
+        {
+            this.nodes[currNode.id][i].display();
+        }
+
+        for(let i = 0; i < currNode.children.length; i++)
+        {
+            if (currNode.material != "null"  )
+            {
+                this.materials[currNode.material].setTexture(null);
+                    if(currNode.texture != "null")
+                    {
+                        if (currNode.texture == "clear"){
+                            this.materials[currNode.material].setTexture(null);
+                        }
+                        else
+                        {
+                            this.materials[currNode.material].setTexture(this.textures[currNode.texture]);
+                        }
+                    }
+                this.materials[currNode.material].apply();
+            }
+            this.displayNode(this.nodeInfo[currNode.children[i]]);
+        }
+        this.scene.popMatrix();
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
-
-        for(let nodeID in this.nodes)
-        {
-
-            this.scene.pushMatrix();
-            let currNode = nodeID;
-            let node = this.father[currNode];
-            let familyTree = [];
-            let materialID;
-            let textureID;
-            while (node != null) {
-                
-                familyTree.push(node);
-                currNode = node;
-                node = this.father[currNode];
-            }
-
-            for(let i = familyTree.length -1; i >= 0; i--)
-            {
-                this.scene.multMatrix(this.nodeInfo[familyTree[i]].transformations);
-            }
-            this.scene.multMatrix(this.nodeInfo[nodeID].transformations);
-
-            materialID = this.nodeInfo[nodeID].getMaterialID();
-            textureID = this.nodeInfo[nodeID].texture;
-            if (materialID != "null"  )
-            {
-                this.materials[materialID].setTexture(null);
-                if(textureID != "null")
-                {
-                    if (textureID == "clear"){
-                        this.materials[materialID].setTexture(null);
-                    }
-                    else
-                    {
-                        this.materials[materialID].setTexture(this.textures[textureID]);
-                    }
-                }
-                this.materials[materialID].apply();  
-
-            }
-            else
-            {
-                for(let i = 0; i < familyTree.length; i++)
-                {
-                    materialID = this.nodeInfo[familyTree[i]].getMaterialID();
-                    if (materialID != "null")
-                    {
-                        this.materials[materialID].apply();
-                        break;
-                    }
-                }
-            }
-
-            for(let i = 0; i < this.nodes[nodeID].length; i++)
-            {
-                this.nodes[nodeID][i].display();
-            }
-            this.scene.popMatrix();
-            this.materials[this.defaultMaterialID].apply();
-        }
+        this.displayNode(this.nodeInfo[this.idRoot]);
     }
 }
