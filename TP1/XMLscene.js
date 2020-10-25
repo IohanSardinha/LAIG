@@ -39,9 +39,9 @@ class XMLscene extends CGFscene {
         this.defaultAppearance=new CGFappearance(this);
 
         this.scaleFactor = 1;
-        this.displayAxis = true;
-        this.selectedView = "d";
-        this.lightON = true;
+        this.displayAxis = false;
+        this.displayLights = false;
+        this.selectedView = null;
 
     }
 
@@ -57,12 +57,11 @@ class XMLscene extends CGFscene {
     initLights() {
         var i = 0;
         // Lights index.
-
+        this.lightIDs = []
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
-
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
 
@@ -72,13 +71,19 @@ class XMLscene extends CGFscene {
                 this.lights[i].setSpecular(...graphLight[4]);
 
                 this.lights[i].setVisible(true);
+
+                this.lightIDs[i] = { key : key , enabled: graphLight[0] };
+
                 if (graphLight[0])
+                {
                     this.lights[i].enable();
+                }
                 else
+                {
                     this.lights[i].disable();
 
+                }                   
                 this.lights[i].update();
-
                 i++;
             }
         }
@@ -90,6 +95,7 @@ class XMLscene extends CGFscene {
     onGraphLoaded() {
 
         this.camera = this.graph.camera;
+
         this.interface.setActiveCamera(this.camera);
 
         this.axis = new CGFaxis(this, this.graph.referenceLength);
@@ -100,7 +106,6 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-       
         this.selectedView = this.graph.defaultViewId;
 
         this.changeCamera();
@@ -119,7 +124,19 @@ class XMLscene extends CGFscene {
     }
 
     updateLights(){
-        console.log(this.lights);
+        //Iterates through lightsIDs containing the light state booleans and sets them accordingly.
+        for (var key in this.lightIDs) 
+        {
+            if(this.lightIDs[key].enabled)
+            {
+                this.lights[key].enable();
+            }
+            else 
+            {
+                this.lights[key].disable();
+            }
+            this.lights[key].update();            
+        }
     }
 
     /**
@@ -143,7 +160,7 @@ class XMLscene extends CGFscene {
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
         for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
+            this.lights[i].setVisible(this.displayLights);
             this.lights[i].enable();
         }
 
@@ -151,25 +168,10 @@ class XMLscene extends CGFscene {
             // Draw axis
             if(this.displayAxis)
                 this.axis.display();
+                
+            // Updates the state of the lights.
+            this.updateLights();
 
-            if (this.lightON) {
-                for (var i = 0; i < this.lights.length; i++) {
-                    // this.lights[i].disable();
-                    // this.lights[i].update();
-                }  
-                this.lights[0].setVisible(false);
-                this.lights[0].enable();
-                this.lights[0].update();
-            }
-            else
-            {
-                this.lights[0].setVisible(false);
-                this.lights[0].disable();
-                this.lights[0].update();
-                for (var i = 0; i < this.lights.length; i++) {
-                    
-                } 
-            }
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).

@@ -9,14 +9,14 @@
     <views default="defaultCamera">
         <!-- at least one of the following type of cameras must be declared -->
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="50" y="20" z="50" />
+            <from x="35" y="35" z="35" />
             <to x="0" y="0" z="0" />
-        </perspective> 
-
-        <perspective id="d" near="0.1" far="500" angle="45">
-            <from x="50" y="0" z="50" />
-            <to x="0" y="0" z="0" />
-        </perspective>
+        </perspective>   
+        <perspective id="InsideView" near="10" far="500" angle="45">
+            <from x="10" y="9" z="2" />
+            <to x="0" y="9" z="2" />
+        </perspective>  
+              
     </views>
 
     <illumination>
@@ -35,6 +35,8 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
+      
+       
     </lights>
 
 
@@ -51,6 +53,7 @@
         <texture id="wallTexture" path="./scenes/images/wall.jpg" />
         <texture id="floorTexture" path="./scenes/images/floor.jpg" />
         <texture id="plasticTexture" path="./scenes/images/plastic.jpg" />
+        <texture id="lofi" path="./scenes/images/lofi.jpg" />
     </textures>
 
 
@@ -60,6 +63,13 @@
         <material id="whiteMaterial">
             <shininess value="0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+        <material id="lightGreyMaterial">
+            <shininess value="0" />
+            <ambient r="0.9" g="0.9" b="0.9" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="0" />
             <specular r="0.0" g="0.0" b="0.0" a="0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0" />
@@ -166,6 +176,7 @@
             <descendants>
                 <noderef id="walls" />             <!--DONE-->
                 <noderef id="floor" />             <!--DONE-->
+                <noderef id="ceiling" />             <!--DONE-->
                 <noderef id="bed" />               <!--DONE-->
                 <noderef id="table" />             <!--DONE-->
                 <noderef id="chair" />             <!--DONE-->
@@ -187,7 +198,9 @@
                 <descendants>
                     <noderef id="backwall" />
                     <noderef id="backwallExtrudes" />
-                    <noderef id="sidewall" />
+                    <noderef id="leftwall" />
+                    <noderef id="rightwall" />
+                    <noderef id="frontwall" />
                 </descendants>
             </node>       
 
@@ -317,8 +330,8 @@
                         </descendants>
                     </node>
 
-                <node id="sidewall">            
-                    <material id="whiteMaterial" />
+                <node id="leftwall">            
+                    <material id="lightGreyMaterial" />
 
                     <texture id="wallTexture">
                         <amplification afs="1.0" aft="1.0" />
@@ -334,8 +347,43 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
+                 <node id="rightwall">            
+                    <material id="lightGreyMaterial" />
 
-        <node id="floor">            
+                    <texture id="wallTexture">
+                        <amplification afs="1.0" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="2" y="0.75" z="0" />
+                        <rotation axis="y" angle=  "-90" />   
+                        <scale sx="2.5" sy="1.5" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                <node id="frontwall">            
+                    <material id="lightGreyMaterial" />
+
+                    <texture id="wallTexture">
+                        <amplification afs="0.5" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.75" z="1.25" />
+                        <rotation axis="y" angle=  "180" />   
+                        <scale sx="4" sy="1.5" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+               
+
+            <node id="floor">            
                 <material id="tableMaterial" />
 
                 <texture id="floorTexture">
@@ -344,6 +392,23 @@
 
                 <transformations>
                     <rotation axis="x" angle=  "-90" />
+                    <scale sx="4" sy="2.5" sz="1" />
+                </transformations>
+
+                <descendants>
+                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
+            <node id="ceiling">            
+                <material id="whiteMaterial" />
+
+                <texture id="wallTexture">
+                    <amplification afs="5.0" aft="5.0" />
+                </texture>
+
+                <transformations>
+                    <translation x="0" y="1.5" z="0" />
+                    <rotation axis="x" angle=  "90" />
                     <scale sx="4" sy="2.5" sz="1" />
                 </transformations>
 
@@ -612,6 +677,7 @@
                         <noderef id="keyboardCap1" />
                         <noderef id="keyboardCap2" />
                         <noderef id="monitor" />
+                        <noderef id="monitorScreen" />
                         <noderef id="monitorCap1" />
                         <noderef id="monitorCap2" />
                     </descendants>
@@ -685,6 +751,25 @@
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                         </descendants>
                     </node>
+                    <node id="monitorScreen">            
+                        <material id="whiteMaterial" />
+
+                        <texture id="lofi">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.935" y="0.61" z="0.825" />
+                            <scale sx="0.5" sy="0.135" sz="0.235" />
+                            <rotation axis="y" angle=  "90" />
+                            <rotation axis="x" angle=  "-10" />
+
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                        </descendants>
+                    </node>
                     <node id="monitorCap1">            
                         <material id="null" />
 
@@ -728,6 +813,11 @@
                     </texture>
 
                     <transformations>
+                    <translation x="-1.35" y="0.25" z="0.2" />
+                    <rotation axis="y" angle="30"/>
+
+                    <scale sx="0.5" sy="0.5" sz="0.5" />
+
                     </transformations>
 
                     <descendants>
