@@ -26,8 +26,6 @@ class MySceneGraph {
         this.scene = scene;
         scene.graph = this;
 
-        this.cameraIDs = [];
-
         this.idRoot = null;                    // The id of the root element.
 
         this.activateMaterials = true;
@@ -40,6 +38,8 @@ class MySceneGraph {
 
         this.currMatId = [];
         this.currMat = 0;
+        this.lights = [];
+
         // File reading 
         this.reader = new CGFXMLreader();
 
@@ -281,7 +281,6 @@ class MySceneGraph {
                 var angle;
                 angle = this.reader.getFloat(camera, 'angle');
 
-                this.cameraIDs[i] = id;
                 this.cameras[i] = new CGFcamera(DEGREE_TO_RAD * angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
                 this.viewMap.set(id, this.cameras[i]);
             }
@@ -305,12 +304,11 @@ class MySceneGraph {
                     let upZ = this.reader.getFloat(up,'z');
                     upVec = vec3.fromValues(upX,upY,upZ);
                 }
-                this.cameraIDs[i] = id;
+                
                 this.cameras[i] = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), upVec);
                 this.viewMap.set(id, this.cameras[i]);
             }
-        }
-
+        }   
         this.camera = this.viewMap.get(this.defaultViewId);
         if(this.camera == null)
             return "default camera not defined";
@@ -363,7 +361,6 @@ class MySceneGraph {
     parseLights(lightsNode) {
         var children = lightsNode.children;
 
-        this.lights = [];
         var numLights = 0;
 
         var grandChildren = [];
@@ -406,7 +403,7 @@ class MySceneGraph {
 
             for (var j = 0; j < attributeNames.length; j++) {
                 var attributeIndex = nodeNames.indexOf(attributeNames[j]);
-
+                
                 if (attributeIndex != -1) {
                     if (attributeTypes[j] == "boolean")
                         var aux = this.parseBoolean(grandChildren[attributeIndex], "value", "enabled attribute for light of ID" + lightId);
@@ -783,7 +780,7 @@ class MySceneGraph {
                     if (grandgrandChildren[k].nodeName == "noderef") {
                         var refId = this.reader.getString(grandgrandChildren[k], 'id');
                         if (children[refId] == null) {
-                            this.onXMLMinorError("component '" + refId + "' not defined");
+                            this.onXMLMinorError("node '" + refId + "' not defined");
                             continue;
                         }
                         else {
@@ -857,14 +854,25 @@ class MySceneGraph {
     }
 
 
-    parseBoolean(node, name, messageError){
-        var boolVal = true;
-        boolVal = this.reader.getBoolean(node, name);
-        if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false)))
-            this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
+    parseBoolean(node, name, messageError) {
+        var boolVal = this.reader.getBoolean(node, name);
+        if (
+            !(
+                boolVal != null &&
+                !isNaN(boolVal) &&
+                (boolVal == true || boolVal == false)
+            )
+        ) {
+            this.onXMLMinorError(
+                "unable to parse value component " +
+                messageError +
+                "; assuming 'value = 1'"
+            );
+            return true;
 
-        return boolVal || 1;
-    }
+            }
+            return boolVal;
+        }
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node

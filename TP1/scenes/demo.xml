@@ -15,7 +15,7 @@
 
         <perspective id="Layed on bed" near="0.1" far="500" angle="45">
             <from x="15" y="5" z="9" />
-            <to x="14" y="5" z="8" />
+            <to x="14" y="5" z="8.3" />
         </perspective>
 
         <perspective id="Middle of the room" near="0.1" far="500" angle="45">
@@ -46,21 +46,40 @@
     </views>
 
     <illumination>
-        <ambient r="0.2" g="0.15" b="0.05" a="1.0" />           <!-- global ambient -->
+        <ambient r="0.2" g="0.15" b="0.05" a="0.5" />           <!-- global ambient -->
         <background r="1" g="0.75" b="0" a="1.0" />        <!-- background color -->
     </illumination>
 
 
     <lights>
         <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
-        <light id="mainLight">            <!-- light identifier -->
+        <light id="Ceiling light">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="0" y="1.5" z="2" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
-            <ambient r="1.0" g="1" b="1" a="1.0" />                   <!-- ambient component -->
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+            <position x="0" y="15" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.7" g="0.7" b="0.7" a="0.5" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.5" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="0.5" />            <!-- specular component -->
         </light>
+      
+        <light id="Table lamp">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="-17.5" y="7" z="11" w="1"/><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
+        </light>
+
+        <light id="Window">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="0" y="10" z="-12" w="1"/><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.4" g="0.35" b="0.25" a="0" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
+        </light>
+       
     </lights>
 
 
@@ -74,9 +93,12 @@
         <texture id="booksTexture" path="./scenes/images/books.jpg" />
         <texture id="leavesTexture" path="./scenes/images/leaves.jpg" />
         <texture id="metalTexture" path="./scenes/images/Metal.jpg" />
-        <texture id="wallTexture" path="./scenes/images/wall.jpg" />
+        <texture id="noiseTexture" path="./scenes/images/wall.jpg" />
         <texture id="floorTexture" path="./scenes/images/floor.jpg" />
         <texture id="plasticTexture" path="./scenes/images/plastic.jpg" />
+        <texture id="lofi" path="./scenes/images/lofi.jpg" />
+        <texture id="bookCover" path="./scenes/images/bookCover.jpg" />
+        <texture id="keyboardTexture" path="./scenes/images/keyboard.jpg" />
     </textures>
 
 
@@ -86,6 +108,13 @@
         <material id="whiteMaterial">
             <shininess value="0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+        <material id="lightGreyMaterial">
+            <shininess value="0" />
+            <ambient r="0.9" g="0.9" b="0.9" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="0" />
             <specular r="0.0" g="0.0" b="0.0" a="0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0" />
@@ -139,7 +168,7 @@
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
 
-        <material id="tableMaterial">
+        <material id="lightBrownMaterial">
             <shininess value="0" />
             <ambient r="0.56" g="0.44" b="0.22" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -191,7 +220,7 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <noderef id="walls" />             <!--DONE-->
-                <noderef id="roof"/>
+                <noderef id="ceiling"/>
                 <noderef id="floor" />             <!--DONE-->
                 <noderef id="bed" />               <!--DONE-->
                 <noderef id="table" />             <!--DONE-->
@@ -204,9 +233,9 @@
             </descendants>
         </node>
             <node id="walls">
-                <material id="null" />
+                <material id="greenWall" />
 
-                <texture id="wallTexture">
+                <texture id="noiseTexture">
                 </texture>
                  <transformations>
                 </transformations>
@@ -240,8 +269,7 @@
 
                 <node id="frontwall">            
                     <material id="greenWall" />
-
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="0.2" aft="1.0" />
                     </texture>
 
@@ -277,7 +305,7 @@
                 <node id="backwallExtrudes">            
                     <material id="greenWall" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -364,7 +392,7 @@
                         </descendants>
                     </node>
                     <node id="backwallExtrudeMiddle">            
-                        <material id="tableMaterial" />
+                        <material id="lightBrownMaterial" />
 
                         <texture id="woodTexture">
                             <amplification afs="1.0" aft="1.0" />
@@ -384,9 +412,9 @@
                     </node>
 
                 <node id="leftwall">            
-                    <material id="whiteMaterial" />
+                    <material id="lightGreyMaterial" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -400,7 +428,41 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
+                 <node id="rightwall">            
+                    <material id="lightGreyMaterial" />
 
+                    <texture id="noiseTexture">
+                        <amplification afs="1.0" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="2" y="0.75" z="0" />
+                        <rotation axis="y" angle=  "-90" />   
+                        <scale sx="2.5" sy="1.5" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                <node id="frontwall">            
+                    <material id="greenWall" />
+
+                    <texture id="noiseTexture">
+                        <amplification afs="0.5" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.75" z="1.25" />
+                        <rotation axis="y" angle=  "180" />   
+                        <scale sx="4" sy="1.5" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+               
                 <node id="rightwall">            
                     <material id="greenWall" />
 
@@ -420,7 +482,7 @@
                 </node>
 
             <node id="floor">            
-                <material id="tableMaterial" />
+                <material id="lightBrownMaterial" />
 
                 <texture id="floorTexture">
                     <amplification afs="1.0" aft="1.0" />
@@ -436,10 +498,10 @@
                 </descendants>
             </node>
 
-            <node id="roof">            
+            <node id="ceiling">            
                 <material id="whiteMaterial" />
 
-                <texture id="wallTexture">
+                <texture id="noiseTexture">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
@@ -477,7 +539,7 @@
                 <node id="bedBed">            
                     <material id="redMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -494,7 +556,7 @@
                 <node id="bedBedCap1">            
                     <material id="redMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -510,7 +572,7 @@
                 <node id="bedBedCap2">            
                     <material id="redMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -544,7 +606,7 @@
                 <node id="pillowCap1">            
                     <material id="whiteMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -560,7 +622,7 @@
                 <node id="pillowCap2">            
                     <material id="whiteMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -599,7 +661,7 @@
                 <node id="tableBase">            
                     <material id="null" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -616,7 +678,7 @@
                 <node id="tableBaseCap1">            
                     <material id="null" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -632,7 +694,7 @@
                 <node id="tableBaseCap2">            
                     <material id="null" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -647,9 +709,9 @@
                     </descendants>
                 </node>
                 <node id="tableDrawer">            
-                    <material id="null" />
+                    <material id="lightBrownMaterial" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -665,7 +727,7 @@
                     </descendants>
                 </node>
                 <node id="tableDrawerDisplay">            
-                    <material id="tableMaterial" />
+                    <material id="whiteMaterial" />
 
                     <texture id="drawerTexture">
                         <amplification afs="1.0" aft="1.0" />
@@ -682,9 +744,9 @@
                     </descendants>
                 </node>
                 <node id="tableLeg">            
-                    <material id="null" />
+                    <material id="lightBrownMaterial" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -711,6 +773,7 @@
 
                     <descendants>
                         <noderef id="keyboard" />
+                        <noderef id="keyboardkeyboard" />
                         <noderef id="keyboardCap1" />
                         <noderef id="keyboardCap2" />
                         <noderef id="monitor" />
@@ -734,6 +797,24 @@
 
                         <descendants>
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                        </descendants>
+                    </node>
+                    <node id="keyboardkeyboard">            
+                        <material id="whiteMaterial" />
+
+                        <texture id="keyboardTexture">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                             <translation x="-1.825" y="0.535" z="0.825" />                                                       
+                            <rotation axis="y" angle="90"/>
+                            <rotation axis="x" angle="-90"/>
+                            <scale sx="0.25" sy="0.16" sz="1" />
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
                         </descendants>
                     </node>
                     <node id="keyboardCap1">            
@@ -792,7 +873,7 @@
                     <node id="screen">            
                         <material id="whiteMaterial" />
 
-                        <texture id="computerTexture">
+                        <texture id="lofi">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -851,6 +932,11 @@
                     </texture>
 
                     <transformations>
+                    <translation x="-1.35" y="0.25" z="0.2" />
+                    <rotation axis="y" angle="30"/>
+
+                    <scale sx="0.5" sy="0.5" sz="0.5" />
+
                     </transformations>
 
                     <descendants>
@@ -1089,10 +1175,10 @@
                     </descendants>
                 </node>
             <node id="dresser">            
-                <material id="tableMaterial" />
+                <material id="lightBrownMaterial" />
 
-                <texture id="null">
-                    <amplification afs="1.0" aft="1.0" />
+                <texture id="noiseTexture">
+                    <amplification afs="2.0" aft="2.0" />
                 </texture>
 
                 <transformations>
@@ -1110,6 +1196,7 @@
             <node id="dresserDisplay">            
                 <material id="whiteMaterial" />
 
+
                 <texture id="dresserTexture">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
@@ -1126,9 +1213,9 @@
             </node>
 
             <node id="dresserCap">            
-                <material id="tableMaterial" />
+                <material id="lightBrownMaterial" />
 
-                <texture id="null">
+                <texture id="noiseTexture">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
@@ -1162,6 +1249,7 @@
                     <noderef id="shelfLegLeft" />
                     <noderef id="shelfLegLeftCap" />
                     <noderef id="books"/>
+                    <noderef id="booksFront"/>
                     <noderef id="booksCap1"/>
                     <noderef id="booksCap2"/>
                 </descendants>
@@ -1287,10 +1375,10 @@
                     </descendants>
                 </node>
                 <node id="books">            
-                    <material id="whiteMaterial" />
+                    <material id="lightBrownMaterial" />
 
-                    <texture id="booksTexture">
-                        <amplification afs="1.0" aft="1.0" />
+                    <texture id="noiseTexture">
+                        <amplification afs="2.0" aft="2.0" />
                     </texture>
 
                     <transformations>
@@ -1303,15 +1391,16 @@
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
                 </node>
+                 
                 <node id="booksCap1">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
-                    <texture id="booksTexture">
+                    <texture id="bookCover">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
-                        <translation x="-1.925" y="1.29" z="0.5" />
+                        <translation x="-1.923" y="1.29" z="0.5" />
                         <scale sx="0.14" sy="0.15" sz="0.3" />
                         <rotation axis="y" angle="180"/>
                     </transformations>
@@ -1321,14 +1410,14 @@
                     </descendants>
                 </node>
                 <node id="booksCap2">            
-                    <material id="null" />
+                    <material id="whiteMaterial" />
 
-                    <texture id="booksTexture">
+                    <texture id="bookCover">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
-                        <translation x="-1.925" y="1.29" z="0.8" />
+                        <translation x="-1.923" y="1.29" z="0.8" />
                         <scale sx="0.14" sy="0.15" sz="0.3" />
                     </transformations>
 
@@ -1336,7 +1425,23 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
+                <node id="booksFront">            
+                    <material id="whiteMaterial" />
 
+                    <texture id="booksTexture">
+                        <amplification afs="1.0" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.85" y="1.29" z="0.65" />
+                        <scale sx="0.14" sy="0.15" sz="0.3" />
+                        <rotation axis="y" angle="90"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
             <node id="plants">            
                 <material id="null" />
 
@@ -1453,7 +1558,7 @@
                 <node id="plantsVases">            
                     <material id="vaseMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -1501,7 +1606,7 @@
                 <node id="plantsVasesCaps">            
                     <material id="woodMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
