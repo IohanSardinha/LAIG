@@ -43,7 +43,7 @@ class MySphere extends CGFobject {
                 var x = Math.cos(theta) * sinPhi;
                 var y = cosPhi;
                 var z = Math.sin(-theta) * sinPhi;
-                this.vertices.push(x, y, z);
+                this.vertices.push(x, z, y);
 
                 //--- Indices
                 if (latitude < this.latDivs && longitude < this.longDivs) {
@@ -53,8 +53,8 @@ class MySphere extends CGFobject {
                     // and the ones directly south (next, next+1)
                     // (i.e. one full round of slices ahead)
 
-                    this.indices.push(current + 1, current, next);
-                    this.indices.push(current + 1, next, next + 1);
+                    this.indices.push(next, current,current + 1);
+                    this.indices.push(next + 1, next,current + 1 );
                 }
 
                 //--- Normals

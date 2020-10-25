@@ -623,6 +623,7 @@ class MySceneGraph {
         this.nodeInfo = [];
        
 
+        var nodes = [];
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
@@ -641,11 +642,19 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
- 
+
             let nodeChildren = [];
             let nodeID = nodeIDs[i];
             if (nodeID == null)
                 return "no ID defined for nodeID";
+
+            if(nodes[nodeID] != null)
+            {
+                this.onXMLMinorError("Repeated definition <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            nodes[nodeID] = nodeID;
 
             grandChildren = children[i].children;
 

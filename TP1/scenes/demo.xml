@@ -186,7 +186,6 @@
 
         <material id="greenWall">
             <shininess value="0" />
-            <ambient r="0.17" g="0.36" b="0.28" a="1.0" />
             <ambient r="0.47" g="0.59" b="0.25" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -236,9 +235,9 @@
                 <material id="greenWall" />
 
                 <texture id="noiseTexture">
+                    <amplification afs="1.0" aft="1.0" />
                 </texture>
-                 <transformations>
-                </transformations>
+                 <transformations></transformations>
 
                 <descendants>
                     <noderef id="backwall" />
@@ -429,42 +428,7 @@
                     </descendants>
                 </node>
                  <node id="rightwall">            
-                    <material id="lightGreyMaterial" />
-
-                    <texture id="noiseTexture">
-                        <amplification afs="1.0" aft="1.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="2" y="0.75" z="0" />
-                        <rotation axis="y" angle=  "-90" />   
-                        <scale sx="2.5" sy="1.5" sz="1" />
-                    </transformations>
-
-                    <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                    </descendants>
-                </node>
-                <node id="frontwall">            
-                    <material id="greenWall" />
-
-                    <texture id="noiseTexture">
-                        <amplification afs="0.5" aft="1.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="0" y="0.75" z="1.25" />
-                        <rotation axis="y" angle=  "180" />   
-                        <scale sx="4" sy="1.5" sz="1" />
-                    </transformations>
-
-                    <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                    </descendants>
-                </node>
-               
-                <node id="rightwall">            
-                    <material id="greenWall" />
+                    <material id="null" />
 
                     <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
@@ -480,7 +444,6 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
-
             <node id="floor">            
                 <material id="lightBrownMaterial" />
 
