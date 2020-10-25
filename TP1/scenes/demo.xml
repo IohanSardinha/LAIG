@@ -6,17 +6,43 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="defaultCamera">
+    <views default="Full view">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="50" y="20" z="50" />
-            <to x="0" y="0" z="0" />
+        <perspective id="Full view" near="0.1" far="500" angle="45">
+            <from x="20" y="15" z="40" />
+            <to x="0" y="0" z="-10" />
         </perspective> 
 
-        <perspective id="d" near="0.1" far="500" angle="45">
-            <from x="50" y="0" z="50" />
-            <to x="0" y="0" z="0" />
+        <perspective id="Layed on bed" near="0.1" far="500" angle="45">
+            <from x="15" y="5" z="9" />
+            <to x="14" y="5" z="8" />
         </perspective>
+
+        <perspective id="Middle of the room" near="0.1" far="500" angle="45">
+            <from x="0" y="8" z="0" />
+            <to x="0" y="7.9" z="-1" />
+        </perspective>
+
+        <perspective id="Working on computer" near="0.1" far="500" angle="45">
+            <from x="-10" y="12" z="8" />
+            <to x="-15" y="8" z="8" />
+        </perspective>
+
+        <ortho id="Front view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
+        <from x="0" y="0" z="20"/>
+        <to x="0" y="0" z="0"/>
+        </ortho>
+
+        <ortho id="Side view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
+        <from x="20" y="0" z="0"/>
+        <to x="0" y="0" z="0"/>
+        </ortho>
+
+        <ortho id="Top view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-15">
+        <from x="0" y="30" z="0"/>
+        <to x="0" y="0" z="0"/>
+        <up x="0" y="0" z="-1"/>
+        </ortho>
     </views>
 
     <illumination>
@@ -165,6 +191,7 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <noderef id="walls" />             <!--DONE-->
+                <noderef id="roof"/>
                 <noderef id="floor" />             <!--DONE-->
                 <noderef id="bed" />               <!--DONE-->
                 <noderef id="table" />             <!--DONE-->
@@ -179,15 +206,18 @@
             <node id="walls">
                 <material id="null" />
 
-                <texture id="clear">
+                <texture id="wallTexture">
                 </texture>
                  <transformations>
                 </transformations>
 
                 <descendants>
                     <noderef id="backwall" />
+                    <noderef id="frontwall" />
+                    <noderef id="door" />
                     <noderef id="backwallExtrudes" />
-                    <noderef id="sidewall" />
+                    <noderef id="leftwall" />
+                    <noderef id="rightwall" />
                 </descendants>
             </node>       
 
@@ -208,10 +238,46 @@
                     </descendants>
                 </node>
 
-                <node id="backwallExtrudes">            
+                <node id="frontwall">            
                     <material id="greenWall" />
 
                     <texture id="wallTexture">
+                        <amplification afs="0.2" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.75" z="1.25" />
+                        <scale sx="4" sy="1.5" sz="1" />
+                        <rotation axis="y" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+
+                <node id="door">            
+                    <material id="woodMaterial" />
+
+                    <texture id="dresserTexture">
+                        <amplification afs="2" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0.7" y="0.5" z="1.24" />
+                        <scale sx="0.5" sy="1" sz="1" />
+                        <rotation axis="y" angle="180"/>
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+
+                <node id="backwallExtrudes">            
+                    <material id="greenWall" />
+
+                    <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -317,10 +383,10 @@
                         </descendants>
                     </node>
 
-                <node id="sidewall">            
+                <node id="leftwall">            
                     <material id="whiteMaterial" />
 
-                    <texture id="wallTexture">
+                    <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -335,7 +401,25 @@
                     </descendants>
                 </node>
 
-        <node id="floor">            
+                <node id="rightwall">            
+                    <material id="greenWall" />
+
+                    <texture id="null">
+                        <amplification afs="1.0" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="2" y="0.75" z="0" />
+                        <rotation axis="y" angle=  "-90" />   
+                        <scale sx="2.5" sy="1.5" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+
+            <node id="floor">            
                 <material id="tableMaterial" />
 
                 <texture id="floorTexture">
@@ -344,6 +428,24 @@
 
                 <transformations>
                     <rotation axis="x" angle=  "-90" />
+                    <scale sx="4" sy="2.5" sz="1" />
+                </transformations>
+
+                <descendants>
+                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                </descendants>
+            </node>
+
+            <node id="roof">            
+                <material id="whiteMaterial" />
+
+                <texture id="wallTexture">
+                    <amplification afs="1.0" aft="1.0" />
+                </texture>
+
+                <transformations>
+                     <translation x="0" y="1.5" z="0" />
+                    <rotation axis="x" angle=  "90" />
                     <scale sx="4" sy="2.5" sz="1" />
                 </transformations>
 
@@ -563,7 +665,7 @@
                     </descendants>
                 </node>
                 <node id="tableDrawerDisplay">            
-                    <material id="null" />
+                    <material id="tableMaterial" />
 
                     <texture id="drawerTexture">
                         <amplification afs="1.0" aft="1.0" />
@@ -614,6 +716,7 @@
                         <noderef id="monitor" />
                         <noderef id="monitorCap1" />
                         <noderef id="monitorCap2" />
+                        <noderef id="screen" />
                     </descendants>
                 </node>
                     <node id="keyboard">            
@@ -642,7 +745,7 @@
 
                         <transformations>
                             <translation x="-1.83" y="0.52" z="0.95" />
-                            <scale sx="0.15" sy="0.02" sz="0.25" />
+                            <scale sx="0.17" sy="0.03" sz="0.25" />
                         </transformations>
 
                         <descendants>
@@ -658,7 +761,7 @@
 
                         <transformations>
                             <translation x="-1.83" y="0.52" z="0.7" />
-                            <scale sx="0.16" sy="0.025" sz="0.25" />
+                            <scale sx="0.17" sy="0.03" sz="0.25" />
                             <rotation axis="y" angle="180"/>
                         </transformations>
 
@@ -685,6 +788,26 @@
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                         </descendants>
                     </node>
+
+                    <node id="screen">            
+                        <material id="whiteMaterial" />
+
+                        <texture id="computerTexture">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.933" y="0.6" z="0.825" />
+                            <rotation axis="z" angle=  "30" />
+                            <rotation axis="y" angle=  "90" />
+                            <scale sx="0.225" sy="0.14" sz="1" />
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                        </descendants>
+                    </node>
+
                     <node id="monitorCap1">            
                         <material id="null" />
 
@@ -985,7 +1108,7 @@
             </node>
 
             <node id="dresserDisplay">            
-                <material id="tableMaterial" />
+                <material id="whiteMaterial" />
 
                 <texture id="dresserTexture">
                     <amplification afs="1.0" aft="1.0" />
