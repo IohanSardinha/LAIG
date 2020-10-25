@@ -12,6 +12,7 @@
 
 ### [TP1 - Scene Graph](TP1)
 **Versão**: tp1-v0.1
+
 **Data**: 25/10/2020
 
 #### Funcionalidades: 
@@ -31,9 +32,9 @@ Com:
     * Uma cadeira para sentar e estudar
     * Uma bancada para sentar na janela, com duas plantas
     * Uma prateleira com livros
-* [Diretorio Cena](TP1\scenes)
-* [Quarto Menina do Lo-Fi](TP1\scenes\demo.xml)
-* [Imagens da cena](TP1\scenes\images)
+* [Diretorio Cena](TP1/scenes)
+* [Quarto Menina do Lo-Fi](TP1/scenes/demo.xml)
+* [Imagens da cena](TP1/scenes/images)
 
 -----
 
