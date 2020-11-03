@@ -36,7 +36,15 @@ class XMLscene extends CGFscene {
         this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress=0;
 
-        this.defaultAppearance=new CGFappearance(this);
+        this.defaultAppearance = new CGFappearance(this);
+
+        this.spriteTextAppearance = new CGFappearance(this);
+        this.spriteTextTexture = new CGFtexture(this, "scenes/images/lofi.jpg");
+        this.spriteTextAppearance.setTexture(this.spriteTextTexture);
+        this.spriteTextShader = new CGFshader(this.gl, "shaders/spriteText.vert", "shaders/spriteText.frag");
+
+        this.spriteTextShader.setUniformsValues({ size_c: 0 });
+        this.spriteTextShader.setUniformsValues({ size_l: 0 });
 
         this.scaleFactor = 1;
         this.displayAxis = false;

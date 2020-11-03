@@ -2,12 +2,13 @@
  * MyNode
  * @constructor
  * @param scene - Reference to MyScene object
- * @param id - ID of the component
- * @param materials - List of the materials of this component
- * @param texture - Texture of this component
+ * @param id - ID of the node
+ * @param materials - List of the materials of this node
+ * @param texture - Texture of this node
  * @param l_s - Scale of the s factor of the texture
  * @param l_t - Scale of the t factor of the texture
- * @param transformations - list of transformations for this component
+ * @param transformations - list of transformations for this node
+ * @param children - list of children for this node
  
  */
 

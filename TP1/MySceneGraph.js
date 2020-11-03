@@ -613,6 +613,70 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <spritesheets> block. 
+     * @param {spritesheets block element} spritesheetsNode
+     */
+    parseSpritesheets(spritesheetsNode) {
+
+        var children = spritesheetsNode.children;
+
+        if (children.length == 0) {
+            return "at least one spritesheet must be defined";
+        }
+
+        this.spritesheets = [];
+        var spriteId;
+        var path;
+        var sizeM;
+        var sizeN;
+        var texture;
+
+        for (var i = 0; i < children.length; i++) {
+            spriteId = this.reader.getString(children[i], 'id');
+            if (spriteId == null || spriteId.length == 0) {
+                return "A spritesheet ID must be defined"
+            }
+            if (this.spritesheets[spriteId] != null) {
+                return spriteId + " already defined";
+            }
+
+            path = this.reader.getString(children[i], 'path');
+            if (path == null || path.length == 0) {
+                return "A path must be defined for spritesheet " + spriteId;
+            }
+
+            sizeM = this.reader.getString(children[i], 'sizeM');
+            if (sizeM == null || sizeM.length == 0) {
+                return "A sizeM must be defined for spritesheet " + spriteId;
+            }
+
+            sizeN = this.reader.getString(children[i], 'sizeN');
+            if (sizeN == null || sizeN.length == 0) {
+                return "A sizeN must be defined for spritesheet " + spriteId;
+            }
+
+            if (path.includes('scenes/images')) {
+                texture = new CGFtexture(this.scene, path);
+
+            }
+            else if (path.includes('images/')) {
+                texture = new CGFtexture(this.scene, './scenes/' + path);
+            }
+            else {
+                texture = new CGFtexture(this.scene, "./scenes/images/" + path);
+            }
+            
+            
+
+        }
+
+        this.log("Parsed spritesheets");
+
+        return null;
+
+    }
+
+    /**
    * Parses the <nodes> block.
    * @param {nodes block element} nodesNode
    */
