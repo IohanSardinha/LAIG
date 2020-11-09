@@ -627,7 +627,129 @@ class MySceneGraph {
 
     parseAnimations(nodesNode)
     {
-        return null;
+        this.keyframeAnimations = [];
+
+        let animations = nodesNode.children;
+
+        for(let i = 0; i < animations.length; i++)
+        {
+            if(animations[i].nodeName != "animation")
+            {
+                this.onXMLMinorError("unknown tag <"+ animations[i].nodeName + ">");
+                continue;
+            }
+
+            let animationID = this.reader.getString(animations[i],"id");
+            if(animationID == null)
+            {
+                this.onXMLMinorError("Missing id of animation");
+                continue;
+            }
+
+            let keyframes = animations[i].children;
+
+            for(let j = 0; j < keyframes.length; j++)
+            {
+                if(keyframes[j].nodeName != "keyframe")
+                {
+                    this.onXMLMinorError("unknown tag <" + keyframes[j].nodeName + ">");
+                    continue;
+                }
+
+                let keyframeInstant = this.reader.getFloat(keyframes[j], "instant");
+                if(keyframeInstant == null || isNaN(keyframeInstant))
+                {
+                    this.onXMLMinorError("Missing instant of keyframe, will be ignored");
+                    continue;
+                }
+
+                let transformations = keyframes[j].children;
+                let rotationsCount = 0;
+                let translation = [];
+                let scale = [];
+                let rotation = [];
+                for(let k = 0; k < transformations.length; k++)
+                {
+                    if(transformations[k].nodeName == "translation")
+                    {
+                        let t_x,t_y,t_z;
+                        if(k != 0)
+                            this.onXMLMinorError("In animation "+animationID+" keyframe "+keyframeInstant+" tag <translation> in wrong order "+k);
+                        
+                        t_x = this.reader.getFloat(transformations[k],"x");
+                        if(t_x == null  || isNaN(t_x))
+                            return "Unable to parse translation x in animation "+animationID+" keyframe "+keyframeInstant;
+
+                        t_y = this.reader.getFloat(transformations[k],"y");
+                        if(t_y == null  || isNaN(t_y))
+                            return "Unable to parse translation y in animation "+animationID+" keyframe "+keyframeInstant;
+
+                        t_z = this.reader.getFloat(transformations[k],"z");
+                        if(t_z == null  || isNaN(t_z))
+                            return "Unable to parse translation z in animation "+animationID+" keyframe "+keyframeInstant;
+                    
+                        translation = {x: t_x, y: t_y, z: t_z};
+                    }
+                    else if(transformations[k].nodeName == "rotation")
+                    {
+                        if(k != 1 && k != 2 && k != 3)
+                            this.onXMLMinorError("In animation "+animationID+" keyframe "+keyframeInstant+" tag <rotation> in wrong order "+k);
+                        
+                        let axis = this.reader.getString(transformations[k],"axis");
+                        let angle = this.reader.getFloat(transformations[k],"angle");
+
+                        if(axis == null || (axis != 'x' && axis != 'y' && axis != 'z'))
+                            return "Unable to parse axis in animation "+animationID+" keyframe "+keyframeInstant;
+                        if(angle == null  || isNaN(angle))
+                            return "Unable to parse angle in animation "+animationID+" keyframe "+keyframeInstant;
+                        if(rotationsCount > 3)
+                            return "Repeated rotation "+axis+"in animation "+animationID+" keyframe "+keyframeInstant;
+
+                        rotation[axis] = angle;
+                        rotationsCount++;                        
+                    }
+                    else if(transformations[k].nodeName == "scale")
+                    {
+                        if(k != 4)
+                            this.onXMLMinorError("In animation "+animationID+" keyframe "+keyframeInstant+" tag <scale> in wrong order "+k);
+                        let sx = this.reader.getFloat(transformations[k],"sx");
+                        if(sx == null || isNaN(sx))
+                            return "Unable to parse sx in animation "+animationID+" keyframe "+keyframeInstant;
+                        scale['x'] = sx;
+
+                        let sy = this.reader.getFloat(transformations[k],"sy");
+                        if(sy == null  || isNaN(sy))
+                            return "Unable to parse sx in animation "+animationID+" keyframe "+keyframeInstant;
+                        scale['y'] = sy;
+
+                        let sz = this.reader.getFloat(transformations[k],"sz");
+                        if(sz == null || isNaN(sz))
+                            return "Unable to parse sx in animation "+animationID+" keyframe "+keyframeInstant;
+                        scale['z'] = sz;
+                    }
+                    else
+                    {
+                        this.onXMLMinorError("Unknown tag <"+transformations[k].nodeName+">");
+                    }
+                }
+
+                if(Object.keys(translation).length == 0)
+                    return "Missing tag <translation> in animation "+animationID+" keyframe "+keyframeInstant;
+                if(Object.keys(rotation).length < 3)
+                    return "Missing tag <rotation> in animation "+animationID+" keyframe "+keyframeInstant;
+                if(Object.keys(scale).length == 0)
+                    return "Missing tag <scale> in animation "+animationID+" keyframe "+keyframeInstant;
+
+                console.log(translation);
+                console.log(rotation);
+                console.log(scale);
+
+            }
+
+
+        }
+ 
+         return null;
     }
 
     /**

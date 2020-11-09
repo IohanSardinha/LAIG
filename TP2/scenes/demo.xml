@@ -60,7 +60,7 @@
 
         <!-- O bloco animations pode ser vazio, isto é, pode -->
         <!-- não ser declarada qualquer animação -->
-        <animation id="ss" >
+        <animation id="animationID" >
 
         <!-- A animação inicia-se no tempo da primeira keyframe, -->
         <!-- sendo que o objeto em causa deve permanecer -->
@@ -70,7 +70,7 @@
         <!-- desde o inicio da animação. -->
         <!-- Os keyframes devem ser declarados por -->
         <!-- ordem crescente do tempo. -->
-        <keyframe instant="ff">
+        <keyframe instant="10">
 
             <!-- translate, rotate e scale representam as -->
             <!-- quantidades das transformações -->
@@ -80,11 +80,11 @@
             <!-- translate, rotate e scale sao obrigatorios -->
             <!-- e fornecidos por esta ordem -->
 
-            <translation x="ff" y="ff" z="ff" />
-            <rotation axis="x" angle="ff" />
-            <rotation axis="y" angle="ff" />
-            <rotation axis="z" angle="ff" />
-            <scale sx="ff" sy="ff" sz="ff" />
+            <translation x="1" y="2" z="3" />
+            <rotation axis="x" angle="4" />
+            <rotation axis="y" angle="5" />
+            <rotation axis="z" angle="6" />
+            <scale sx="7" sy="8" sz="9" />
 
         </keyframe>
 
