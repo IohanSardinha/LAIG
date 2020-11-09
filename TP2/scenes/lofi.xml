@@ -267,8 +267,8 @@
                 </node>
 
                 <node id="frontwall">            
-                    <material id="null" />
-                    <texture id="null">
+                    <material id="greenWall" />
+                    <texture id="noiseTexture">
                         <amplification afs="0.2" aft="1.0" />
                     </texture>
 
@@ -302,9 +302,9 @@
                 </node>
 
                 <node id="backwallExtrudes">            
-                    <material id="null" />
+                    <material id="greenWall" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -603,7 +603,7 @@
             <node id="table">            
                 <material id="woodMaterial" />
 
-                <texture id="noiseTexture">
+                <texture id="null">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
@@ -624,7 +624,7 @@
                 <node id="tableBase">            
                     <material id="null" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -657,7 +657,7 @@
                 <node id="tableBaseCap2">            
                     <material id="null" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -674,7 +674,7 @@
                 <node id="tableDrawer">            
                     <material id="lightBrownMaterial" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -709,7 +709,7 @@
                 <node id="tableLeg">            
                     <material id="lightBrownMaterial" />
 
-                    <texture id="null">
+                    <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -727,7 +727,7 @@
                 <node id="computer">            
                     <material id="darkMetalMaterial" />
 
-                    <texture id="clear">
+                    <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -890,7 +890,7 @@
                 <node id="tableLight">            
                     <material id="whiteMetalMaterial" />
 
-                    <texture id="metalTexture">
+                    <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -916,7 +916,7 @@
                     <node id="lightSphere">            
                         <material id="yellowMaterial" />
 
-                        <texture id="clear">
+                        <texture id="null">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -932,7 +932,7 @@
                     <node id="metalSphereHead">            
                         <material id="null" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -948,7 +948,7 @@
                     <node id="lightTorus">            
                         <material id="darkMetalMaterial" />
 
-                        <texture id="clear">
+                        <texture id="null">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -966,7 +966,7 @@
                     <node id="headCylinder">            
                         <material id="null" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -984,7 +984,7 @@
                     <node id="headCylinderCap">            
                         <material id="null" />
 
-                    <texture id="null">
+                    <texture id="metalTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
@@ -1002,7 +1002,7 @@
                     <node id="upperBaseCylinder">            
                         <material id="null" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -1020,7 +1020,7 @@
                     <node id="junctionSphere">            
                         <material id="darkMetalMaterial" />
 
-                        <texture id="clear">
+                        <texture id="metalTexture">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -1036,7 +1036,7 @@
                     <node id="lowerBaseCylinder">            
                         <material id="null" />
 
-                        <texture id="null">
+                        <texture id="metalTexture">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
@@ -1070,7 +1070,7 @@
                 </descendants>
             </node>
                 <node id="chairSeat">            
-                    <material id="null" />
+                    <material id="chairMaterial" />
 
                     <texture id="floorTexture">
                         <amplification afs="1.0" aft="1.0" />
@@ -1617,10 +1617,10 @@
                     </node>
 
         <node id="tenSideCircle">            
-            <material id="whiteMaterial" />
+            <material id="null" />
 
-            <texture id="floorTexture">
-                <amplification afs="0.5" aft="0.5" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -1639,6 +1639,5 @@
                 <leaf type="triangle" x1="0" y1="0" x3="1" y3="0" x2="0.8090169943749473" y2="-0.5877852522924734"/>
             </descendants>
         </node>
-
     </nodes>
 </lsf>
