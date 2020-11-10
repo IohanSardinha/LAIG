@@ -15,14 +15,8 @@ class Animation {
         this.final_transform = final_transform;
      }
 
-     update(instant)
-     {
+     update(instant){}
 
-     }
-
-     apply(transform)
-     {
-
-     }
+     apply(transform){}
 
 }

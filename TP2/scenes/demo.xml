@@ -60,7 +60,7 @@
 
         <!-- O bloco animations pode ser vazio, isto é, pode -->
         <!-- não ser declarada qualquer animação -->
-        <animation id="animationID" >
+        <animation id="balljump" >
 
         <!-- A animação inicia-se no tempo da primeira keyframe, -->
         <!-- sendo que o objeto em causa deve permanecer -->
@@ -70,7 +70,7 @@
         <!-- desde o inicio da animação. -->
         <!-- Os keyframes devem ser declarados por -->
         <!-- ordem crescente do tempo. -->
-        <keyframe instant="10">
+        <keyframe instant="5">
 
             <!-- translate, rotate e scale representam as -->
             <!-- quantidades das transformações -->
@@ -79,13 +79,43 @@
             <!-- Para uma mesma keyframe, os elementos -->
             <!-- translate, rotate e scale sao obrigatorios -->
             <!-- e fornecidos por esta ordem -->
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
 
-            <translation x="1" y="2" z="3" />
-            <rotation axis="x" angle="4" />
-            <rotation axis="y" angle="5" />
-            <rotation axis="z" angle="6" />
-            <scale sx="7" sy="8" sz="9" />
+        <keyframe instant="10">
+            <translation x="0" y="10" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
 
+        <keyframe instant="14">
+            <translation x="0" y="-10" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
+
+        <keyframe instant="15">
+            <translation x="0" y="-1" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="0.5" sz="1" />
+        </keyframe>
+
+        <keyframe instant="16">
+            <translation x="0" y="1" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
         </keyframe>
 
         </animation>
@@ -107,8 +137,8 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
+                 <noderef id="ball"/>
                  <noderef id="floor"/>
-                 <leaf type="sphere" radius="2" slices="20" stacks="20"/>
             </descendants>
         </node>
 
@@ -129,6 +159,25 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
                 <leaf type="rectangle" x1="10" y1="-10" x2="-10" y2="10"/>
+            </descendants>
+        </node>
+
+        <node id="ball">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+            </transformations>
+
+            <animationref id="balljump"/>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+               <leaf type="sphere" radius="2" slices="20" stacks="20"/>
             </descendants>
         </node>
     </nodes>

@@ -627,7 +627,7 @@ class MySceneGraph {
 
     parseAnimations(nodesNode)
     {
-        this.keyframeAnimations = [];
+        this.keyframeAnimators = [];
 
         let animations = nodesNode.children;
 
@@ -647,6 +647,8 @@ class MySceneGraph {
             }
 
             let keyframes = animations[i].children;
+            let animationKeyframes = [];
+            let lastInstant = -1;
 
             for(let j = 0; j < keyframes.length; j++)
             {
@@ -662,12 +664,16 @@ class MySceneGraph {
                     this.onXMLMinorError("Missing instant of keyframe, will be ignored");
                     continue;
                 }
+                if(keyframeInstant <= lastInstant)
+                {
+                    return "Animation "+ animationID +" keyframes not declared in increasing order!";
+                }
 
                 let transformations = keyframes[j].children;
                 let rotationsCount = 0;
-                let translation = [];
-                let scale = [];
-                let rotation = [];
+                let translation = {};
+                let scale = {};
+                let rotation = {};
                 for(let k = 0; k < transformations.length; k++)
                 {
                     if(transformations[k].nodeName == "translation")
@@ -728,9 +734,7 @@ class MySceneGraph {
                         scale['z'] = sz;
                     }
                     else
-                    {
                         this.onXMLMinorError("Unknown tag <"+transformations[k].nodeName+">");
-                    }
                 }
 
                 if(Object.keys(translation).length == 0)
@@ -740,15 +744,19 @@ class MySceneGraph {
                 if(Object.keys(scale).length == 0)
                     return "Missing tag <scale> in animation "+animationID+" keyframe "+keyframeInstant;
 
-                console.log(translation);
-                console.log(rotation);
-                console.log(scale);
+                let transformation = {
+                    translation: translation,
+                    rotation: rotation,
+                    scale: scale
+                };
 
+                animationKeyframes[keyframeInstant] = transformation;
+
+                lastInstant = keyframeInstant;
             }
 
-
+            this.keyframeAnimators[animationID] = new KeyframeAnimator(animationKeyframes,this.scene);
         }
- 
          return null;
     }
 
@@ -806,8 +814,22 @@ class MySceneGraph {
             var materialIndex = nodeNames.indexOf("material");
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
+            var animationrefIndex = nodeNames.indexOf("animationref");
+
+            var animationref = null;
 
             //this.onXMLMinorError("To do: Parse nodes.");
+
+            if(grandChildren[animationrefIndex] != null && animationrefIndex != transformationsIndex+1)
+                this.onXMLMinorError("Tag <animationref> must come immediately after tag <transformatios>!");
+            else if(grandChildren[animationrefIndex] != null)
+            {
+                let animationrefID = this.reader.getString(grandChildren[animationrefIndex],"id");
+                if(animationrefID == null)
+                    this.onXMLMinorError("Could not parse id from animationref");
+                else
+                    animationref = animationrefID;
+            }
 
             // Transformations
             if (grandChildren[transformationsIndex]==null)
@@ -917,7 +939,6 @@ class MySceneGraph {
                 aft = 1;
             }
             // Descendants
-
             if(grandChildren[descendantsIndex] == null)
             {
                 return "Missing tag <descendants> for '"+nodeID+"''!";
@@ -998,8 +1019,9 @@ class MySceneGraph {
                     }
                 }
             }
-            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren);
+            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren, animationref);
         }
+
     }
 
 
@@ -1113,6 +1135,9 @@ class MySceneGraph {
         this.scene.pushMatrix();
         this.scene.multMatrix(currNode.transformations);
         
+        if(currNode.animator != null)
+            this.keyframeAnimators[currNode.animator].apply();
+
         if(currNode.material == "clear")
             currMaterial = this.defaultMaterialID;
         else if(currNode.material != "null")
@@ -1126,6 +1151,8 @@ class MySceneGraph {
             amplification.t = currNode.l_t;
             currTexture = currNode.texture;
         }
+
+        //console.log(currNode.animator);
 
 
         for(let i = 0; i < currNode.children.length; i++)
@@ -1189,5 +1216,13 @@ class MySceneGraph {
      */
     displayScene() {
         this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1});
+    }
+
+    update(time)
+    {
+        for(let animationID in this.keyframeAnimators)
+        {
+            this.keyframeAnimators[animationID].update(time);
+        }
     }
 }
