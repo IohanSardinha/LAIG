@@ -6,8 +6,10 @@ var VIEWS_INDEX = 1;
 var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var SPRITESHEETS_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -179,6 +181,18 @@ class MySceneGraph {
                 return error;
         }
 
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) == -1)
+            return "tag <spritesheets> missing";
+        else {
+            if (index != SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order");
+
+            //Parse spritesheets block
+             if ((error = this.parseSpritesheets(nodes[index])) != null)
+                 return error;
+        }
+
         // <materials>
         if ((index = nodeNames.indexOf("materials")) == -1)
             return "tag <materials> missing";
@@ -190,6 +204,19 @@ class MySceneGraph {
             if ((error = this.parseMaterials(nodes[index])) != null)
                 return error;
         }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse animations block
+            // if ((error = this.parseAnimations(nodes[index])) != null)
+            //     return error;
+        }
+
 
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
@@ -479,6 +506,69 @@ class MySceneGraph {
         }
 
         this.log("Parsed textures");
+
+        return null;
+
+    }
+
+    /**
+     * Parses the <spritesheets> block. 
+     * @param {spritesheets block element} spritesheetsNode
+     */
+    parseSpritesheets(spritesheetsNode) {
+
+        //For each texture in spritesheets block, check ID and file URL
+        var children = spritesheetsNode.children;
+
+        // if (children.length == 0) {
+        //     return "at least one spritesheet must be defined";
+        // }
+
+        this.spritesheets = [];
+        var spriteId;
+        var path;
+        var sizeM;
+        var sizeN;
+
+
+        for (var i = 0; i < children.length; i++) {
+            spriteId = this.reader.getString(children[i], 'id');
+            if (spriteId == null || spriteId.length == 0) {
+                return "A texture ID must be defined"
+            }
+            if (this.spritesheets[spriteId] != null) {
+                return spriteId + " already defined";
+            }
+
+            path = this.reader.getString(children[i], 'path');
+            if (path == null || path.length == 0) {
+                return "A path must be defined for spritesheet " + spriteId;
+            }
+
+            sizeM = this.reader.getString(children[i], 'sizeM');
+            if (sizeM == null || sizeM.length == 0) {
+                return "A sizeM must be defined for spritesheet " + spriteId;
+            }
+
+            sizeN = this.reader.getString(children[i], 'sizeN');
+            if (sizeN == null || sizeN.length == 0) {
+                return "A sizeN must be defined for spritesheet " + spriteId;
+            }
+
+            if (path.includes('scenes/images')) {
+                this.spritesheets[spriteId] = new MySpritesheet(this.scene, path,sizeM,sizeN);
+
+            }
+            else if (path.includes('images/')) {
+                this.spritesheets[spriteId] = new MySpritesheet(this.scene, './scenes/' + path, sizeM, sizeN);
+            }
+            else {
+                this.spritesheets[spriteId] = new MySpritesheet(this.scene, "./scenes/images/" + path, sizeM, sizeN);
+            }
+
+        }
+
+        this.log("Parsed spritesheets");
 
         return null;
 
@@ -846,6 +936,11 @@ class MySceneGraph {
                             let loops = this.reader.getFloat(grandgrandChildren[k],"loops");
                             let torus = new MyTorus(this.scene,inner,outer,slices,loops);
                             nodeChildren.push(torus);
+                        }
+                        else if (type === "spritetext") {
+                            let text = this.reader.getFloat(grandgrandChildren[k], "text");
+                            let spritetext = new MySpriteText(this.scene, text);
+                            nodeChildren.push(spritetext);
                         }
                         else
                         {
