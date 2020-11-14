@@ -938,7 +938,7 @@ class MySceneGraph {
                             nodeChildren.push(torus);
                         }
                         else if (type === "spritetext") {
-                            let text = this.reader.getFloat(grandgrandChildren[k], "text");
+                            let text = this.reader.getString(grandgrandChildren[k], "text");
                             let spritetext = new MySpriteText(this.scene, text);
                             nodeChildren.push(spritetext);
                         }

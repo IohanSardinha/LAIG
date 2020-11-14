@@ -257,6 +257,7 @@
                     <noderef id="door" />
                     <noderef id="backwallExtrudes" />
                     <noderef id="leftwall" />
+                    <noderef id="leftwallposter" />
                     <noderef id="rightwall" />
                 </descendants>
             </node>       
@@ -439,6 +440,25 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
+                <node id="leftwallposter">            
+                    <material id="null" />
+
+                    <texture id="null">
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="0.85" z="1.05" />
+                        <rotation axis="y" angle=  "90"/>   
+                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="spritetext" text="lofi beats"/>
+                    </descendants>
+                </node>
+
+
+
                  <node id="rightwall">            
                     <material id="null" />
 

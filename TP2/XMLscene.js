@@ -38,7 +38,7 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
-        this.sprite = new MySpriteText(this, "dsa");
+     
 
         this.scaleFactor = 1;
         this.displayAxis = false;
@@ -174,7 +174,6 @@ class XMLscene extends CGFscene {
             // Updates the state of the lights.
             this.updateLights();
 
-            this.sprite.display();
 
             this.defaultAppearance.apply();
 
