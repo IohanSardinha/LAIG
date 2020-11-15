@@ -19,26 +19,21 @@ class KeyframeAnimation extends Animation {
 
      	this.transform = initial_transform;
 
-        this.last_time= null;
+        this.init = false;
 
      }
 
      difCoord3D(coord1, coord2, factor)
      {
      	return{
-				x: ((coord2.x - coord1.x)/this.time_delta)*factor, 
-				y: ((coord2.y - coord1.y)/this.time_delta)*factor,
-				z: ((coord2.z - coord1.z)/this.time_delta)*factor
+				x: coord1.x+(((coord2.x - coord1.x)/this.time_delta)*factor), 
+				y: coord1.y+(((coord2.y - coord1.y)/this.time_delta)*factor),
+				z: coord1.z+(((coord2.z - coord1.z)/this.time_delta)*factor)
 		};
      }
 
      update(instant)
      {
-        if(this.last_time == null)
-        {
-            this.last_time = instant;
-            return;
-        }
      	if(instant < this.initial_instant)
      	{
      		this.transform = this.initial_transform;
@@ -49,24 +44,27 @@ class KeyframeAnimation extends Animation {
      	}
      	else
      	{
-     		let deltaTime = instant - this.last_time;
+            //if(this.init) return;
+            //this.init = true;
+     		let deltaTime = instant - this.instant;
      		this.transform = {
      			translation : this.difCoord3D(this.initial_transform.translation, this.final_transform.translation, deltaTime),
      			rotation  : this.difCoord3D(this.initial_transform.rotation, this.final_transform.rotation, deltaTime),
      			scale     : this.difCoord3D(this.initial_transform.scale, this.final_transform.scale, deltaTime)
      		};
-            console.log(deltaTime);
+            //console.log(this.transform.translation);
      	}
-        this.last_time = instant;
      }
 
      apply()
      {
-     	this.scene.translate(this.transform.translation.x,this.transform.translation.y,this.transform.translation.z);
-     	this.scene.rotate(this.transform.rotation.x * Math.PI/180 ,1,0,0);
-     	this.scene.rotate(this.transform.rotation.y * Math.PI/180 ,0,1,0);
-     	this.scene.rotate(this.transform.rotation.z * Math.PI/180 ,0,0,1);
-     	this.scene.scale(this.transform.scale.x,this.transform.scale.y,this.transform.scale.z);
+        var transform = mat4.create();
+     	mat4.translate(transform, transform, [this.transform.translation.x,this.transform.translation.y,this.transform.translation.z]);
+     	mat4.rotateX(transform, transform,this.transform.rotation.x * Math.PI/180);
+        mat4.rotateY(transform, transform,this.transform.rotation.y * Math.PI/180);
+        mat4.rotateZ(transform, transform,this.transform.rotation.z * Math.PI/180);
+        mat4.scale(transform,transform,  [this.transform.scale.x,this.transform.scale.y,this.transform.scale.z]);
+        return transform;
      }
 
 }

@@ -101,6 +101,10 @@
         <texture id="keyboardTexture" path="./scenes/images/keyboard.jpg" />
     </textures>
 
+     <spritesheets>
+
+    </spritesheets>
+
 
     <materials>
         <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -201,6 +205,10 @@
         </material>
 
     </materials>
+
+    <animations>
+        
+    </animations>
 
     <nodes>
         <node id="room">            <!-- defines one intermediate node; may be repeated as necessary -->

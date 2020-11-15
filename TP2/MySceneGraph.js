@@ -829,6 +829,7 @@ class MySceneGraph {
 
                 animationKeyframes[keyframeInstant] = transformation;
 
+
                 lastInstant = keyframeInstant;
             }
 
@@ -1225,10 +1226,12 @@ class MySceneGraph {
     displayNode(currNode,currMaterial,currTexture,amplification)
     {
         this.scene.pushMatrix();
-        this.scene.multMatrix(currNode.transformations);
+       
         
         if(currNode.animator != null)
-            this.keyframeAnimators[currNode.animator].apply();
+            this.scene.multMatrix(this.keyframeAnimators[currNode.animator].apply());
+
+        this.scene.multMatrix(currNode.transformations);
 
         if(currNode.material == "clear")
             currMaterial = this.defaultMaterialID;

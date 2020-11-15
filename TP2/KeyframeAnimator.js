@@ -11,17 +11,18 @@ class KeyframeAnimator {
         this.scene = scene;
         this.visible = false;
 
-        let instants = Object.keys(keyframes);
+        let instants = Object.keys(keyframes).sort();
         let keyframeAnimation;
 
+        console.log(instants);
         for(let i = 0; i < instants.length-1; i++)
         {
             keyframeAnimation = new KeyframeAnimation(scene, instants[i], instants[i+1], keyframes[instants[i]], keyframes[instants[i+1]]);
             this.keyframeAnimations.push(keyframeAnimation);
         }
 
-
         this.currentKeyframe = this.keyframeAnimations[0];
+
      }
 
      update(instant)
@@ -39,13 +40,13 @@ class KeyframeAnimator {
                 this.keyframeAnimations[i].update(instant);
                 break;
             } 
-        //console.log(this.currentKeyframe);  
      }
 
      apply()
      {
-     	this.currentKeyframe.apply();
-        return this.visible;
+     	if(this.visible)
+            return this.currentKeyframe.apply();
+        return mat4.create();
      }
 
 }
