@@ -106,7 +106,6 @@
 
 
     <spritesheets>
-        <spritesheet id="text" path="./scenes/images/font.png" sizeM="8" sizeN="9" />
         <spritesheet id="notes" path="./scenes/images/notes.png" sizeM="5" sizeN="2" />
         <spritesheet id="lofi" path="./scenes/images/lofisprite.png" sizeM="6" sizeN="6" />
     </spritesheets>
