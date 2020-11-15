@@ -48,14 +48,6 @@ class XMLscene extends CGFscene {
         this.selectedView = null;
 
     }
-    update(t)
-    {   
-        if(this.sceneInitiated)
-        {
-            for (var anim in this.graph.spriteanims) {
-                this.graph.spriteanims[anim].update(t);
-        }
-    }}
     /**
      * Initializes the scene cameras.
      */
@@ -163,6 +155,9 @@ class XMLscene extends CGFscene {
         }
         let time = (t - this.first_instant)/1000;
         this.graph.update(time);
+        for (var anim in this.graph.spriteanims) {
+            this.graph.spriteanims[anim].update(t);
+        }
     }
 
     /**

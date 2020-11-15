@@ -31,11 +31,13 @@
         <ortho id="Front view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
         <from x="0" y="0" z="20"/>
         <to x="0" y="0" z="0"/>
+        <up x="0" y="1" z="0"/>
         </ortho>
 
         <ortho id="Side view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
         <from x="20" y="0" z="0"/>
         <to x="0" y="0" z="0"/>
+        <up x="0" y="1" z="0"/>
         </ortho>
 
         <ortho id="Top view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-15">
@@ -75,7 +77,7 @@
             <enable value="1" />
             <!-- enable/disable -->
             <position x="0" y="10" z="-12" w="1"/><!-- light position; w=1: point light; w=0: directional light -->
-            <ambient r="0.4" g="0.35" b="0.25" a="0" />                   <!-- ambient component -->
+            <ambient r="0.27" g="0.16" b="0.27" a="0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
         </light>
@@ -101,8 +103,12 @@
         <texture id="keyboardTexture" path="./scenes/images/keyboard.jpg" />
     </textures>
 
-     <spritesheets>
 
+
+    <spritesheets>
+        <spritesheet id="notes" path="./scenes/images/notes.png" sizeM="5" sizeN="2" />
+        <spritesheet id="lofi" path="./scenes/images/lofisprite.png" sizeM="6" sizeN="6" />
+        <spritesheet id="window" path="./scenes/images/windowsprite.png" sizeM="5" sizeN="10" />
     </spritesheets>
 
 
@@ -207,8 +213,8 @@
     </materials>
 
     <animations>
-        
     </animations>
+
 
     <nodes>
         <node id="room">            <!-- defines one intermediate node; may be repeated as necessary -->
@@ -249,18 +255,21 @@
 
                 <descendants>
                     <noderef id="backwall" />
+                    <noderef id="window" />
                     <noderef id="frontwall" />
                     <noderef id="door" />
                     <noderef id="backwallExtrudes" />
                     <noderef id="leftwall" />
+                    <noderef id="leftwallposter" />
+                    <noderef id="leftwallsprite" />
                     <noderef id="rightwall" />
                 </descendants>
             </node>       
 
                 <node id="backwall">            
-                    <material id="whiteMaterial" />
+                    <material id="greenWall" />
 
-                    <texture id="windowTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="0.2" aft="1.0" />
                     </texture>
 
@@ -271,6 +280,22 @@
 
                     <descendants>
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                 <node id="window">            
+                    <material id="greenWall" />
+
+                    <texture id="noiseTexture">
+                        <amplification afs="0.2" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.85" z="-1.24" />
+                        <scale sx="1" sy="1" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="spriteanim" ssid="window" startCell="0" endCell="49" duration="3"/>
                     </descendants>
                 </node>
 
@@ -435,6 +460,43 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
+                <node id="leftwallposter">            
+                    <material id="null" />
+
+                    <texture id="null">
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="0.8501" z="1.05" />
+                        <rotation axis="y" angle=  "90"/>   
+                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="spritetext" text="lofi Beats" />
+                      
+                    </descendants>
+                </node>
+                <node id="leftwallsprite">            
+                    <material id="null" />
+
+                    <texture id="null">
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="0.85" z="0.85" />
+                        <rotation axis="y" angle=  "90"/>   
+                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                    </transformations>
+
+                    <descendants>
+                        
+                        <leaf type="spriteanim" ssid="notes" startCell="0" endCell="7" duration="1"/>
+                    </descendants>
+                </node>
+
+
+
                  <node id="rightwall">            
                     <material id="null" />
 
@@ -849,14 +911,14 @@
                         </texture>
 
                         <transformations>
-                            <translation x="-1.933" y="0.6" z="0.825" />
+                            <translation x="-1.933" y="0.61" z="0.825" />
                             <rotation axis="z" angle=  "30" />
                             <rotation axis="y" angle=  "90" />
                             <scale sx="0.225" sy="0.14" sz="1" />
                         </transformations>
 
                         <descendants>
-                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                            <leaf type="spriteanim" ssid="lofi" startCell="0" endCell="35" duration="3"/>
                         </descendants>
                     </node>
 
