@@ -77,7 +77,7 @@
             <enable value="1" />
             <!-- enable/disable -->
             <position x="0" y="10" z="-12" w="1"/><!-- light position; w=1: point light; w=0: directional light -->
-            <ambient r="0.4" g="0.35" b="0.25" a="0" />                   <!-- ambient component -->
+            <ambient r="0.27" g="0.16" b="0.27" a="0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
         </light>
@@ -108,6 +108,7 @@
     <spritesheets>
         <spritesheet id="notes" path="./scenes/images/notes.png" sizeM="5" sizeN="2" />
         <spritesheet id="lofi" path="./scenes/images/lofisprite.png" sizeM="6" sizeN="6" />
+        <spritesheet id="window" path="./scenes/images/windowsprite.png" sizeM="5" sizeN="10" />
     </spritesheets>
 
 
@@ -254,6 +255,7 @@
 
                 <descendants>
                     <noderef id="backwall" />
+                    <noderef id="window" />
                     <noderef id="frontwall" />
                     <noderef id="door" />
                     <noderef id="backwallExtrudes" />
@@ -265,9 +267,9 @@
             </node>       
 
                 <node id="backwall">            
-                    <material id="whiteMaterial" />
+                    <material id="greenWall" />
 
-                    <texture id="windowTexture">
+                    <texture id="noiseTexture">
                         <amplification afs="0.2" aft="1.0" />
                     </texture>
 
@@ -278,6 +280,22 @@
 
                     <descendants>
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                    </descendants>
+                </node>
+                 <node id="window">            
+                    <material id="greenWall" />
+
+                    <texture id="noiseTexture">
+                        <amplification afs="0.2" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="0" y="0.85" z="-1.24" />
+                        <scale sx="1" sy="1" sz="1" />
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="spriteanim" ssid="window" startCell="0" endCell="49" duration="3"/>
                     </descendants>
                 </node>
 
