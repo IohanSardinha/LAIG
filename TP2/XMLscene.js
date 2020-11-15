@@ -1,3 +1,5 @@
+var started_couting_time = false;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  */
@@ -31,7 +33,7 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(100);
+        this.setUpdatePeriod(50);
 
         this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress=0;
@@ -148,6 +150,19 @@ class XMLscene extends CGFscene {
             }
             this.lights[key].update();            
         }
+    }
+
+
+    update(t)
+    {
+        if(!started_couting_time)
+        {
+            this.first_instant = t;
+            started_couting_time = true;
+            return;
+        }
+        let time = (t - this.first_instant)/1000;
+        this.graph.update(time);
     }
 
     /**

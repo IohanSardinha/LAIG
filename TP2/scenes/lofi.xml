@@ -2,14 +2,13 @@
     <initials>
         <reference length="10" />
         <!-- axis length; "0" means no axis displayed -->
-        <root id="root" />
+        <root id="room" />
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-
-    <views default="MainCamera">
+    <views default="Full view">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="MainCamera" near="0.1" far="500" angle="45">
+        <perspective id="Full view" near="0.1" far="500" angle="45">
             <from x="20" y="15" z="40" />
             <to x="0" y="0" z="-10" />
         </perspective> 
@@ -32,13 +31,11 @@
         <ortho id="Front view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
         <from x="0" y="0" z="20"/>
         <to x="0" y="0" z="0"/>
-        <up x="0" y="1" z="0"/>
         </ortho>
 
         <ortho id="Side view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-1">
         <from x="20" y="0" z="0"/>
         <to x="0" y="0" z="0"/>
-        <up x="0" y="1" z="0"/>
         </ortho>
 
         <ortho id="Top view" near="0.1" far="500" left="-21" right="21" top="16" bottom="-15">
@@ -49,14 +46,14 @@
     </views>
 
     <illumination>
-        <ambient r="0.5" g="0.5" b="0.5" a="1" />           <!-- global ambient -->
-        <background r="0.5" g="0.5" b="0.5" a="1.0" />        <!-- background color -->
+        <ambient r="0.2" g="0.15" b="0.05" a="0.5" />           <!-- global ambient -->
+        <background r="1" g="0.75" b="0" a="1.0" />        <!-- background color -->
     </illumination>
 
 
     <lights>
         <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
-        <light id="MainLight">            <!-- light identifier -->
+        <light id="Ceiling light">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
             <position x="0" y="15" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
@@ -77,8 +74,8 @@
         <light id="Window">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="0" y="5" z="0" w="1.0"/><!-- light position; w=1: point light; w=0: directional light -->
-            <ambient r="0.27" g="0.16" b="0.27" a="0" />                   <!-- ambient component -->
+            <position x="0" y="10" z="-12" w="1"/><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.4" g="0.35" b="0.25" a="0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
         </light>
@@ -89,15 +86,20 @@
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
         <texture id="windowTexture" path="./scenes/images/window.jpg" />
+        <texture id="dresserTexture" path="./scenes/images/dresser.jpg" />
+        <texture id="woodTexture" path="./scenes/images/wood.jpg" />
+        <texture id="drawerTexture" path="./scenes/images/drawer.jpg" />
+        <texture id="computerTexture" path="./scenes/images/computer.jpg" />
+        <texture id="booksTexture" path="./scenes/images/books.jpg" />
+        <texture id="leavesTexture" path="./scenes/images/leaves.jpg" />
+        <texture id="metalTexture" path="./scenes/images/Metal.jpg" />
+        <texture id="noiseTexture" path="./scenes/images/wall.jpg" />
+        <texture id="floorTexture" path="./scenes/images/floor.jpg" />
+        <texture id="plasticTexture" path="./scenes/images/plastic.jpg" />
+        <texture id="lofi" path="./scenes/images/lofi.jpg" />
+        <texture id="bookCover" path="./scenes/images/bookCover.jpg" />
+        <texture id="keyboardTexture" path="./scenes/images/keyboard.jpg" />
     </textures>
-
-
-
-    <spritesheets>
-        <spritesheet id="notes" path="./scenes/images/notes.png" sizeM="5" sizeN="2" />
-        <spritesheet id="lofi" path="./scenes/images/lofisprite.png" sizeM="6" sizeN="6" />
-        <spritesheet id="window" path="./scenes/images/windowsprite.png" sizeM="5" sizeN="10" />
-    </spritesheets>
 
 
     <materials>
@@ -110,79 +112,98 @@
             <specular r="0.0" g="0.0" b="0.0" a="0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0" />
         </material>
+        <material id="lightGreyMaterial">
+            <shininess value="0" />
+            <ambient r="0.9" g="0.9" b="0.9" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="redMaterial">
+            <shininess value="0" />
+            <ambient r="0.7" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="woodMaterial">
+            <shininess value="0" />
+            <ambient r="0.38" g="0.2" b="0.07" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="darkMetalMaterial">
+            <shininess value="0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="0.6" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="yellowMaterial">
+            <shininess value="1" />
+            <ambient r="0" g="0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="1" g="1" b="0.0" a="1.0" />
+        </material>
+
+        <material id="whiteMetalMaterial">
+            <shininess value="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.5" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="1.0" g="1.0" b="1.0" a="0.5" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="chairMaterial">
+            <shininess value="0" />
+            <ambient r="0.7" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="lightBrownMaterial">
+            <shininess value="0" />
+            <ambient r="0.56" g="0.44" b="0.22" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="vaseMaterial">
+            <shininess value="0" />
+            <ambient r="0.6" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="greenWall">
+            <shininess value="0" />
+            <ambient r="0.47" g="0.59" b="0.25" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
+        <material id="leafGreen">
+            <shininess value="0" />
+            <ambient r="0.49" g="0.99" b="0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+
     </materials>
 
-    <!--informacao de animacao -->
-    <!-- o bloco "animations" é opcional, mas quando existir -->
-    <!-- deve ser declarado imediatamente antes do bloco  "nodes" -->
-    <animations>
-
-        <!-- O bloco animations pode ser vazio, isto é, pode -->
-        <!-- não ser declarada qualquer animação -->
-        <animation id="balljump" >
-
-        <!-- A animação inicia-se no tempo da primeira keyframe, -->
-        <!-- sendo que o objeto em causa deve permanecer -->
-        <!-- invisível até esse momento -->
-        <!-- Deve existir pelo menos 1 elemento keyframe. -->
-        <!-- instant e’ o tempo expresso em segundos -->
-        <!-- desde o inicio da animação. -->
-        <!-- Os keyframes devem ser declarados por -->
-        <!-- ordem crescente do tempo. -->
-        <keyframe instant="5">
-
-            <!-- translate, rotate e scale representam as -->
-            <!-- quantidades das transformações -->
-            <!-- correspondentes, medidas em relação à -->
-            <!-- situação inicial (instante zero) -->
-            <!-- Para uma mesma keyframe, os elementos -->
-            <!-- translate, rotate e scale sao obrigatorios -->
-            <!-- e fornecidos por esta ordem -->
-            <translation x="0" y="0" z="0" />
-            <rotation axis="x" angle="0" />
-            <rotation axis="y" angle="0" />
-            <rotation axis="z" angle="0" />
-            <scale sx="1" sy="1" sz="1" />
-        </keyframe>
-
-        <keyframe instant="10">
-            <translation x="0" y="10" z="0" />
-            <rotation axis="x" angle="0" />
-            <rotation axis="y" angle="0" />
-            <rotation axis="z" angle="0" />
-            <scale sx="1" sy="1" sz="1" />
-        </keyframe>
-
-        <keyframe instant="14">
-            <translation x="0" y="-10" z="0" />
-            <rotation axis="x" angle="0" />
-            <rotation axis="y" angle="0" />
-            <rotation axis="z" angle="0" />
-            <scale sx="1" sy="1" sz="1" />
-        </keyframe>
-
-        <keyframe instant="15">
-            <translation x="0" y="-1" z="0" />
-            <rotation axis="x" angle="0" />
-            <rotation axis="y" angle="0" />
-            <rotation axis="z" angle="0" />
-            <scale sx="1" sy="0.5" sz="1" />
-        </keyframe>
-
-        <keyframe instant="16">
-            <translation x="0" y="1" z="0" />
-            <rotation axis="x" angle="0" />
-            <rotation axis="y" angle="0" />
-            <rotation axis="z" angle="0" />
-            <scale sx="1" sy="1" sz="1" />
-        </keyframe>
-
-        </animation>
-
-    </animations>
-
     <nodes>
-        <node id="root">            <!-- defines one intermediate node; may be repeated as necessary -->
+        <node id="room">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
             <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
@@ -191,13 +212,23 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+                <scale sx="10" sy="10" sz="10"/>
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                 <noderef id="ball"/>
-                 <noderef id="floor"/>
+                <noderef id="walls" />             <!--DONE-->
+                <noderef id="ceiling"/>
+                <noderef id="floor" />             <!--DONE-->
+                <noderef id="bed" />               <!--DONE-->
+                <noderef id="table" />             <!--DONE-->
+                <noderef id="chair" />             <!--DONE-->
+                <noderef id="dresser" />           <!--DONE-->
+                <noderef id="dresserCap" />        <!--DONE-->
+                <noderef id="dresserDisplay" />    <!--DONE-->
+                <noderef id="shelf" />             <!--DONE-->
+                <noderef id="plants" />            <!--DONE-->
             </descendants>
         </node>
             <node id="walls">
@@ -210,21 +241,18 @@
 
                 <descendants>
                     <noderef id="backwall" />
-                    <noderef id="window" />
                     <noderef id="frontwall" />
                     <noderef id="door" />
                     <noderef id="backwallExtrudes" />
                     <noderef id="leftwall" />
-                    <noderef id="leftwallposter" />
-                    <noderef id="leftwallsprite" />
                     <noderef id="rightwall" />
                 </descendants>
             </node>       
 
                 <node id="backwall">            
-                    <material id="greenWall" />
+                    <material id="whiteMaterial" />
 
-                    <texture id="noiseTexture">
+                    <texture id="windowTexture">
                         <amplification afs="0.2" aft="1.0" />
                     </texture>
 
@@ -235,22 +263,6 @@
 
                     <descendants>
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                    </descendants>
-                </node>
-                 <node id="window">            
-                    <material id="greenWall" />
-
-                    <texture id="noiseTexture">
-                        <amplification afs="0.2" aft="1.0" />
-                    </texture>
-
-                    <transformations>
-                        <translation x="0" y="0.85" z="-1.24" />
-                        <scale sx="1" sy="1" sz="1" />
-                    </transformations>
-
-                    <descendants>
-                        <leaf type="spriteanim" ssid="window" startCell="0" endCell="49" duration="3"/>
                     </descendants>
                 </node>
 
@@ -415,43 +427,6 @@
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
-                <node id="leftwallposter">            
-                    <material id="null" />
-
-                    <texture id="null">
-                    </texture>
-
-                    <transformations>
-                        <translation x="-1.9" y="0.8501" z="1.05" />
-                        <rotation axis="y" angle=  "90"/>   
-                        <scale sx="0.05" sy="0.05" sz="0.05" />
-                    </transformations>
-
-                    <descendants>
-                        <leaf type="spritetext" text="lofi Beats" />
-                      
-                    </descendants>
-                </node>
-                <node id="leftwallsprite">            
-                    <material id="null" />
-
-                    <texture id="null">
-                    </texture>
-
-                    <transformations>
-                        <translation x="-1.9" y="0.85" z="0.85" />
-                        <rotation axis="y" angle=  "90"/>   
-                        <scale sx="0.05" sy="0.05" sz="0.05" />
-                    </transformations>
-
-                    <descendants>
-                        
-                        <leaf type="spriteanim" ssid="notes" startCell="0" endCell="7" duration="1"/>
-                    </descendants>
-                </node>
-
-
-
                  <node id="rightwall">            
                     <material id="null" />
 
@@ -866,14 +841,14 @@
                         </texture>
 
                         <transformations>
-                            <translation x="-1.933" y="0.61" z="0.825" />
+                            <translation x="-1.933" y="0.6" z="0.825" />
                             <rotation axis="z" angle=  "30" />
                             <rotation axis="y" angle=  "90" />
                             <scale sx="0.225" sy="0.14" sz="1" />
                         </transformations>
 
                         <descendants>
-                            <leaf type="spriteanim" ssid="lofi" startCell="0" endCell="35" duration="3"/>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
                         </descendants>
                     </node>
 
@@ -1632,38 +1607,36 @@
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
-            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+                        <transformations>
+                            <translation x="2.65" y="-2.65" z="0" /> 
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                        </descendants>
+                    </node>
+
+        <node id="tenSideCircle">            
+            <material id="null" />
+
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
             </texture>
 
-            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
-            <transformations>
-                <translation x="0" y="-2" z="0" />
-                <rotation axis="x" angle="90"/>
-            </transformations>
-
-            <!-- declaring descendants, at least one node or one leaf must be present
-             descendants may be mixed, nodes and leafs -->
-            <descendants>
-                <leaf type="rectangle" x1="10" y1="-10" x2="-10" y2="10"/>
-            </descendants>
-        </node>
-
-        <node id="ball">            <!-- defines one intermediate node; may be repeated as necessary -->
-            <!-- next two lines are mandatory -->
-            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
-            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
-            </texture>
-
-            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
             </transformations>
 
-            <animationref id="balljump"/>
-
-            <!-- declaring descendants, at least one node or one leaf must be present
-             descendants may be mixed, nodes and leafs -->
             <descendants>
-               <leaf type="sphere" radius="2" slices="20" stacks="20"/>
+                <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="0.8090169943749475" y3="0.5877852522924731"/>
+                <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494745" y3="0.9510565162951535" x2="0.8090169943749475" y2="0.5877852522924731"/>
+                <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494745" y2="0.9510565162951535" x3="-0.30901699437494734" y3="0.9510565162951536"/>
+                <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749473" y3="0.5877852522924732" x2="-0.30901699437494734" y2="0.9510565162951536"/>
+                <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749473" y2="0.5877852522924732" x3="-1.0" y3="0"/>
+                <leaf type="triangle" x1="0" y1="0" x3="-0.8090169943749475" y3="-0.587785252292473" x2="-1.0" y2="0"/>
+                <leaf type="triangle" x1="0" y1="0" x2="-0.8090169943749475" y2="-0.587785252292473" x3="-0.30901699437494756" y3="-0.9510565162951535"/>
+                <leaf type="triangle" x1="0" y1="0" x3="0.30901699437494723" y3="-0.9510565162951536" x2="-0.30901699437494756" y2="-0.9510565162951535"/>
+                <leaf type="triangle" x1="0" y1="0" x2="0.30901699437494723" y2="-0.9510565162951536" x3="0.8090169943749473" y3="-0.5877852522924734"/>
+                <leaf type="triangle" x1="0" y1="0" x3="1" y3="0" x2="0.8090169943749473" y2="-0.5877852522924734"/>
             </descendants>
         </node>
     </nodes>
