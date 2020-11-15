@@ -1,3 +1,5 @@
+var started_couting_time = false;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  */
@@ -31,20 +33,14 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(100);
+        this.setUpdatePeriod(50);
 
         this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress=0;
 
         this.defaultAppearance = new CGFappearance(this);
 
-        this.spriteTextAppearance = new CGFappearance(this);
-        this.spriteTextTexture = new CGFtexture(this, "scenes/images/lofi.jpg");
-        this.spriteTextAppearance.setTexture(this.spriteTextTexture);
-        this.spriteTextShader = new CGFshader(this.gl, "shaders/spriteText.vert", "shaders/spriteText.frag");
-
-        this.spriteTextShader.setUniformsValues({ size_c: 0 });
-        this.spriteTextShader.setUniformsValues({ size_l: 0 });
+     
 
         this.scaleFactor = 1;
         this.displayAxis = false;
@@ -52,7 +48,6 @@ class XMLscene extends CGFscene {
         this.selectedView = null;
 
     }
-
     /**
      * Initializes the scene cameras.
      */
@@ -119,7 +114,9 @@ class XMLscene extends CGFscene {
         this.changeCamera();
 
         this.interface.setInterface();
+        
 
+        
         this.sceneInitiated = true;
     }
 
@@ -144,6 +141,22 @@ class XMLscene extends CGFscene {
                 this.lights[key].disable();
             }
             this.lights[key].update();            
+        }
+    }
+
+
+    update(t)
+    {
+        if(!started_couting_time)
+        {
+            this.first_instant = t;
+            started_couting_time = true;
+            return;
+        }
+        let time = (t - this.first_instant)/1000;
+        this.graph.update(time);
+        for (var anim in this.graph.spriteanims) {
+            this.graph.spriteanims[anim].update(t);
         }
     }
 
@@ -180,6 +193,7 @@ class XMLscene extends CGFscene {
             // Updates the state of the lights.
             this.updateLights();
 
+            //this.anim.update();
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).

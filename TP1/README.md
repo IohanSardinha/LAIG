@@ -31,6 +31,6 @@ Com:
     * Uma cadeira para sentar e estudar
     * Uma bancada para sentar na janela, com duas plantas
     * Uma prateleira com livros
-* [Diretorio Cena](TP1/scenes)
-* [Quarto Menina do Lo-Fi](TP1/scenes/demo.xml)
-* [Imagens da cena](TP1/scenes/images)
+* [Diretorio Cena](scenes)
+* [Quarto Menina do Lo-Fi](scenes/demo.xml)
+* [Imagens da cena](scenes/images)

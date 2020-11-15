@@ -1,0 +1,323 @@
+<lsf>
+    <initials>
+        <reference length="10" />
+        <!-- axis length; "0" means no axis displayed -->
+        <root id="root" />
+        <!-- identifier of root node of the scene graph; this node -->
+        <!-- must be defined in one of the following NODE declarations -->
+    </initials>
+
+    <views default="MainCamera">
+        <!-- at least one of the following type of cameras must be declared -->
+        <perspective id="MainCamera" near="0.1" far="500" angle="45">
+            <from x="20" y="15" z="40" />
+            <to x="0" y="0" z="-10" />
+        </perspective> 
+    </views>
+
+    <illumination>
+        <ambient r="1" g="1" b="1" a="1" />           <!-- global ambient -->
+        <background r="0.5" g="0.5" b="0.5" a="1.0" />        <!-- background color -->
+    </illumination>
+
+
+    <lights>
+        <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+        <light id="MainLight">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="0" y="5" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.7" g="0.7" b="0.7" a="1" />                   <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />             <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1" />            <!-- specular component -->
+        </light>
+       
+    </lights>
+
+
+    <textures>
+        <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+        <texture id="windowTexture" path="./scenes/images/window.jpg" />
+    </textures>
+
+    <spritesheets>
+
+    </spritesheets>
+
+
+    <materials>
+        <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
+         requires a distinct "id". At least one material should be present. -->
+        <material id="whiteMaterial">
+            <shininess value="0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="blue">
+            <shininess value="0" />
+            <ambient r="0" g="0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+
+        <material id="gray">
+            <shininess value="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0" />
+        </material>
+    </materials>
+
+    <!--informacao de animacao -->
+    <!-- o bloco "animations" é opcional, mas quando existir -->
+    <!-- deve ser declarado imediatamente antes do bloco  "nodes" -->
+    <animations>
+
+        <!-- O bloco animations pode ser vazio, isto é, pode -->
+        <!-- não ser declarada qualquer animação -->
+        <animation id="balljump" >
+
+        <!-- A animação inicia-se no tempo da primeira keyframe, -->
+        <!-- sendo que o objeto em causa deve permanecer -->
+        <!-- invisível até esse momento -->
+        <!-- Deve existir pelo menos 1 elemento keyframe. -->
+        <!-- instant e’ o tempo expresso em segundos -->
+        <!-- desde o inicio da animação. -->
+        <!-- Os keyframes devem ser declarados por -->
+        <!-- ordem crescente do tempo. -->
+        <keyframe instant="2">
+
+            <!-- translate, rotate e scale representam as -->
+            <!-- quantidades das transformações -->
+            <!-- correspondentes, medidas em relação à -->
+            <!-- situação inicial (instante zero) -->
+            <!-- Para uma mesma keyframe, os elementos -->
+            <!-- translate, rotate e scale sao obrigatorios -->
+            <!-- e fornecidos por esta ordem -->
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="0" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
+
+        <keyframe instant="4">
+            <translation x="0" y="10" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="180" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
+
+        <keyframe instant="6">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="360" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
+
+        <keyframe instant="6.5">
+            <translation x="0" y="-1" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="360" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="0.5" sz="1" />
+        </keyframe>
+
+        <keyframe instant="8">
+            <translation x="0" y="0" z="0" />
+            <rotation axis="x" angle="0" />
+            <rotation axis="y" angle="360" />
+            <rotation axis="z" angle="0" />
+            <scale sx="1" sy="1" sz="1" />
+        </keyframe>
+
+        </animation>
+
+    </animations>
+
+    <nodes>
+        <node id="root">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                 <noderef id="square"/>
+                 <noderef id="floor"/>
+            </descendants>
+        </node>
+
+        <node id="floor">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="gray" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <translation x="0" y="-2" z="0" />
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="10" y1="-10" x2="-10" y2="10"/>
+            </descendants>
+        </node>
+
+        <node id="square">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="blue" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <scale sx="2" sy="2" sz="2"/>
+            </transformations>
+
+            <animationref id="balljump"/>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <noderef id="leftside"/>
+                <noderef id="rightside"/>
+                <noderef id="bottomside"/>
+                <noderef id="topside"/>
+                <noderef id="frontside"/>
+                <noderef id="backside"/>
+            </descendants>
+        </node>
+
+        <node id="leftside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="y" angle="-90"/>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+
+        <node id="rightside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+
+        <node id="frontside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+
+        <node id="backside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+
+        <node id="bottomside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="x" angle="90"/>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+
+        <node id="topside">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+                <translation x="0" y="0" z="1"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+                <leaf type="rectangle" x1="-1" y1="-1" x2="1" y2="1"/>
+            </descendants>
+        </node>
+    </nodes>
+</lsf>
