@@ -41,6 +41,7 @@ class MySceneGraph {
         this.currMatId = [];
         this.currMat = 0;
         this.lights = [];
+        this.spriteanims = [];
 
         // File reading 
         this.reader = new CGFXMLreader();
@@ -941,6 +942,16 @@ class MySceneGraph {
                             let text = this.reader.getString(grandgrandChildren[k], "text");
                             let spritetext = new MySpriteText(this.scene, text);
                             nodeChildren.push(spritetext);
+                        }
+                        else if (type === "spriteanim") {
+                            let ssid = this.reader.getString(grandgrandChildren[k], "ssid");
+                            let startCell = this.reader.getFloat(grandgrandChildren[k], "startCell");
+                            let endCell = this.reader.getFloat(grandgrandChildren[k], "endCell");
+                            let duration = this.reader.getFloat(grandgrandChildren[k], "duration");
+                            let spriteanim = new MySpriteAnimation(this.scene,ssid,startCell,endCell,duration);
+                        
+                            this.spriteanims[ssid] = spriteanim;
+                            nodeChildren.push(spriteanim);
                         }
                         else
                         {

@@ -2,7 +2,7 @@ class MySpriteText extends CGFobject {
     constructor(scene, text) {
         super(scene);
         this.text = text.toUpperCase();
-        this.rect = new MyRectangle(scene, 0, 0, 1, 1);
+        this.rect = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
         this.sprite = new MySpritesheet(scene, "scenes/images/font.png", 8, 9);
     }
 

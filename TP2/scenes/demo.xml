@@ -107,6 +107,8 @@
 
     <spritesheets>
         <spritesheet id="text" path="./scenes/images/font.png" sizeM="8" sizeN="9" />
+        <spritesheet id="notes" path="./scenes/images/notes.png" sizeM="5" sizeN="2" />
+        <spritesheet id="lofi" path="./scenes/images/lofisprite.png" sizeM="6" sizeN="6" />
     </spritesheets>
 
 
@@ -258,6 +260,7 @@
                     <noderef id="backwallExtrudes" />
                     <noderef id="leftwall" />
                     <noderef id="leftwallposter" />
+                    <noderef id="leftwallsprite" />
                     <noderef id="rightwall" />
                 </descendants>
             </node>       
@@ -447,13 +450,31 @@
                     </texture>
 
                     <transformations>
-                        <translation x="-1.9" y="0.85" z="1.05" />
+                        <translation x="-1.9" y="0.8501" z="1.05" />
                         <rotation axis="y" angle=  "90"/>   
                         <scale sx="0.05" sy="0.05" sz="0.05" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="spritetext" text="lofi beats"/>
+                        <leaf type="spritetext" text="lofi Beats" />
+                      
+                    </descendants>
+                </node>
+                <node id="leftwallsprite">            
+                    <material id="null" />
+
+                    <texture id="null">
+                    </texture>
+
+                    <transformations>
+                        <translation x="-1.9" y="0.85" z="0.85" />
+                        <rotation axis="y" angle=  "90"/>   
+                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                    </transformations>
+
+                    <descendants>
+                        
+                        <leaf type="spriteanim" ssid="notes" startCell="0" endCell="7" duration="1"/>
                     </descendants>
                 </node>
 
@@ -873,14 +894,14 @@
                         </texture>
 
                         <transformations>
-                            <translation x="-1.933" y="0.6" z="0.825" />
+                            <translation x="-1.933" y="0.61" z="0.825" />
                             <rotation axis="z" angle=  "30" />
                             <rotation axis="y" angle=  "90" />
                             <scale sx="0.225" sy="0.14" sz="1" />
                         </transformations>
 
                         <descendants>
-                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+                            <leaf type="spriteanim" ssid="lofi" startCell="0" endCell="35" duration="3"/>
                         </descendants>
                     </node>
 

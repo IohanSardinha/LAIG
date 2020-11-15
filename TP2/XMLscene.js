@@ -46,7 +46,14 @@ class XMLscene extends CGFscene {
         this.selectedView = null;
 
     }
-
+    update(t)
+    {   
+        if(this.sceneInitiated)
+        {
+            for (var anim in this.graph.spriteanims) {
+                this.graph.spriteanims[anim].update(t);
+        }
+    }}
     /**
      * Initializes the scene cameras.
      */
@@ -113,7 +120,9 @@ class XMLscene extends CGFscene {
         this.changeCamera();
 
         this.interface.setInterface();
+        
 
+        
         this.sceneInitiated = true;
     }
 
@@ -174,7 +183,7 @@ class XMLscene extends CGFscene {
             // Updates the state of the lights.
             this.updateLights();
 
-
+            //this.anim.update();
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
