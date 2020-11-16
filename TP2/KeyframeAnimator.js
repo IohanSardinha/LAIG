@@ -14,7 +14,6 @@ class KeyframeAnimator {
         let instants = Object.keys(keyframes).sort();
         let keyframeAnimation;
 
-        console.log(instants);
         for(let i = 0; i < instants.length-1; i++)
         {
             keyframeAnimation = new KeyframeAnimation(scene, instants[i], instants[i+1], keyframes[instants[i]], keyframes[instants[i+1]]);

@@ -28,7 +28,7 @@ class MySpriteAnimation extends CGFobject {
     }
     display(){
         this.sprite.appearance.apply();
-        this.scene.setActiveShader(this.sprite.shader);
+        this.scene.setActiveShaderSimple(this.sprite.shader);
         this.rect.display();
         this.scene.setActiveShader(this.scene.defaultShader);
         this.scene.defaultAppearance.apply();

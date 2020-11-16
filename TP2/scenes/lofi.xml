@@ -467,13 +467,13 @@
                     </texture>
 
                     <transformations>
-                        <translation x="-1.9" y="0.8501" z="1.05" />
+                        <translation x="-1.99" y="0.85" z="1.05" />
                         <rotation axis="y" angle=  "90"/>   
                         <scale sx="0.05" sy="0.05" sz="0.05" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="spritetext" text="lofi Beats" />
+                        <leaf type="spritetext" text="Lofi-Beats" />
                       
                     </descendants>
                 </node>
@@ -484,7 +484,7 @@
                     </texture>
 
                     <transformations>
-                        <translation x="-1.9" y="0.85" z="0.85" />
+                        <translation x="-1.99" y="0.85" z="0.55" />
                         <rotation axis="y" angle=  "90"/>   
                         <scale sx="0.05" sy="0.05" sz="0.05" />
                     </transformations>

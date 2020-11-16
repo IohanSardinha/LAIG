@@ -42,6 +42,7 @@ class MySceneGraph {
         this.currMat = 0;
         this.lights = [];
         this.spriteanims = [];
+        this.initialInstant = 0;
 
         // File reading 
         this.reader = new CGFXMLreader();
@@ -1313,11 +1314,20 @@ class MySceneGraph {
         this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1});
     }
 
-    update(time)
+    update(t)
     {
-        for(let animationID in this.keyframeAnimators)
+        var time = (t - this.initialInstant) / 1000;
+        for (var anim in this.spriteanims) {
+            this.spriteanims[anim].update(t);
+        }
+        if (!this.initialInstant) {
+            this.initialInstant = t;
+        }
+        else
         {
-            this.keyframeAnimators[animationID].update(time);
+            for (let animationID in this.keyframeAnimators) {
+                this.keyframeAnimators[animationID].update(time);
+            }
         }
     }
 }

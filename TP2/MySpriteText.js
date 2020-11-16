@@ -1,22 +1,25 @@
 class MySpriteText extends CGFobject {
     constructor(scene, text) {
         super(scene);
-        this.text = text.toUpperCase();
+        this.text = text;
         this.rect = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
-        this.sprite = new MySpritesheet(scene, "scenes/images/font.png", 8, 9);
+        this.sprite = new MySpritesheet(scene, "scenes/images/font.png", 10, 10);
     }
 
-    getCharacterPosition(character) {
-    var cell = character.charCodeAt(0) - 65;
-    if (cell < 0 && cell > 26) {
-        cell = 65;
-    }
+    getCharacterPosition(character) 
+    {
+        var cell = character.charCodeAt(0) - 32;
+    
+        if (cell < 0 && cell > 94) 
+        {
+            cell = 0;
+        } 
     return cell;
     }
 
     display() {
         this.sprite.appearance.apply();
-        this.scene.setActiveShader(this.sprite.shader);
+        this.scene.setActiveShaderSimple(this.sprite.shader);
         this.scene.pushMatrix();
 
         for (var x = 0, char = ''; char = this.text.charAt(x); x++) {

@@ -1,12 +1,9 @@
 attribute vec3 aVertexPosition;
-attribute vec3 aVertexNormal;
 attribute vec2 aTextureCoord;
 
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
-uniform mat4 uNMatrix;
 
-uniform sampler2D texture;
 uniform float size_c;
 uniform float size_l;
 uniform float c;

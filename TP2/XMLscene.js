@@ -147,16 +147,16 @@ class XMLscene extends CGFscene {
 
     update(t)
     {
-        if(!started_couting_time)
+        // if(!started_couting_time)
+        // {
+        //     this.first_instant = t;
+        //     started_couting_time = true;
+        //     return;
+        // }
+        // let time = (t - this.first_instant)/1000;
+        if (this.sceneInitiated)
         {
-            this.first_instant = t;
-            started_couting_time = true;
-            return;
-        }
-        let time = (t - this.first_instant)/1000;
-        this.graph.update(time);
-        for (var anim in this.graph.spriteanims) {
-            this.graph.spriteanims[anim].update(t);
+            this.graph.update(t);
         }
     }
 
@@ -193,7 +193,6 @@ class XMLscene extends CGFscene {
             // Updates the state of the lights.
             this.updateLights();
 
-            //this.anim.update();
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
