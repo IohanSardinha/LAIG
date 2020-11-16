@@ -9,7 +9,6 @@ class MySpriteText extends CGFobject {
     getCharacterPosition(character) 
     {
         var cell = character.charCodeAt(0) - 32;
-    
         if (cell < 0 && cell > 94) 
         {
             cell = 0;
