@@ -45,7 +45,7 @@ class KeyframeAnimator {
      {
      	if(this.visible)
             return this.currentKeyframe.apply();
-        return mat4.create();
+        return this.visible;
      }
 
 }

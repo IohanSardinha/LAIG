@@ -1102,6 +1102,47 @@ class MySceneGraph {
                             this.spriteanims[ssid] = spriteanim;
                             nodeChildren.push(spriteanim);
                         }
+                        else if(type == "plane")
+                        {
+                            let npartsU = this.reader.getFloat(grandgrandChildren[k],"npartsU");
+                            let npartsV = this.reader.getFloat(grandgrandChildren[k],"npartsV");
+
+                            let plane = new MyPlane(this.scene, npartsU, npartsV);
+
+                            nodeChildren.push(plane);
+                        }
+                        else if(type == "patch")
+                        {
+                            /*<leaf type="patch" npointsU="ii" npointsV="ii" npartsU="ii" npartsV="ii" >
+                                <controlpoint xx="ff" yy="ff" zz="ff" />
+                                    ...
+                            </leaf>*/
+
+                            let npointsU = this.reader.getFloat(grandgrandChildren[k],"npointsU");
+                            let npointsV = this.reader.getFloat(grandgrandChildren[k],"npointsV");
+                            let npartsU = this.reader.getFloat(grandgrandChildren[k],"npartsU");
+                            let npartsV = this.reader.getFloat(grandgrandChildren[k],"npartsV");
+
+                            let controlPoints = grandgrandChildren[k].children;
+                            let controlVertexes = this.parseControlPoints(npointsU,npointsV, controlPoints);
+
+                            let patch = new MyPatch(this.scene, npartsU, npartsV, npointsU-1, npointsV-1, controlVertexes);
+
+                            nodeChildren.push(patch);
+                        }
+                        else if(type == "defbarrel")
+                        {
+                            //<leaf type=”defbarrel” base=“ff” middle=“ff” height=“ff” slices=“ii” stacks=“ii” />
+                            let base = this.reader.getFloat(grandgrandChildren[k],"base");
+                            let middle = this.reader.getFloat(grandgrandChildren[k],"middle");
+                            let height = this.reader.getFloat(grandgrandChildren[k],"height");
+                            let slices = this.reader.getFloat(grandgrandChildren[k],"slices");
+                            let stacks = this.reader.getFloat(grandgrandChildren[k],"stacks");
+
+                            let defbarrel = new MyDefbarrel(this.scene, base, middle, height, slices, stacks);
+
+                            nodeChildren.push(defbarrel);
+                        }
                         else
                         {
                             this.onXMLMinorError("unknown type " + type);
@@ -1118,6 +1159,29 @@ class MySceneGraph {
 
     }
 
+
+    parseControlPoints(npartsU, npartsV, controlPoints)
+    {
+        //<controlpoint xx="ff" yy="ff" zz="ff" />
+        if(controlPoints.length !==  npartsU*npartsV)
+            return "Wrong number of control points in patch";
+        
+        let controlvertexes = [];
+        for(let i = 0; i < npartsU; i++)
+        {
+            let Us = [];
+            for(let j = 0; j < npartsV; j++)
+            {
+                let xx = this.reader.getFloat(controlPoints[i*npartsV+j],"xx");
+                let yy = this.reader.getFloat(controlPoints[i*npartsV+j],"yy");
+                let zz = this.reader.getFloat(controlPoints[i*npartsV+j],"zz");
+
+                Us.push([xx,yy,zz,1]);
+            }
+            controlvertexes.push(Us);
+        }
+        return controlvertexes;
+    }
 
     parseBoolean(node, name, messageError) {
         var boolVal = this.reader.getBoolean(node, name);
@@ -1230,7 +1294,13 @@ class MySceneGraph {
        
         
         if(currNode.animator != null)
-            this.scene.multMatrix(this.keyframeAnimators[currNode.animator].apply());
+        {
+            let matrix = this.keyframeAnimators[currNode.animator].apply();
+            if(matrix == false)
+                return;
+
+            this.scene.multMatrix(matrix);
+        }
 
         this.scene.multMatrix(currNode.transformations);
 

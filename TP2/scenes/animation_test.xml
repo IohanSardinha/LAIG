@@ -111,7 +111,7 @@
             <rotation axis="x" angle="0" />
             <rotation axis="y" angle="180" />
             <rotation axis="z" angle="0" />
-            <scale sx="1" sy="1" sz="1" />
+            <scale sx="1" sy="1.5" sz="1" />
         </keyframe>
 
         <keyframe instant="6">
@@ -140,12 +140,33 @@
 
         </animation>
 
+        <animation id="rotate" >
+            <keyframe instant="0">
+
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="100">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="3600" />
+                <rotation axis="y" angle="3600" />
+                <rotation axis="z" angle="3600" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+        </animation>
+
+
     </animations>
 
     <nodes>
         <node id="root">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
-            <material id="null" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <material id="blue" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
             <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
             </texture>
@@ -157,10 +178,25 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
+
+                <leaf type="defbarrel" base="5" middle="10" height="5" slices="2" stacks="20" />
+
+                <!--<leaf type="patch" npointsU="3" npointsV="2" npartsU="20" npartsV="20" >
+                    <controlpoint xx="-1.5" yy="-1.5"  zz="0" />
+                    <controlpoint xx="-1.5"  yy="1.5" zz="0" />
+
+                    <controlpoint xx="0" yy="-1.5" zz="3.0" />
+                    <controlpoint xx="0" yy="1.5"  zz="3.0" />
+
+                    <controlpoint xx="1.5" yy="-1.5" zz="0" />
+                    <controlpoint xx="1.5"  yy="1.5" zz="0" />
+                </leaf>
+
                  <noderef id="square"/>
-                 <noderef id="floor"/>
+                 <noderef id="floor"/>-->
             </descendants>
         </node>
+
 
         <node id="floor">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
@@ -172,13 +208,13 @@
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
                 <translation x="0" y="-2" z="0" />
-                <rotation axis="x" angle="90"/>
+                <scale sx='10' sy="10" sz="10"/>
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <leaf type="rectangle" x1="10" y1="-10" x2="-10" y2="10"/>
+                <leaf type="plane" npartsU="20" npartsV="20" />
             </descendants>
         </node>
 
