@@ -23,6 +23,46 @@ class MyDefbarrel extends CGFobject {
 
 		let controlvertexes = [Vtop, Vmiddle, Vbase];
 
+		/*let controlvertexes =
+		[
+			[
+				[-base/2, 	0,	  0, 1],
+				[-base/2, base/2, 0, 1],
+				[	 0,   base/2, 0, 1],
+				[ base/2, base/2, 0, 1],
+				[ base/2,  	0,	  0, 1],
+				[ base/2, -base/2,0, 1],
+				[ 	 0,   -base/2,0, 1],
+				[-base/2, -base/2,0, 1],
+				[-base/2, 	0,	  0, 1]
+			],
+			[
+				[-middle/2, 	0,	  height/2, 1],
+				[-middle/2, middle/2, height/2, 1],
+				[	 0,     middle/2, height/2, 1],
+				[ middle/2, middle/2, height/2, 1],
+				[ middle/2,  	0,	  height/2, 1],
+				[ middle/2, -middle/2,height/2, 1],
+				[ 	 0,     -middle/2,height/2, 1],
+				[-middle/2, -middle/2,height/2, 1],
+				[-middle/2, 	0,	  height/2, 1]
+			],
+			[
+				[-base/2, 	0,	  height, 1],
+				[-base/2, base/2, height, 1],
+				[	 0,   base/2, height, 1],
+				[ base/2, base/2, height, 1],
+				[ base/2,  	0,	  height, 1],
+				[ base/2, -base/2,height, 1],
+				[ 	 0,   -base/2,height, 1],
+				[-base/2, -base/2,height, 1],
+				[-base/2, 	0,	  height, 1]
+			]
+		];
+		this.patch = new MyPatch(scene, slices, stacks, 2, 8, controlvertexes);
+		*/
+
+
 		this.patch = new MyPatch(scene, slices, stacks, 2, resolution, controlvertexes);
 	}
 	
