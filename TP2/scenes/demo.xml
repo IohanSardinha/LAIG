@@ -260,8 +260,7 @@
                     <noderef id="door" />
                     <noderef id="backwallExtrudes" />
                     <noderef id="leftwall" />
-                    <noderef id="leftwallposter" />
-                    <noderef id="leftwallsprite" />
+                   
                     <noderef id="rightwall" />
                 </descendants>
             </node>       
@@ -275,11 +274,12 @@
 
                     <transformations>
                         <translation x="0" y="0.75" z="-1.25" />
-                        <scale sx="4" sy="1.5" sz="1" />
+                        <rotation axis="x" angle="90"/>
+                        <scale sx="2.5" sy="1" sz="1.5" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                       <leaf type="plane" npartsU="10" npartsV="10" />
                     </descendants>
                 </node>
                  <node id="window">            
@@ -307,15 +307,14 @@
 
                     <transformations>
                         <translation x="0" y="0.75" z="1.25" />
-                        <scale sx="4" sy="1.5" sz="1" />
                         <rotation axis="y" angle="180"/>
+                        <scale sx="4" sy="1.5" sz="1" />
                     </transformations>
 
                     <descendants>
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
                 </node>
-
                 <node id="door">            
                     <material id="woodMaterial" />
 
@@ -330,8 +329,44 @@
                     </transformations>
 
                     <descendants>
+                        <noderef id="doorTexture" />
+                        <noderef id="doorSpritetext" />
+                    </descendants>
+                </node>
+                <node id="doorTexture">            
+                    <material id="woodMaterial" />
+
+                    <texture id="dresserTexture">
+                        <amplification afs="2" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        
+                    </transformations>
+
+                    <descendants>
                         <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                     </descendants>
+                </node>
+
+                <node id="doorSpritetext">            
+                <material id="whiteMaterial" />
+
+
+                <texture id="null">
+                    <amplification afs="1.0" aft="1.0" />
+                </texture>
+
+                <transformations>
+                    <translation x="-0.15" y="0.3" z="0.001" />
+                    <scale sx="0.1" sy="0.1" sz="0.1" />
+                    <rotation axis="z" angle="10"/>
+                   
+                </transformations>
+
+                <descendants>
+                     <leaf type="spritetext" text="Cya!" />
+                </descendants>
                 </node>
 
                 <node id="backwallExtrudes">            
@@ -452,12 +487,15 @@
 
                     <transformations>
                         <translation x="-2" y="0.75" z="0" />
-                        <rotation axis="y" angle=  "90" />   
-                        <scale sx="2.5" sy="1.5" sz="1" />
+                        <rotation axis="x" angle=  "90" />   
+                        <rotation axis="z" angle=  "-90" />   
+                        <scale sx="2.5" sy="1" sz="1.5" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                        <leaf type="plane" npartsU="10" npartsV="10" />
+                        <noderef id="leftwallposter" />
+                        <noderef id="leftwallsprite" />
                     </descendants>
                 </node>
                 <node id="leftwallposter">            
@@ -467,26 +505,27 @@
                     </texture>
 
                     <transformations>
-                        <translation x="-1.99" y="0.85" z="1.05" />
-                        <rotation axis="y" angle=  "90"/>   
-                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                        <translation x="-0.4" y="0.01" z="0" />
+                        <rotation axis="x" angle=  "-90"/>   
+                        <rotation axis="z" angle=  "10"/>   
+                        <scale sx="0.03" sy="0.03" sz="0.03" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="spritetext" text="Lofi-Beats" />
-                      
+                        <leaf type="spritetext" text="Lofi-Beats" />    
                     </descendants>
                 </node>
+
                 <node id="leftwallsprite">            
                     <material id="null" />
 
                     <texture id="null">
                     </texture>
-
                     <transformations>
-                        <translation x="-1.99" y="0.85" z="0.55" />
-                        <rotation axis="y" angle=  "90"/>   
-                        <scale sx="0.05" sy="0.05" sz="0.05" />
+                        <translation x="-0.3" y="0.01" z="-0.06" />
+                        <rotation axis="x" angle=  "-90"/>   
+                        <rotation axis="z" angle=  "10"/>   
+                          <scale sx="0.03" sy="0.03" sz="0.03" />
                     </transformations>
 
                     <descendants>
@@ -506,12 +545,13 @@
 
                     <transformations>
                         <translation x="2" y="0.75" z="0" />
-                        <rotation axis="y" angle=  "-90" />   
-                        <scale sx="2.5" sy="1.5" sz="1" />
+                        <rotation axis="x" angle=  "90" />   
+                        <rotation axis="z" angle=  "90" /> 
+                        <scale sx="2.5" sy="1" sz="1.5" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                         <leaf type="plane" npartsU="10" npartsV="10" />
                     </descendants>
                 </node>
             <node id="floor">            
@@ -522,12 +562,11 @@
                 </texture>
 
                 <transformations>
-                    <rotation axis="x" angle=  "-90" />
-                    <scale sx="4" sy="2.5" sz="1" />
+                    <scale sx="4" sy="2.5" sz="2.5" />
                 </transformations>
 
                 <descendants>
-                    <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                   <leaf type="plane" npartsU="10" npartsV="10" />
                 </descendants>
             </node>
 
@@ -565,12 +604,12 @@
                     <noderef id="bedBedCap1" />
                     <noderef id="bedBedCap2" />
                     <noderef id="pillow" />
-                    <noderef id="pillowCap1" />
-                    <noderef id="pillowCap2" />
+                    <noderef id="bedBlanket" />
+                    <noderef id="bedFeet" />
                 </descendants>
             </node>
                 <node id="bedBed">            
-                    <material id="redMaterial" />
+                    <material id="whiteMaterial" />
 
                     <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
@@ -578,7 +617,7 @@
 
                     <transformations>
                         <scale sx="0.6" sy="0.2" sz="1.8" />
-                        <translation x="2.62" y="0.7" z="-0.31" />
+                        <translation x="2.5" y="1.2" z="-0.31" />
                         <rotation axis="z" angle="45"/>
                     </transformations>
 
@@ -586,7 +625,7 @@
                         <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
                     </descendants>
                 </node>
-                <node id="bedBedCap1">            
+                <node id="bedBlanket">            
                     <material id="redMaterial" />
 
                     <texture id="noiseTexture">
@@ -594,7 +633,49 @@
                     </texture>
 
                     <transformations>
-                        <translation x="1.57" y="0.14" z="1.24" />
+                        <translation x="1.5" y="0.38" z="0" />
+                        <scale sx="0.1" sy="0.1" sz="0.1" />
+                        
+                    </transformations>
+
+                    <descendants>
+                        <leaf type="patch" npointsU="6" npointsV="3" npartsU="20" npartsV="20" >
+                            <controlpoint xx="5" yy="-2"  zz="-6.1" />
+                            <controlpoint xx="5" yy="-2"  zz="-6" />
+                            <controlpoint xx="5"  yy="-2" zz="9" />
+
+                            <controlpoint xx="5" yy="0" zz="-6.1" />
+                            <controlpoint xx="5" yy="3.5" zz="-6" />
+                            <controlpoint xx="5" yy="1"  zz="9" />
+
+                            <controlpoint xx="5.5" yy="-0.1" zz="-6.1" />
+                            <controlpoint xx="5.5" yy="1.5" zz="-6" />
+                            <controlpoint xx="5.5"  yy="0.5" zz="9" />
+
+                            <controlpoint xx="-5.5" yy="-0.1" zz="-6.1" />
+                            <controlpoint xx="-5.5" yy="1.5" zz="-6" />
+                            <controlpoint xx="-5.5"  yy="0.5" zz="9" />
+
+                            <controlpoint xx="-5" yy="0" zz="-6.1" />
+                            <controlpoint xx="-5" yy="3.5" zz="-6" />
+                            <controlpoint xx="-5" yy="1"  zz="9" />
+
+                            <controlpoint xx="-5" yy="-2" zz="-6.1" />
+                            <controlpoint xx="-5" yy="-2" zz="-6" />
+                            <controlpoint xx="-5" yy="-2"  zz="9" />
+                        </leaf>
+                    </descendants>
+                </node>
+                
+                <node id="bedBedCap1">            
+                    <material id="whiteMaterial" />
+
+                    <texture id="noiseTexture">
+                        <amplification afs="1.0" aft="1.0" />
+                    </texture>
+
+                    <transformations>
+                        <translation x="1.5" y="0.24" z="1.24" />
                         <scale sx="0.85" sy="0.28" sz="1.8" />
                     </transformations>
 
@@ -603,14 +684,14 @@
                     </descendants>
                 </node>
                 <node id="bedBedCap2">            
-                    <material id="redMaterial" />
+                    <material id="whiteMaterial" />
 
                     <texture id="noiseTexture">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
-                        <translation x="1.57" y="0.14" z="-0.54" />
+                        <translation x="1.5" y="0.24" z="-0.54" />
                         <scale sx="0.85" sy="0.28" sz="1.8" />
                         <rotation axis="y" angle="180"/>
                     </transformations>
@@ -627,48 +708,119 @@
                     </texture>
 
                     <transformations>
-                        <scale sx="0.55" sy="0.05" sz="0.5" />
-                        <translation x="2.86" y="6" z="1.4" />
-                        <rotation axis="z" angle="45"/>
+                        <translation x="1.52" y="0.45" z="1" />
+                        <rotation axis="y" angle="90"/>
+                        <scale sx="0.6" sy="0.6" sz="0.6" />
+
                     </transformations>
 
                     <descendants>
-                        <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="4"/>
+                        <leaf type="patch" npointsU="5" npointsV="3" npartsU="20" npartsV="20" >
+                            <controlpoint xx="0.0" yy="0" zz="-0.6" />
+                            <controlpoint xx="0.0"  yy="-0.2" zz="0" />
+                            <controlpoint xx="0.0"  yy="0" zz="0.6" />
+
+                            <controlpoint xx="1" yy="0"  zz="-0.6" />
+                            <controlpoint xx="1"  yy="0" zz="0" />
+                            <controlpoint xx="1"  yy="0" zz="0.6" />
+
+                            <controlpoint xx="0" yy="0" zz="-0.6" />
+                            <controlpoint xx="0" yy="1"  zz="0" />
+                            <controlpoint xx="0" yy="0"  zz="0.6" />
+
+                            <controlpoint xx="-1" yy="0"  zz="-0.6" />
+                            <controlpoint xx="-1"  yy="0" zz="0" />
+                            <controlpoint xx="-1"  yy="0" zz="0.6" />
+                            
+                            <controlpoint xx="0" yy="0" zz="-0.6" />
+                            <controlpoint xx="0" yy="-0.2"  zz="0" />
+                            <controlpoint xx="0" yy="0"  zz="0.6" />
+
+                        </leaf>
                     </descendants>
                 </node>
-                <node id="pillowCap1">            
-                    <material id="whiteMaterial" />
+                <node id="bedFeet">            
+                    <material id="darkMetalMaterial" />
 
-                    <texture id="noiseTexture">
+                    <texture id="null">
                         <amplification afs="1.0" aft="1.0" />
                     </texture>
 
                     <transformations>
-                        <translation x="1.57" y="0.31" z="1.2" />
-                        <scale sx="0.78" sy="0.05" sz="1.8" />
+                        
+                        <translation x="1.2" y="0" z="1.1" />
+                        <rotation axis="x" angle="-90"/>
+                        <scale sx="0.15" sy="0.15" sz="0.15" />
                     </transformations>
 
                     <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                        <noderef id="bedFeet1" />
+                        <noderef id="bedFeet2" />
+                        <noderef id="bedFeet3" />
+                        <noderef id="bedFeet4" />
                     </descendants>
                 </node>
-                <node id="pillowCap2">            
-                    <material id="whiteMaterial" />
+                    <node id="bedFeet1">            
+                        <material id="null" />
 
-                    <texture id="noiseTexture">
-                        <amplification afs="1.0" aft="1.0" />
-                    </texture>
+                        <texture id="null">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
 
-                    <transformations>
-                        <translation x="1.57" y="0.31" z="0.7" />
-                        <scale sx="0.78" sy="0.05" sz="1.8" />
-                        <rotation axis="y" angle="180"/>
-                    </transformations>
+                        <transformations>
+                            <translation x="0" y="0" z="0" />
+                        </transformations>
 
-                    <descendants>
-                        <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
-                    </descendants>
-                </node>          
+                        <descendants>
+                              <leaf type="defbarrel" base="0.5" middle="1" height="0.7" slices="10" stacks="20" />
+                        </descendants>
+                    </node>
+                    <node id="bedFeet2">            
+                        <material id="null" />
+
+                        <texture id="null">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="4" y="0" z="0" />
+                        </transformations>
+
+                        <descendants>
+                              <leaf type="defbarrel" base="0.5" middle="1" height="0.7" slices="10" stacks="20" />
+                        </descendants>
+                    </node>
+                    <node id="bedFeet3">            
+                        <material id="null" />
+
+                        <texture id="null">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="0" y="10" z="0" />
+                        </transformations>
+
+                        <descendants>
+                              <leaf type="defbarrel" base="0.5" middle="1" height="0.7" slices="10" stacks="20" />
+                        </descendants>
+                    </node>
+                    <node id="bedFeet4">            
+                        <material id="null" />
+
+                        <texture id="null">
+                            <amplification afs="1.0" aft="1.0" />
+                        </texture>
+
+                        <transformations>
+                            <translation x="4" y="10" z="0" />
+                        </transformations>
+
+                        <descendants>
+                              <leaf type="defbarrel" base="0.5" middle="1" height="0.7" slices="10" stacks="20" />
+                        </descendants>
+                    </node>
+                
 
             <node id="table">            
                 <material id="woodMaterial" />
@@ -1241,9 +1393,46 @@
                 </transformations>
 
                 <descendants>
+                    <noderef id="dresserText"/>
+                    <noderef id="dresserSpritetext"/>
+                </descendants>
+            </node>
+            <node id="dresserText">            
+                <material id="whiteMaterial" />
+
+
+                <texture id="dresserTexture">
+                    <amplification afs="1.0" aft="1.0" />
+                </texture>
+
+                <transformations>
+
+                </transformations>
+
+                <descendants>
                      <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
                 </descendants>
             </node>
+            <node id="dresserSpritetext">            
+                <material id="whiteMaterial" />
+
+
+                <texture id="null">
+                    <amplification afs="1.0" aft="1.0" />
+                </texture>
+
+                <transformations>
+                    <translation x="-0.43" y="0.3" z="0.1" />
+                    <scale sx="0.05 " sy="0.05" sz="0.05" />
+                    <rotation axis="z" angle="-25"/>
+                </transformations>
+
+                <descendants>
+                     <leaf type="spritetext" text="Closed!!!" />
+                </descendants>
+            </node>
+
+
 
             <node id="dresserCap">            
                 <material id="lightBrownMaterial" />
@@ -1564,12 +1753,12 @@
                         </texture>
 
                         <transformations>
-                            <translation x="-37" y="0" z="0" />
+                            <translation x="-37.5" y="0" z="0" />
                             <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
-                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="10"/>
+                             <leaf type="cylinder" height="1" topRadius="0.8" bottomRadius="0.8" stacks="1" slices="10"/>
                         </descendants>
                     </node>
                     <node id="plantTrunk2">            
@@ -1580,12 +1769,12 @@
                         </texture>
 
                         <transformations>
-                            <translation x="37" y="0" z="0" />
+                            <translation x="37.5" y="0" z="0" />
                             <rotation axis="x" angle="-90"/>
                         </transformations>
 
                         <descendants>
-                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="10"/>
+                             <leaf type="cylinder" height="1" topRadius="0.8" bottomRadius="0.8" stacks="1" slices="10"/>
                         </descendants>
                     </node>
                 <node id="plantsVases">            
@@ -1618,7 +1807,7 @@
                         </transformations>
 
                         <descendants>
-                              <leaf type="cylinder" height="1" topRadius="0" bottomRadius="1" stacks="1" slices="4"/>
+                              <leaf type="defbarrel" base="1" middle="1.5" height="0.53" slices="10" stacks="20" />
                         </descendants>
                     </node>
                     <node id="plantVase2">            
@@ -1633,7 +1822,7 @@
                         </transformations>
 
                         <descendants>
-                            <leaf type="cylinder" height="1" topRadius="0" bottomRadius="1" stacks="1" slices="4"/>
+                            <leaf type="defbarrel" base="1" middle="1.5" height="0.53" slices="10" stacks="20" />
                         </descendants>
                     </node>
                 <node id="plantsVasesCaps">            
@@ -1664,10 +1853,11 @@
 
                         <transformations>
                             <translation x="-2.65" y="2.65" z="0" />   
+                            <scale sx="0.38" sy="0.38" sz="1" />
                         </transformations>
 
                         <descendants>
-                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                             <noderef id="tenSideCircle"/>
                         </descendants>
                     </node>
                     <node id="plantVaseCap2">            
@@ -1679,10 +1869,12 @@
 
                         <transformations>
                             <translation x="2.65" y="-2.65" z="0" /> 
+                            <scale sx="0.38" sy="0.38" sz="1" />
+
                         </transformations>
 
                         <descendants>
-                            <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/>
+                            <noderef id="tenSideCircle"/>
                         </descendants>
                     </node>
 
