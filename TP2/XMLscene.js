@@ -40,6 +40,7 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
+        this.spriteFont = new MySpritesheet(this, "scenes/images/font.png", 10, 10)
      
 
         this.scaleFactor = 1;

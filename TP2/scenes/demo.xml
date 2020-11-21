@@ -6,7 +6,7 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="Full view">
+    <views default="Working on computer">
         <!-- at least one of the following type of cameras must be declared -->
         <perspective id="Full view" near="0.1" far="500" angle="45">
             <from x="20" y="15" z="40" />
@@ -213,6 +213,58 @@
     </materials>
 
     <animations>
+    <animation id="moveMouse" >
+            
+            <keyframe instant="0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="0.5">
+                <translation x="0" y="0" z="-0.02" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="1">
+                <translation x="-0.02" y="0" z="-0.02" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="1.5">
+                <translation x="-0.01" y="0.02" z="-0.01" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="2">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="3">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="0" />
+                <rotation axis="y" angle="30" />
+                <rotation axis="z" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            
+           
+
+        </animation>
     </animations>
 
 
@@ -965,6 +1017,7 @@
                         <noderef id="monitorCap1" />
                         <noderef id="monitorCap2" />
                         <noderef id="screen" />
+                        <noderef id="mouse" />
                     </descendants>
                 </node>
                     <node id="keyboard">            
@@ -1272,6 +1325,96 @@
                         <descendants>
                             <leaf type="cylinder" height="1" topRadius="1" bottomRadius="1" stacks="1" slices="10"/>
                         </descendants>
+                    </node>
+                    <node id="mouse"> 
+                        <material id="whiteMaterial" />
+
+                        <texture id="null">
+                        </texture>
+
+                        <transformations>
+                            <translation x="-1.85" y="0.51" z="0.6" />
+                            <rotation axis="x" angle=  "-90" />
+                            <scale sx="0.01" sy="0.01" sz="0.01" />
+                        </transformations>
+                        <animationref id="moveMouse"/>
+                        <descendants>
+                        <noderef id="mouseShell"/>
+                        <noderef id="mouseBase"/>
+                        </descendants>
+
+                    </node>
+                    
+                    <node id="mouseShell">            
+                        <material id="null" />
+
+                        <texture id="null">
+                        </texture>
+                    
+                        <transformations>
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="patch" npointsU="5" npointsV="3" npartsU="20" npartsV="20" >
+                                <controlpoint xx="-5" yy="0"  zz="0" />
+                                <controlpoint xx="-5"  yy="0" zz="0" />
+                                <controlpoint xx="-5"  yy="0" zz="0" />
+
+                                <controlpoint xx="-5" yy="-3.5"  zz="0" />
+                                <controlpoint xx="-5"  yy="0" zz="0" />
+                                <controlpoint xx="-5"  yy="3.5" zz="0" />
+
+                                <controlpoint xx="-2" yy="-1" zz="0" />
+                                <controlpoint xx="-2" yy="0"  zz="6" />
+                                <controlpoint xx="-2" yy="1"  zz="0" />
+
+                                <controlpoint xx="5" yy="-5" zz="0" />
+                                <controlpoint xx="5"  yy="0" zz="7" />
+                                <controlpoint xx="5"  yy="5" zz="0" />
+
+                                <controlpoint xx="5" yy="0"  zz="0" />
+                                <controlpoint xx="5"  yy="0" zz="0" />
+                                <controlpoint xx="5"  yy="0" zz="0" />
+                            </leaf>
+                        </descendants>
+
+                    </node>
+
+                    <node id="mouseBase">          
+                        <material id="null" />
+
+                        <texture id="null">
+                        </texture>
+                    
+                        <transformations>
+                            <translation x="0" y="0" z="0" />
+                            <rotation axis="x" angle="180"/>
+                        </transformations>
+
+                        <descendants>
+                            <leaf type="patch" npointsU="5" npointsV="2" npartsU="20" npartsV="20" >
+                                <controlpoint xx="-5" yy="0"  zz="0" />
+                                
+                                <controlpoint xx="-5"  yy="0" zz="0" />
+
+                                <controlpoint xx="-5" yy="-3.5"  zz="0" />
+                                
+                                <controlpoint xx="-5"  yy="3.5" zz="0" />
+
+                                <controlpoint xx="-2" yy="-1" zz="0" />
+                            
+                                <controlpoint xx="-2" yy="1"  zz="0" />
+
+                                <controlpoint xx="5" yy="-5" zz="0" />
+                                
+                                <controlpoint xx="5"  yy="5" zz="0" />
+
+                                <controlpoint xx="5" yy="0"  zz="0" />
+                            
+                                <controlpoint xx="5"  yy="0" zz="0" />
+                            </leaf>
+                        </descendants>
+
                     </node>
 
             <node id="chair">            

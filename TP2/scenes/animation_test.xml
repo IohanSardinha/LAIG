@@ -179,24 +179,104 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
 
-                <leaf type="defbarrel" base="5" middle="10" height="5" slices="2" stacks="20" />
+                <!--<leaf type="defbarrel" base="5" middle="10" height="5" slices="2" stacks="20" />-->
 
-                <!--<leaf type="patch" npointsU="3" npointsV="2" npartsU="20" npartsV="20" >
-                    <controlpoint xx="-1.5" yy="-1.5"  zz="0" />
-                    <controlpoint xx="-1.5"  yy="1.5" zz="0" />
-
-                    <controlpoint xx="0" yy="-1.5" zz="3.0" />
-                    <controlpoint xx="0" yy="1.5"  zz="3.0" />
-
-                    <controlpoint xx="1.5" yy="-1.5" zz="0" />
-                    <controlpoint xx="1.5"  yy="1.5" zz="0" />
-                </leaf>
-
+               
+                 
+                <noderef id="mouse"/>
+                <!--
                  <noderef id="square"/>
                  <noderef id="floor"/>-->
             </descendants>
         </node>
 
+        <node id="mouse"> 
+            <material id="gray" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+              <noderef id="mouseShell"/>
+              <noderef id="mouseBase"/>
+            </descendants>
+
+        </node>
+        
+        <node id="mouseShell">            
+            <material id="null" />
+
+            <texture id="null">
+            </texture>
+        
+            <transformations>
+            </transformations>
+
+            <descendants>
+                 <leaf type="patch" npointsU="5" npointsV="3" npartsU="20" npartsV="20" >
+                    <controlpoint xx="-5" yy="0"  zz="0" />
+                    <controlpoint xx="-5"  yy="0" zz="0" />
+                    <controlpoint xx="-5"  yy="0" zz="0" />
+
+                    <controlpoint xx="-5" yy="-3.5"  zz="0" />
+                    <controlpoint xx="-5"  yy="0" zz="0" />
+                    <controlpoint xx="-5"  yy="3.5" zz="0" />
+
+                    <controlpoint xx="-2" yy="-1" zz="0" />
+                    <controlpoint xx="-2" yy="0"  zz="6" />
+                    <controlpoint xx="-2" yy="1"  zz="0" />
+
+                    <controlpoint xx="5" yy="-5" zz="0" />
+                    <controlpoint xx="5"  yy="0" zz="7" />
+                    <controlpoint xx="5"  yy="5" zz="0" />
+
+                    <controlpoint xx="5" yy="0"  zz="0" />
+                    <controlpoint xx="5"  yy="0" zz="0" />
+                    <controlpoint xx="5"  yy="0" zz="0" />
+                </leaf>
+            </descendants>
+
+        </node>
+
+        <node id="mouseBase">          
+            <material id="null" />
+
+            <texture id="null">
+            </texture>
+           
+            <transformations>
+                <translation x="0" y="0" z="0" />
+                <rotation axis="x" angle="180"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="5" npointsV="2" npartsU="20" npartsV="20" >
+                    <controlpoint xx="-5" yy="0"  zz="0" />
+                    
+                    <controlpoint xx="-5"  yy="0" zz="0" />
+
+                    <controlpoint xx="-5" yy="-3.5"  zz="0" />
+                    
+                    <controlpoint xx="-5"  yy="3.5" zz="0" />
+
+                    <controlpoint xx="-2" yy="-1" zz="0" />
+                   
+                    <controlpoint xx="-2" yy="1"  zz="0" />
+
+                    <controlpoint xx="5" yy="-5" zz="0" />
+                    
+                    <controlpoint xx="5"  yy="5" zz="0" />
+
+                    <controlpoint xx="5" yy="0"  zz="0" />
+                
+                    <controlpoint xx="5"  yy="0" zz="0" />
+                </leaf>
+            </descendants>
+
+        </node>
 
         <node id="floor">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->

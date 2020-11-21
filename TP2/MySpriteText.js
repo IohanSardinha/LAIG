@@ -3,7 +3,7 @@ class MySpriteText extends CGFobject {
         super(scene);
         this.text = text;
         this.rect = new MyRectangle(scene, -0.5, -0.5, 0.5, 0.5);
-        this.sprite = new MySpritesheet(scene, "scenes/images/font.png", 10, 10);
+        this.sprite = scene.spriteFont;
     }
 
     getCharacterPosition(character) 
