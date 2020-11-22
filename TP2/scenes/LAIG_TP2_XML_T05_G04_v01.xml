@@ -98,7 +98,7 @@
         <texture id="noiseTexture" path="./scenes/images/wall.jpg" />
         <texture id="floorTexture" path="./scenes/images/floor.jpg" />
         <texture id="plasticTexture" path="./scenes/images/plastic.jpg" />
-        <texture id="lofi" path="./scenes/images/lofi.jpg" />
+        
         <texture id="bookCover" path="./scenes/images/bookCover.jpg" />
         <texture id="keyboardTexture" path="./scenes/images/keyboard.jpg" />
         <texture id="radio_texture" path="./scenes/images/radio.png" />
@@ -1252,7 +1252,7 @@
                     <node id="screen">            
                         <material id="whiteMaterial" />
 
-                        <texture id="lofi">
+                        <texture id="null">
                             <amplification afs="1.0" aft="1.0" />
                         </texture>
 
