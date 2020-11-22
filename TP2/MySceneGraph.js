@@ -1290,7 +1290,6 @@ class MySceneGraph {
 
     displayNode(currNode,currMaterial,currTexture,amplification)
     {
-        console.log(currNode.id);
         this.scene.pushMatrix();
        
         this.scene.multMatrix(currNode.transformations);
