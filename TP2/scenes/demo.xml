@@ -224,7 +224,7 @@
             </keyframe>
 
             <keyframe instant="0.5">
-                <translation x="0" y="0" z="-0.02" />
+                <translation x="0" y="-2" z="0" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
@@ -232,14 +232,14 @@
             </keyframe>
 
             <keyframe instant="1">
-                <translation x="-0.02" y="0" z="-0.02" />
+                <translation x="-2" y="-2" z="0" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
             <keyframe instant="1.5">
-                <translation x="-0.01" y="0.02" z="-0.01" />
+                <translation x="-1" y="1" z="2" />
                 <rotation axis="x" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="z" angle="0" />
@@ -256,12 +256,10 @@
             <keyframe instant="3">
                 <translation x="0" y="0" z="0" />
                 <rotation axis="x" angle="0" />
-                <rotation axis="y" angle="30" />
-                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="z" angle="30" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-
-            
            
 
         </animation>

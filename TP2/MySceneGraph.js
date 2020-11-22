@@ -1293,6 +1293,7 @@ class MySceneGraph {
         console.log(currNode.id);
         this.scene.pushMatrix();
        
+        this.scene.multMatrix(currNode.transformations);
         let display = true;
         if(currNode.animator != null)
         {
@@ -1301,7 +1302,6 @@ class MySceneGraph {
                 this.scene.multMatrix(display);
         }
 
-        this.scene.multMatrix(currNode.transformations);
 
         if(currNode.material == "clear")
             currMaterial = this.defaultMaterialID;
