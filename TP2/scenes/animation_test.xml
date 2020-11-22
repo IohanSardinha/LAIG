@@ -173,6 +173,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -182,11 +183,39 @@
                 <!--<leaf type="defbarrel" base="5" middle="10" height="5" slices="2" stacks="20" />-->
 
                
-                 
+                <!-- 
                 <noderef id="mouse"/>
-                <!--
+                -->
+                 <noderef id="inter"/>
+                 <noderef id="floor"/>
+            </descendants>
+        </node>
+
+        <node id="inter">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="blue" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+                <rotation axis='y' angle='90'/>
+                <translation x="5" y="5" z="5"/>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+
+                <!--<leaf type="defbarrel" base="5" middle="10" height="5" slices="2" stacks="20" />-->
+
+               
+                <!-- 
+                <noderef id="mouse"/>
+                -->
                  <noderef id="square"/>
-                 <noderef id="floor"/>-->
+
             </descendants>
         </node>
 
@@ -288,7 +317,7 @@
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
                 <translation x="0" y="-2" z="0" />
-                <scale sx='10' sy="10" sz="10"/>
+                <scale sx='15' sy="15" sz="15"/>
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -306,7 +335,7 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
-                <scale sx="2" sy="2" sz="2"/>
+               
             </transformations>
 
             <animationref id="balljump"/>

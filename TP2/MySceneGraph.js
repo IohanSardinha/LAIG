@@ -1290,16 +1290,15 @@ class MySceneGraph {
 
     displayNode(currNode,currMaterial,currTexture,amplification)
     {
+        console.log(currNode.id);
         this.scene.pushMatrix();
        
-        
+        let display = true;
         if(currNode.animator != null)
         {
-            let matrix = this.keyframeAnimators[currNode.animator].apply();
-            if(matrix == false)
-                return;
-
-            this.scene.multMatrix(matrix);
+            display = this.keyframeAnimators[currNode.animator].apply();
+            if(display)
+                this.scene.multMatrix(display);
         }
 
         this.scene.multMatrix(currNode.transformations);
@@ -1334,11 +1333,13 @@ class MySceneGraph {
 
             if (this.activateMaterials)
                 this.materials[currMaterial].apply();
-
-            if(typeof currNode.children[i] == "string")
-               this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture,amplification);
-            else
-                currNode.children[i].display();
+            if(display)
+            {
+                if(typeof currNode.children[i] == "string")
+                   this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture,amplification);
+                else
+                    currNode.children[i].display();
+            }
         }
         this.scene.popMatrix();
     }
