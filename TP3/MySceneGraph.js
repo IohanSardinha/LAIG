@@ -1143,6 +1143,16 @@ class MySceneGraph {
 
                             nodeChildren.push(defbarrel);
                         }
+                        else if(type == "objmodel")
+                        {
+                            let model = this.reader.getString(grandgrandChildren[k],"model");
+
+                            let wireframe = this.reader.getString(grandgrandChildren[k], "wireframe");
+
+                            let obj_model = new CGFOBJModel(this.scene, model, wireframe == "true");
+
+                            nodeChildren.push(obj_model);
+                        }
                         else
                         {
                             this.onXMLMinorError("unknown type " + type);
