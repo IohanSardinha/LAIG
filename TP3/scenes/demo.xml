@@ -145,7 +145,7 @@
 
             <transformations>
                 <rotation axis="y" angle="90"/>
-                <translation x="-6.15" y="0.2" z="-1" />
+                <translation x="-6.15" y="0.3" z="-1" />
             </transformations>
 
             <descendants>
@@ -191,7 +191,7 @@
 
             <transformations>
                 <rotation axis="y" angle="-90"/>
-                <translation x="3.8" y="0.2" z="1" />
+                <translation x="3.8" y="0.3" z="1" />
             </transformations>
             <descendants>
                 <noderef id="yellowKoi1"/>
