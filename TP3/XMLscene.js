@@ -33,20 +33,25 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(10);
+        this.setUpdatePeriod(25);
+        this.setPickEnabled(true);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
         this.defaultAppearance = new CGFappearance(this);
 
-        this.spriteFont = new MySpritesheet(this, "scenes/images/font.png", 10, 10)
-     
+        this.initGame = false;
+        this.level = 1;
+        this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
+        this.mode = 'Player vs. CPU';
 
+        this.menu = new Menu(this, this.level, this.mode);
         this.scaleFactor = 1;
         this.displayAxis = false;
         this.displayLights = false;
         this.selectedView = null;
+        this.displayMenu = true;
 
     }
     /**
@@ -76,21 +81,25 @@ class XMLscene extends CGFscene {
 
                 this.lights[i].setVisible(true);
 
-                this.lightIDs[i] = { key : key , enabled: graphLight[0] };
+                this.lightIDs[i] = { key: key, enabled: graphLight[0] };
 
-                if (graphLight[0])
-                {
+                if (graphLight[0]) {
                     this.lights[i].enable();
                 }
-                else
-                {
+                else {
                     this.lights[i].disable();
 
-                }                   
+                }
                 this.lights[i].update();
                 i++;
             }
         }
+    }
+    setDefaultAppearance() {
+        this.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.setShininess(10.0);
     }
 
     /** Handler called when the graph is finally loaded. 
@@ -115,9 +124,9 @@ class XMLscene extends CGFscene {
         this.changeCamera();
 
         this.interface.setInterface();
-        
 
-        
+
+
         this.sceneInitiated = true;
     }
 
@@ -126,28 +135,48 @@ class XMLscene extends CGFscene {
         // this set the camera to the selectedView
         this.camera = this.graph.viewMap.get(this.selectedView);
         // this enables the camera movement
-        this.interface.setActiveCamera(this.camera);
-    }
-
-    updateLights(){
-        //Iterates through lightsIDs containing the light state booleans and sets them accordingly.
-        for (var key in this.lightIDs) 
-        {
-            if(this.lightIDs[key].enabled)
-            {
-                this.lights[key].enable();
-            }
-            else 
-            {
-                this.lights[key].disable();
-            }
-            this.lights[key].update();            
+        
+        if (this.selectedView === 'Main Camera') {
+            this.interface.setActiveCamera(null);
+        } else {
+            this.interface.setActiveCamera(this.camera);
         }
     }
 
+    updateLights() {
+        //Iterates through lightsIDs containing the light state booleans and sets them accordingly.
+        for (var key in this.lightIDs) {
+            if (this.lightIDs[key].enabled) {
+                this.lights[key].enable();
+            }
+            else {
+                this.lights[key].disable();
+            }
+            this.lights[key].update();
+        }
+    }
 
-    update(t)
-    {
+    update(t) {
+        if (!this.displayMenu) {
+            if (this.sceneInited) {
+                if (!this.initGame) {
+                    let mode;
+                    for (let i = 0; i < this.modes.length; i++) {
+                        if (this.modes[i] === this.mode) {
+                            mode = i + 1;
+                            break;
+                        }
+                    }
+                    this.initGame = true;
+                }
+
+                this.checkKeys();
+                this.graph.update(t);
+
+            }
+        }
+    }
+    update(t) {
         // if(!started_couting_time)
         // {
         //     this.first_instant = t;
@@ -155,8 +184,7 @@ class XMLscene extends CGFscene {
         //     return;
         // }
         // let time = (t - this.first_instant)/1000;
-        if (this.sceneInitiated)
-        {
+        if (this.sceneInitiated) {
             this.graph.update(t);
         }
     }
@@ -179,8 +207,11 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-        
+
+        this.setDefaultAppearance();
+
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(this.displayLights);
             this.lights[i].enable();
@@ -188,9 +219,6 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInitiated) {
             // Draw axis
-            if(this.displayAxis)
-                this.axis.display();
-                
             // Updates the state of the lights.
             this.updateLights();
 
@@ -198,19 +226,39 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
+            if (this.displayMenu) {
+                this.menu.display();
+            } else {
+
+            }
         }
-        else
-        {
+        else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    logPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                console.log(this.pickResults);
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
+        }
     }
 }
