@@ -107,6 +107,8 @@
             <material id="whiteMaterial" />
 
             <texture id="boardTexture">
+             <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -130,7 +132,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="objmodel" model="scenes/models/lake2.obj"/>
+                <leaf type="objmodel" model="scenes/models/lake2.obj" wireframe="0"/>
                 <noderef id="redKoi"/>
                 <noderef id="yellowKoi"/>
                 <noderef id="board"/>
@@ -236,7 +238,7 @@
                 <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
             <descendants>
-                <leaf type="objmodel" model="scenes/models/koi.obj"/>
+                <leaf type="objmodel" model="scenes/models/koi.obj" wireframe="0"/>
             </descendants>
         </node>
     </nodes>

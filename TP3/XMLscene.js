@@ -101,7 +101,27 @@ class XMLscene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+    startGame(ambient, level, game_mode) {
+        this.level = level;
+        this.mode = game_mode;
 
+        let filename;
+        switch (ambient) {
+            case 1:
+                filename = "jinli.xml";
+                break;
+            case 2:
+                filename = "jinli.xml";
+                break;
+            default:
+                filename = "menu.xml";
+                break;
+        }
+        this.sceneInitiated = false;
+        this.displayMenu = false;
+        
+        this.graph = new MySceneGraph(filename, this);
+    }
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -124,8 +144,7 @@ class XMLscene extends CGFscene {
         this.changeCamera();
 
         this.interface.setInterface();
-
-
+        
 
         this.sceneInitiated = true;
     }
@@ -177,13 +196,6 @@ class XMLscene extends CGFscene {
         }
     }
     update(t) {
-        // if(!started_couting_time)
-        // {
-        //     this.first_instant = t;
-        //     started_couting_time = true;
-        //     return;
-        // }
-        // let time = (t - this.first_instant)/1000;
         if (this.sceneInitiated) {
             this.graph.update(t);
         }
@@ -228,9 +240,7 @@ class XMLscene extends CGFscene {
             this.graph.displayScene();
             if (this.displayMenu) {
                 this.menu.display();
-            } else {
-
-            }
+            } 
         }
         else {
             // Show some "loading" visuals

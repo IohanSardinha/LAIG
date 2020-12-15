@@ -3,7 +3,7 @@
     <initials>
         <reference length="5" />
         <!-- axis length; "0" means no axis displayed -->
-        <root id="scene" />
+        <root id="menu" />
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
@@ -79,7 +79,7 @@
 
 
     <nodes>
-        <node id="scene">         
+        <node id="menu">         
 
             <material id="defaultMaterial" />
             <texture id="defaultTexture">

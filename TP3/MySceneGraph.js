@@ -1147,9 +1147,9 @@ class MySceneGraph {
                         {
                             let model = this.reader.getString(grandgrandChildren[k],"model");
 
-                            let wireframe = this.reader.getString(grandgrandChildren[k], "wireframe");
+                            let wireframe = this.reader.getBoolean(grandgrandChildren[k], "wireframe");
 
-                            let obj_model = new CGFOBJModel(this.scene, model, wireframe == "true");
+                            let obj_model = new CGFOBJModel(this.scene, model, wireframe);
 
                             nodeChildren.push(obj_model);
                         }
@@ -1326,9 +1326,7 @@ class MySceneGraph {
             currTexture = currNode.texture;
         }
 
-        //console.log(currNode.animator);
-
-
+        
         for(let i = 0; i < currNode.children.length; i++)
         {
 
@@ -1391,6 +1389,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+
         this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1});
     }
 
