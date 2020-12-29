@@ -13,10 +13,11 @@
  */
 
 class MyNode extends CGFobject {
-    constructor(scene, id, material, texture, l_s, l_t, transformations, children, animator) {
+    constructor(scene, id, material, texture, l_s, l_t, transformations, children, animator, picking_id) {
         super(scene);
         this.id = id;
         this.material = material;
+        this.picking_id = picking_id;
 
         this.texture = texture;
         this.l_s = l_s;

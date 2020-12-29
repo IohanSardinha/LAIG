@@ -894,10 +894,16 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
             var animationrefIndex = nodeNames.indexOf("animationref");
+            var clickableIndex = nodeNames.indexOf("clickable");
 
             var animationref = null;
+            var picking_id = false;
 
             //this.onXMLMinorError("To do: Parse nodes.");
+
+            if(grandChildren[clickableIndex] != null){
+                picking_id = this.reader.getFloat(grandChildren[clickableIndex],"id");
+            }
 
             if(grandChildren[animationrefIndex] != null && animationrefIndex != transformationsIndex+1)
                 this.onXMLMinorError("Tag <animationref> must come immediately after tag <transformatios>!");
@@ -1153,6 +1159,16 @@ class MySceneGraph {
 
                             nodeChildren.push(obj_model);
                         }
+                        else if(type == 'clickable')
+                        {
+                            let id = this.reader.getFloat(grandgrandChildren[k],'id');
+                            let pick_id = this.reader.getFloat(grandgrandChildren[k],'pick_id');
+                            let size = this.reader.getFloat(grandgrandChildren[k],'size');
+
+                            let clickable = new MyClickableArea(this.scene, id, pick_id, size);
+
+                            nodeChildren.push(clickable);
+                        }
                         else
                         {
                             this.onXMLMinorError("unknown type " + type);
@@ -1164,7 +1180,7 @@ class MySceneGraph {
                     }
                 }
             }
-            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren, animationref);
+            this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren, animationref, picking_id);
         }
 
     }
@@ -1298,7 +1314,7 @@ class MySceneGraph {
         return color;
     }
 
-    displayNode(currNode,currMaterial,currTexture,amplification)
+    displayNode(currNode,currMaterial,currTexture,amplification,picking_id)
     {
         this.scene.pushMatrix();
        
@@ -1311,6 +1327,12 @@ class MySceneGraph {
                 this.scene.multMatrix(display);
         }
 
+        if(currNode.picking_id === -1)
+            picking_id = false;
+        else if(currNode.picking_id != false)
+        {
+            picking_id = currNode.picking_id;
+        }
 
         if(currNode.material == "clear")
             currMaterial = this.defaultMaterialID;
@@ -1343,9 +1365,15 @@ class MySceneGraph {
             if(display)
             {
                 if(typeof currNode.children[i] == "string")
-                   this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture,amplification);
+                   this.displayNode(this.nodeInfo[currNode.children[i]],currMaterial,currTexture,amplification,picking_id);
                 else
+                {
+                    if(picking_id != false)
+                        this.scene.registerForPick(picking_id, currNode.children[i]);
                     currNode.children[i].display();
+                    if(picking_id != false)
+                        this.scene.clearPickRegistration();
+                }
             }
         }
         this.scene.popMatrix();
@@ -1390,7 +1418,7 @@ class MySceneGraph {
      */
     displayScene() {
 
-        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1});
+        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1},false);
     }
 
     update(t)

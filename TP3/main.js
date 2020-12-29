@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyRectangle.js', 'MyTriangle.js', 'MyCylinder.js', 'MySphere.js', 'MyTorus.js', 'MyNode.js', 'MySpritesheet.js', 'MySpriteAnimation.js', 'MySpriteText.js', 'Animation.js', 'KeyframeAnimation.js', 'KeyframeAnimator.js', 'MyPlane.js', 'MyPatch.js', 'MyDefbarrel.js', 'Menu.js', 'CGFOBJModel.js', 'CGFResourceReader.js',
+serialInclude(['../lib/CGF.js', 'utils/XMLscene.js', 'utils/MySceneGraph.js', 'gui/MyInterface.js', 'geometries/MyRectangle.js', 'geometries/MyTriangle.js', 'geometries/MyCylinder.js', 'geometries/MySphere.js', 'geometries/MyTorus.js', 'utils/MyNode.js', 'geometries/MySpritesheet.js', 'animation/MySpriteAnimation.js', 'geometries/MySpriteText.js', 'animation/Animation.js', 'animation/KeyframeAnimation.js', 'animation/KeyframeAnimator.js', 'geometries/MyPlane.js', 'geometries/MyPatch.js', 'geometries/MyDefbarrel.js', 'gui/Menu.js', 'geometries/CGFOBJModel.js', 'utils/CGFResourceReader.js','geometries/MyClickableArea.js',
 
 main=function()
 {

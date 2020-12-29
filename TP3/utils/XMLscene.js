@@ -240,7 +240,8 @@ class XMLscene extends CGFscene {
             this.graph.displayScene();
             if (this.displayMenu) {
                 this.menu.display();
-            } 
+            } else
+            this.logPicking();
         }
         else {
             // Show some "loading" visuals
