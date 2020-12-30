@@ -44,17 +44,21 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
+        /*
         this.initGame = false;
         this.level = 1;
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
-
         this.menu = new Menu(this, this.level, this.mode);
+        */
+
+        this.gameOrchestrator =  new MyGameOrchestrator(this);
+        
         this.scaleFactor = 1;
         this.displayAxis = false;
         this.displayLights = false;
         this.selectedView = null;
-        this.displayMenu = true;
+        /*this.displayMenu = true;*/
 
     }
     /**
@@ -71,11 +75,11 @@ class XMLscene extends CGFscene {
         // Lights index.
         this.lightIDs = []
         // Reads the lights from the scene graph.
-        for (var key in this.graph.lights) {
+        for (var key in this.gameOrchestrator.theme.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebCGF on default shaders.
-            if (this.graph.lights.hasOwnProperty(key)) {
-                var graphLight = this.graph.lights[key];
+            if (this.gameOrchestrator.theme.lights.hasOwnProperty(key)) {
+                var graphLight = this.gameOrchestrator.theme.lights[key];
 
                 this.lights[i].setPosition(...graphLight[1]);
                 this.lights[i].setAmbient(...graphLight[2]);
@@ -98,13 +102,15 @@ class XMLscene extends CGFscene {
             }
         }
     }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    startGame(ambient, level, game_mode) {
+
+    /*startGame(ambient, level, game_mode) {
         this.level = level;
         this.mode = game_mode;
 
@@ -123,39 +129,38 @@ class XMLscene extends CGFscene {
         this.sceneInitiated = false;
         this.displayMenu = false;
         
-        this.graph = new MySceneGraph(filename, this);
-    }
+        this.gameOrchestrator.theme = new MySceneGraph(filename, this);
+    }*/
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
 
-        this.camera = this.graph.camera;
+        this.camera = this.gameOrchestrator.theme.camera;
 
         this.interface.setActiveCamera(this.camera);
 
-        this.axis = new CGFaxis(this, this.graph.referenceLength);
+        this.axis = new CGFaxis(this, this.gameOrchestrator.theme.referenceLength);
 
-        this.gl.clearColor(...this.graph.background);
+        this.gl.clearColor(...this.gameOrchestrator.theme.background);
 
-        this.setGlobalAmbientLight(...this.graph.ambient);
+        this.setGlobalAmbientLight(...this.gameOrchestrator.theme.ambient);
 
         this.initLights();
 
-        this.selectedView = this.graph.defaultViewId;
+        this.selectedView = this.gameOrchestrator.theme.defaultViewId;
 
         this.changeCamera();
 
         this.interface.setInterface();
         
-
         this.sceneInitiated = true;
     }
 
     changeCamera() {
 
         // this set the camera to the selectedView
-        this.camera = this.graph.viewMap.get(this.selectedView);
+        this.camera = this.gameOrchestrator.theme.viewMap.get(this.selectedView);
         // this enables the camera movement
         
         if (this.selectedView === 'Main Camera') {
@@ -178,7 +183,7 @@ class XMLscene extends CGFscene {
         }
     }
 
-    update(t) {
+/*    update(t) {
         if (!this.displayMenu) {
             if (this.sceneInited) {
                 if (!this.initGame) {
@@ -193,14 +198,14 @@ class XMLscene extends CGFscene {
                 }
 
                 this.checkKeys();
-                this.graph.update(t);
+                this.gameOrchestrator.theme.update(t);
 
             }
         }
-    }
+    }*/
     update(t) {
         if (this.sceneInitiated) {
-            this.graph.update(t);
+            this.gameOrchestrator.theme.update(t);
         }
     }
 
@@ -239,12 +244,14 @@ class XMLscene extends CGFscene {
 
             this.defaultAppearance.apply();
 
+            this.gameOrchestrator.display();
+
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            /*this.gameOrchestrator.theme.displayScene();
             if (this.displayMenu) {
                 this.menu.display();
             } else
-            this.logPicking();
+            this.logPicking();*/
         }
         else {
             // Show some "loading" visuals

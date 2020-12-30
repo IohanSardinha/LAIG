@@ -9,3 +9,8 @@ Methods:
 	• update(time)
 	• Display. Optionally can look at the orchestrator to stop current animation.
 */
+class MyAnimator{
+	contructor(){
+		
+	}
+}

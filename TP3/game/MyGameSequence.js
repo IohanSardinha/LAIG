@@ -4,4 +4,10 @@ Methods:
 	• Adda game move
 	• Manage undo
 	• Feeds move replay
-*
+*/
+
+class MyGameSequence{
+	contructor(){
+		
+	}
+}

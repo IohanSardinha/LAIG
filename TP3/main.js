@@ -11,7 +11,34 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'utils/XMLscene.js', 'utils/MySceneGraph.js', 'gui/MyInterface.js', 'geometries/MyRectangle.js', 'geometries/MyTriangle.js', 'geometries/MyCylinder.js', 'geometries/MySphere.js', 'geometries/MyTorus.js', 'utils/MyNode.js', 'geometries/MySpritesheet.js', 'animation/MySpriteAnimation.js', 'geometries/MySpriteText.js', 'animation/Animation.js', 'animation/KeyframeAnimation.js', 'animation/KeyframeAnimator.js', 'geometries/MyPlane.js', 'geometries/MyPatch.js', 'geometries/MyDefbarrel.js', 'gui/Menu.js', 'geometries/CGFOBJModel.js', 'utils/CGFResourceReader.js','geometries/MyClickableArea.js',
+serialInclude(['../lib/CGF.js', 
+    'utils/XMLscene.js', 
+    'utils/MySceneGraph.js', 
+    'utils/CGFResourceReader.js',
+    'utils/MyNode.js', 
+    'gui/MyInterface.js', 
+    'gui/Menu.js', 
+    'geometries/MyRectangle.js', 
+    'geometries/MyTriangle.js', 
+    'geometries/MyCylinder.js', 
+    'geometries/MySphere.js', 
+    'geometries/MyTorus.js', 
+    'geometries/MySpritesheet.js', 
+    'geometries/MySpriteText.js', 
+    'geometries/MyPlane.js', 
+    'geometries/MyPatch.js', 
+    'geometries/MyDefbarrel.js', 
+    'geometries/CGFOBJModel.js', 
+    'geometries/MyClickableArea.js',
+    'animation/KeyframeAnimation.js', 
+    'animation/KeyframeAnimator.js', 
+    'animation/Animation.js', 
+    'animation/MySpriteAnimation.js',
+    'game/MyGameOrchestrator.js',
+    'game/MyGameSequence.js',
+    'game/MyAnimator.js', 
+    'game/MyGameBoard.js', 
+    'game/MyPrologInterface.js', 
 
 main=function()
 {

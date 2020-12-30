@@ -8,12 +8,12 @@ Manages the entire game:
 
 class MyGameOrchestrator
 {
-	constructor(){
-		this.gameSequence= newMyGameSequence();
-		this.animator= newMyAnimator();
-		this.gameboard= newMyGameboard();
-		this.theme= newMyScenegraph();
-		this.prolog= newMyPrologInterface();
+	constructor(scene){
+		this.gameSequence= new MyGameSequence();
+		this.animator= new MyAnimator();
+		this.gameboard= new MyGameBoard();
+		this.theme= new MySceneGraph('jinli.xml', scene);
+		this.prolog= new MyPrologInterface();		
 	}
 
 	update(time) {
@@ -22,9 +22,9 @@ class MyGameOrchestrator
 
 	display() {
 		//...
-		this.theme.display();
-		this.gameboard.display();
-		this.animator.display();
+		this.theme.displayScene();
+		//this.gameboard.display();
+		//this.animator.display();
 		//...
 	}
 
