@@ -4,8 +4,9 @@
 * @param scene - Reference to MyScene object
 */
 class Menu extends CGFobject {
-    constructor(scene, level, mode) {
+    constructor(orchestrator, scene, level, mode) {
         super(scene);
+        this.orchestrator = orchestrator;
         this.scene = scene;
 
         this.plane = new MyPlane(scene, 15, 15);
@@ -425,7 +426,7 @@ class Menu extends CGFobject {
     }
 
     startGame(){
-        this.scene.startGame(this.ambient, this.level, this.game_mode);
+        this.orchestrator.startGame(this.ambient, this.level, this.game_mode);
         this.background_music.pause();
     }
 

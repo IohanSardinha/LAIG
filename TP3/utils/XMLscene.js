@@ -44,21 +44,12 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance = new CGFappearance(this);
 
-        /*
-        this.initGame = false;
-        this.level = 1;
-        this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
-        this.mode = 'Player vs. CPU';
-        this.menu = new Menu(this, this.level, this.mode);
-        */
-
         this.gameOrchestrator =  new MyGameOrchestrator(this);
         
         this.scaleFactor = 1;
         this.displayAxis = false;
         this.displayLights = false;
         this.selectedView = null;
-        /*this.displayMenu = true;*/
 
     }
     /**
@@ -110,27 +101,6 @@ class XMLscene extends CGFscene {
         this.setShininess(10.0);
     }
 
-    /*startGame(ambient, level, game_mode) {
-        this.level = level;
-        this.mode = game_mode;
-
-        let filename;
-        switch (ambient) {
-            case 1:
-                filename = "jinli.xml";
-                break;
-            case 2:
-                filename = "jinli.xml";
-                break;
-            default:
-                filename = "menu.xml";
-                break;
-        }
-        this.sceneInitiated = false;
-        this.displayMenu = false;
-        
-        this.gameOrchestrator.theme = new MySceneGraph(filename, this);
-    }*/
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -183,29 +153,9 @@ class XMLscene extends CGFscene {
         }
     }
 
-/*    update(t) {
-        if (!this.displayMenu) {
-            if (this.sceneInited) {
-                if (!this.initGame) {
-                    let mode;
-                    for (let i = 0; i < this.modes.length; i++) {
-                        if (this.modes[i] === this.mode) {
-                            mode = i + 1;
-                            break;
-                        }
-                    }
-                    this.initGame = true;
-                }
-
-                this.checkKeys();
-                this.gameOrchestrator.theme.update(t);
-
-            }
-        }
-    }*/
     update(t) {
         if (this.sceneInitiated) {
-            this.gameOrchestrator.theme.update(t);
+            this.gameOrchestrator.update(t);
         }
     }
 
@@ -246,12 +196,6 @@ class XMLscene extends CGFscene {
 
             this.gameOrchestrator.display();
 
-            // Displays the scene (MySceneGraph function).
-            /*this.gameOrchestrator.theme.displayScene();
-            if (this.displayMenu) {
-                this.menu.display();
-            } else
-            this.logPicking();*/
         }
         else {
             // Show some "loading" visuals
@@ -267,19 +211,4 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
-    logPicking() {
-        if (this.pickMode == false) {
-            if (this.pickResults != null && this.pickResults.length > 0) {
-                console.log(this.pickResults);
-                for (var i = 0; i < this.pickResults.length; i++) {
-                    var obj = this.pickResults[i][0];
-                    if (obj) {
-                        var customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
-                    }
-                }
-                this.pickResults.splice(0, this.pickResults.length);
-            }
-        }
-    }
 }
