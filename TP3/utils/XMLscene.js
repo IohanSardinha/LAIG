@@ -30,7 +30,10 @@ class XMLscene extends CGFscene {
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
+        this.gl.enable(this.gl.BLEND);         // enables blending
         this.gl.depthFunc(this.gl.LEQUAL);
+
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);   // defines the blending function
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(25);
