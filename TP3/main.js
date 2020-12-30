@@ -29,7 +29,6 @@ serialInclude(['../lib/CGF.js',
     'geometries/MyPatch.js', 
     'geometries/MyDefbarrel.js', 
     'geometries/CGFOBJModel.js', 
-    'geometries/MyClickableArea.js',
     'animation/KeyframeAnimation.js', 
     'animation/KeyframeAnimator.js', 
     'animation/Animation.js', 
@@ -39,6 +38,10 @@ serialInclude(['../lib/CGF.js',
     'game/MyAnimator.js', 
     'game/MyGameBoard.js', 
     'game/MyPrologInterface.js', 
+    'game/MyTile.js',
+    'game/MyPiece.js',
+    'game/MyGameState.js',
+    
 
 main=function()
 {

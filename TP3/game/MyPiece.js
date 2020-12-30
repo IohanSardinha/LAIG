@@ -7,3 +7,23 @@
 	* Display the piece (render)
 
 */
+class MyPiece extends CGFobject {
+
+
+	//<leaf type="clickable" id='' pick_id='' size='' />
+	constructor(scene, id) {
+		super(scene);
+			
+		this.id = id;
+
+		this.plane = new MyPlane(scene, 1, 1);
+
+	}
+	
+	display()
+	{
+        this.plane.display();
+	}
+
+}
+

@@ -17,12 +17,17 @@ class MyGameOrchestrator
 		this.theme= new MySceneGraph('menu.xml', scene);
 		this.prolog= new MyPrologInterface();		
 	
-		this.displayMenu = true;
+        this.prolog.testConnection();
+
+		this.displayMenu = false;
+        //this.startGame(1, 1, 'Player vs. Player');
 		this.initGame = false;
         this.level = 1;
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
         this.menu = new Menu(this,scene, this.level, this.mode);
+
+        this.state = 'start';
 	}
 
 	startGame(ambient, level, game_mode) {
@@ -48,6 +53,39 @@ class MyGameOrchestrator
     }
 
 	update(time) {
+        switch(this.state){
+            case 'start':
+                this.prolog.testConnection();
+                this.state = 'testing connection';
+                break;
+            
+            case 'testing connection':
+                if(this.prolog.connectionStablished === true)
+                    this.state = 'connected';
+                if(this.prolog.connectionStablished === false)
+                    this.state = 'connection error';
+                break;
+            
+            case 'connection error':
+                alert('Could not connect to server');
+                this.state = 'broken';
+                break;
+
+            case 'connected':
+                this.prolog.sendInitial();
+                this.state = 'waiting initial';
+                break;
+
+            case 'waiting initial':
+                if(this.prolog.requestReady)
+                    this.state = 'initial parsed';
+                break;
+
+            case 'initial parsed':
+                this.displayMenu = true;
+                break;
+        }
+
 		if (!this.displayMenu) {
             if (this.sceneInited) {
                 if (!this.initGame) {
@@ -77,7 +115,7 @@ class MyGameOrchestrator
         }
         else
         {
-    	    this.logPicking();
+    	    this.managePick(this.scene.pickMode, this.scene.pickResults);
         }
 		//this.gameboard.display();
 		//this.animator.display();
@@ -106,17 +144,17 @@ class MyGameOrchestrator
 			{
 				for (var i=0; i< results.length; i++) 
 				{
-					var obj= pickResults[i][0]; // get object from result
+					var obj= results[i][0]; // get object from result
 						if (obj)  // exists? 
 						{
-							var uniqueId= pickResults[i][1] // get idt
-							this.OnObjectSelected(obj, uniqueId);
+							var uniqueId= results[i][1] // get idt
+							this.onObjectSelected(obj, uniqueId);
 						}
 				} 
 
 				// clear results 
 
-				pickResults.splice(0, pickResults.length);
+				results.splice(0, results.length);
 			}
 	}
 
@@ -125,6 +163,7 @@ class MyGameOrchestrator
 			// do something with id knowing it is a piece
 		}
 		else if(obj instanceof MyTile){
+            obj.select();
 			// do something with id knowing it is a tile
 		}
 		else {

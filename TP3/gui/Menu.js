@@ -209,10 +209,6 @@ class Menu extends CGFobject {
                         this.scene.clearPickRegistration();
                     this.scene.popMatrix();
 
-                  
-                    
-                   
-
                 this.scene.popMatrix();
             this.scene.popMatrix();
     }

@@ -197,7 +197,7 @@
             </transformations>
             <clickable id='1'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A1' />
             </descendants>
         </node>
 
@@ -211,7 +211,7 @@
             </transformations>
             <clickable id='2'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A2' />
             </descendants>
         </node>
 
@@ -225,7 +225,7 @@
             </transformations>
             <clickable id='3'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A3' />
             </descendants>
         </node>
 
@@ -239,7 +239,7 @@
             </transformations>
             <clickable id='4'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A4' />
             </descendants>
         </node>
 
@@ -253,7 +253,7 @@
             </transformations>
             <clickable id='5'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A5' />
             </descendants>
         </node>
 
@@ -267,7 +267,7 @@
             </transformations>
             <clickable id='6'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A6' />
             </descendants>
         </node>
 
@@ -281,7 +281,7 @@
             </transformations>
             <clickable id='7'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='A7' />
             </descendants>
         </node>
 
@@ -295,7 +295,7 @@
             </transformations>
             <clickable id='8'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B1' />
             </descendants>
         </node>
 
@@ -309,7 +309,7 @@
             </transformations>
             <clickable id='9'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B2' />
             </descendants>
         </node>
 
@@ -323,7 +323,7 @@
             </transformations>
             <clickable id='10'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B3' />
             </descendants>
         </node>
 
@@ -337,7 +337,7 @@
             </transformations>
             <clickable id='11'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B4' />
             </descendants>
         </node>
 
@@ -351,7 +351,7 @@
             </transformations>
             <clickable id='12'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B5' />
             </descendants>
         </node>
 
@@ -365,7 +365,7 @@
             </transformations>
             <clickable id='13'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B6' />
             </descendants>
         </node>
 
@@ -379,7 +379,7 @@
             </transformations>
             <clickable id='14'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='B7' />
             </descendants>
         </node>
 
@@ -393,7 +393,7 @@
             </transformations>
             <clickable id='15'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C1' />
             </descendants>
         </node>
 
@@ -407,7 +407,7 @@
             </transformations>
             <clickable id='16'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C2' />
             </descendants>
         </node>
 
@@ -421,7 +421,7 @@
             </transformations>
             <clickable id='17'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C3' />
             </descendants>
         </node>
 
@@ -435,7 +435,7 @@
             </transformations>
             <clickable id='18'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C4' />
             </descendants>
         </node>
 
@@ -449,7 +449,7 @@
             </transformations>
             <clickable id='19'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C5' />
             </descendants>
         </node>
 
@@ -463,7 +463,7 @@
             </transformations>
             <clickable id='20'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C6' />
             </descendants>
         </node>
 
@@ -477,7 +477,7 @@
             </transformations>
             <clickable id='21'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='C7' />
             </descendants>
         </node>
 
@@ -491,7 +491,7 @@
             </transformations>
             <clickable id='22'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D1' />
             </descendants>
         </node>
 
@@ -505,7 +505,7 @@
             </transformations>
             <clickable id='23'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D2' />
             </descendants>
         </node>
 
@@ -519,7 +519,7 @@
             </transformations>
             <clickable id='24'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D3' />
             </descendants>
         </node>
 
@@ -533,7 +533,7 @@
             </transformations>
             <clickable id='25'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D4' />
             </descendants>
         </node>
 
@@ -547,7 +547,7 @@
             </transformations>
             <clickable id='26'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D5' />
             </descendants>
         </node>
 
@@ -561,7 +561,7 @@
             </transformations>
             <clickable id='27'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D6' />
             </descendants>
         </node>
 
@@ -575,7 +575,7 @@
             </transformations>
             <clickable id='28'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='D7' />
             </descendants>
         </node>
 
@@ -589,7 +589,7 @@
             </transformations>
             <clickable id='29'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E1' />
             </descendants>
         </node>
 
@@ -603,7 +603,7 @@
             </transformations>
             <clickable id='30'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E2' />
             </descendants>
         </node>
 
@@ -617,7 +617,7 @@
             </transformations>
             <clickable id='31'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E3' />
             </descendants>
         </node>
 
@@ -631,7 +631,7 @@
             </transformations>
             <clickable id='32'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E4' />
             </descendants>
         </node>
 
@@ -645,7 +645,7 @@
             </transformations>
             <clickable id='33'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E5' />
             </descendants>
         </node>
 
@@ -659,7 +659,7 @@
             </transformations>
             <clickable id='34'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E6' />
             </descendants>
         </node>
 
@@ -673,7 +673,7 @@
             </transformations>
             <clickable id='35'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='E7' />
             </descendants>
         </node>
 
@@ -687,7 +687,7 @@
             </transformations>
             <clickable id='36'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F1' />
             </descendants>
         </node>
 
@@ -701,7 +701,7 @@
             </transformations>
             <clickable id='37'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F2' />
             </descendants>
         </node>
 
@@ -715,7 +715,7 @@
             </transformations>
             <clickable id='38'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F3' />
             </descendants>
         </node>
 
@@ -729,7 +729,7 @@
             </transformations>
             <clickable id='39'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F4' />
             </descendants>
         </node>
 
@@ -743,7 +743,7 @@
             </transformations>
             <clickable id='40'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F5' />
             </descendants>
         </node>
 
@@ -757,7 +757,7 @@
             </transformations>
             <clickable id='41'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F6' />
             </descendants>
         </node>
 
@@ -771,7 +771,7 @@
             </transformations>
             <clickable id='42'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='F7' />
             </descendants>
         </node>
 
@@ -785,7 +785,7 @@
             </transformations>
             <clickable id='43'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G1' />
             </descendants>
         </node>
 
@@ -799,7 +799,7 @@
             </transformations>
             <clickable id='44'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G2' />
             </descendants>
         </node>
 
@@ -813,7 +813,7 @@
             </transformations>
             <clickable id='45'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G3' />
             </descendants>
         </node>
 
@@ -827,7 +827,7 @@
             </transformations>
             <clickable id='46'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G4' />
             </descendants>
         </node>
 
@@ -841,7 +841,7 @@
             </transformations>
             <clickable id='47'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G5' />
             </descendants>
         </node>
 
@@ -855,7 +855,7 @@
             </transformations>
             <clickable id='48'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G6' />
             </descendants>
         </node>
 
@@ -869,7 +869,7 @@
             </transformations>
             <clickable id='49'/>
             <descendants>
-                <leaf type="plane" npartsU="1" npartsV="1" />
+                <leaf type="tile" id='G7' />
             </descendants>
         </node>
 

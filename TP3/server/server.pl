@@ -108,7 +108,7 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(game,game).
 parse_input(initial,GameState) :- initial(GameState).
-parse_input(valid_moves(GameState,Player),ListOfMoves) :- valid_moves(GameState, Player, ListOfMoves).
+parse_input(valid_moves(GameState, Line, Column),ListOfMoves) :- valid_moves(GameState, Line, Column, ListOfMoves).
 %Move = [Player,FromLine, FromColumn, ToLine, ToColumn]
 parse_input(move(GameState, Move), NewGameState) :- move_and_count(GameState, Move, NewGameState).
 parse_input(move_bot(GameState,Computer, Mode), NewGameState) :- move_bot_and_count(GameState, Computer , Mode, NewGameState).

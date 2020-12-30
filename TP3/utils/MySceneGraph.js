@@ -44,6 +44,8 @@ class MySceneGraph {
         this.spriteanims = [];
         this.initialInstant = 0;
 
+        this.tiles = [];
+
         // File reading 
         this.reader = new CGFXMLreader();
 
@@ -696,6 +698,7 @@ class MySceneGraph {
             this.materials[materialID].setSpecular(specular.red, specular.green, specular.blue, specular.alpha);
             this.materials[materialID].setTextureWrap('REPEAT', 'REPEAT');
             
+
             this.currMatId.push(materialID);
         }
 
@@ -1159,15 +1162,15 @@ class MySceneGraph {
 
                             nodeChildren.push(obj_model);
                         }
-                        else if(type == 'clickable')
+                        else if(type == 'tile')
                         {
-                            let id = this.reader.getFloat(grandgrandChildren[k],'id');
-                            let pick_id = this.reader.getFloat(grandgrandChildren[k],'pick_id');
-                            let size = this.reader.getFloat(grandgrandChildren[k],'size');
+                            let id = this.reader.getString(grandgrandChildren[k],'id');
 
-                            let clickable = new MyClickableArea(this.scene, id, pick_id, size);
+                            let tile = new MyTile(this.scene, id, this.materials['redMaterial'] || this.materials[this.defaultMaterialID] ,this.materials['transparentMaterial'] || this.materials[this.defaultMaterialID]);
 
-                            nodeChildren.push(clickable);
+                            this.tiles[id] = tile;
+
+                            nodeChildren.push(tile);
                         }
                         else
                         {
