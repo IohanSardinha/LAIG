@@ -4,7 +4,6 @@ class MyGameState{
 		this.boardMatrix = GameStateArray[0];
 		this.stones = GameStateArray[1];
 		this.scores = GameStateArray[2];
-		console.log(this.toString());
 	}
 
 

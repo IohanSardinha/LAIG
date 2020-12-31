@@ -63,9 +63,11 @@ class MyPrologInterface{
 	}
 
 	sendValidMoves(gameState,line,column){
+
 		this.requestReady = false;
 		this.parsedResult = null;
-		let requestString = 'valid_moves('+gameState.toString()+','+line+','+column+')';
+		let requestString = 'valid_moves('+gameState.toString()+','+(8-column)+','+(line)+')';
+		console.log((8-column)+','+(line));
 		var request = new XMLHttpRequest();
 
 		request.onload = (data) => this.parseValidMoves(data);
@@ -84,6 +86,8 @@ class MyPrologInterface{
 			return;
 		}
 
+
+		console.log(data.target.response);
 		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
 		this.parsedResult = this.textStringToArray(data.target.response);
 		

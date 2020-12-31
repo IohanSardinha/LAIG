@@ -37,9 +37,8 @@ class MyGameBoard{
 	}
 
 	showValidMoves(validMoves){
-		this.unselectAllTiles();
 		for(let validMove of validMoves){
-			let id = String.fromCharCode(64+validMove[0])+validMove[1];
+			let id = String.fromCharCode(64+validMove[1])+(8-validMove[0]);
 			this.tiles[id].select();
 		}
 	}
