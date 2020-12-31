@@ -22,7 +22,18 @@ class MyPiece extends CGFobject {
 	
 	display()
 	{
-        this.koi_model.display();
+		this.scene.pushMatrix();
+
+			this.scene.translate(97*(this.tile.line-1), 0, 97*(7-this.tile.column));
+
+			if(this.color == 'r')
+				this.scene.rotate(Math.PI/2, 0, 1, 0);
+			else
+				this.scene.rotate(-Math.PI/2, 0, 1, 0);
+
+        	this.koi_model.display();
+		
+		this.scene.popMatrix();
 	}
 
 }

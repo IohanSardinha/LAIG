@@ -14,10 +14,14 @@ class MyTile extends CGFobject {
 			
 		this.id = id;
 
+		this.line = id.toLowerCase().charCodeAt(0) - 96;
+		this.column = parseInt(id[1]);
+
 		this.selectedMaterial = selectedMaterial;
 		this.unselectedMaterial = unselectedMaterial;
 
 		this.material = unselectedMaterial;
+		this.selected = false;
 
 		this.plane = new MyPlane(scene, 1, 1);
 
@@ -36,13 +40,14 @@ class MyTile extends CGFobject {
 
 		if(value != null)
 		{
+			this.selected = value;
 			if(value)
 				this.material = this.selectedMaterial;
 			else
 				this.material = this.unselectedMaterial;
 			return;
 		}
-
+		this.selected = !this.selected;
 		if(this.material == this.unselectedMaterial)
 			this.material = this.selectedMaterial;
 		else

@@ -17,12 +17,8 @@ class MyGameBoard{
 		this.gameState;
 	}
 
-	getLine(stringID){
-		return stringID.toLowerCase().charCodeAt(0) - 96;
-	}
-
-	getColumn(stringID){
-		return parseInt(stringID[1]);
+	getTile(ID){
+		return this.tiles[ID];
 	}
 
 	setTiles(tiles){
@@ -46,6 +42,13 @@ class MyGameBoard{
 			let id = String.fromCharCode(64+validMove[0])+validMove[1];
 			this.tiles[id].select();
 		}
+	}
+
+	movePiece(fromTile, toTile){
+		fromTile.piece.tile = toTile;
+		toTile.piece = fromTile.piece;
+		fromTile.piece = null;
+		this.unselectAllTiles();
 	}
 
 	unselectAllTiles(){

@@ -13,13 +13,13 @@
 initial(
 [
 /*Board:*/ [
-                [r,empty,empty,empty,empty,empty,r],
+                [y,empty,empty,empty,empty,empty,y],
                 [empty,empty,empty,empty,empty,empty,empty],
                 [empty,empty,empty,empty,empty,empty,empty],
                 [empty,empty,empty,empty,empty,empty,empty],
                 [empty,empty,empty,empty,empty,empty,empty],
                 [empty,empty,empty,empty,empty,empty,empty],
-                [y,empty,empty,empty,empty,empty,y]
+                [r,empty,empty,empty,empty,empty,r]
             ],
 /*Stones*/  [
       /*RED*/   10,

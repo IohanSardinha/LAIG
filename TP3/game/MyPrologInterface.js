@@ -37,7 +37,7 @@ class MyPrologInterface{
 		let requestString = 'initial';
 		var request = new XMLHttpRequest();
 
-		request.onload = (data) => this.parseInitialPrologReply(data);
+		request.onload = (data) => this.parseGameStateReply(data);
 		request.onerror = this.startPrologGameError;
 
 		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
@@ -47,7 +47,7 @@ class MyPrologInterface{
 		this.requestReady = false;
 	}
 
-	parseInitialPrologReply(data){
+	parseGameStateReply(data){
 		 
 		if(this.status=== 400)
 		{
@@ -90,6 +90,25 @@ class MyPrologInterface{
 		this.requestReady = true;
 
 	}
+
+	sendMove(gameState,player,fromline,fromColumn, toLine, toColumn){
+		this.requestReady = false;
+		this.parsedResult = null;
+
+		let move = JSON.stringify([player,8-fromColumn, fromline ,8-toColumn, toLine]).replaceAll('"','');
+
+		let requestString = 'move('+gameState.toString()+','+move+')';
+		var request = new XMLHttpRequest();
+
+		request.onload = (data) => this.parseGameStateReply(data);
+		request.onerror = this.startPrologGameError;
+
+		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
+
+		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		request.send();
+	}
+
 
 	startPrologGameError(){
 

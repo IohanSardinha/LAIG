@@ -899,8 +899,8 @@
             </texture>
 
             <transformations>
-                <rotation axis="y" angle="90"/>
-                <translation x="-6.15" y="0.3" z="-1" />
+                <translation x="-2.15" y="0.3" z="3.85" />
+                
             </transformations>
 
             <descendants>
@@ -917,7 +917,6 @@
 
 
             <transformations>
-                <translation x="0" y="0" z="-1.15" />
                 <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
@@ -934,7 +933,6 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0" z="1.15" />
                 <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
@@ -952,8 +950,7 @@
             </texture>
 
             <transformations>
-                <rotation axis="y" angle="-90"/>
-                <translation x="3.8" y="0.3" z="1" />
+                <translation x="-2.15" y="0.3" z="3.85" />
             </transformations>
             <descendants>
                 <noderef id="yellowKoi1"/>
@@ -968,7 +965,6 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0" z="1.15" />
                 <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
@@ -985,7 +981,6 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0" z="-1.15" />
                 <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 

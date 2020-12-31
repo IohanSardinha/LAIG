@@ -91,10 +91,10 @@ class MyGameOrchestrator
                 this.displayMenu = true;
                 this.gameboard.gameState = this.prolog.parsedResult;
                 this.gameStateStack.push(this.prolog.parsedResult);
-                this.state = 'waiting user click';
+                this.state = 'waiting select piece';
                 break;
 
-            case 'waiting user click':
+            case 'waiting select piece':
                 break;
 
             case 'waiting valid moves':
@@ -103,7 +103,23 @@ class MyGameOrchestrator
 
             case 'recieved valid moves':
                 this.gameboard.showValidMoves(this.prolog.parsedResult);
-                this.state = 'waiting user click';
+                this.state = 'waiting move tile';
+                break;
+
+            case 'waiting move tile':
+                break;
+
+            case 'waiting move result':
+                if(this.prolog.requestReady)
+                    this.state = 'move piece';
+                break;
+            
+            case 'move piece':
+                this.gameStateStack.push(this.prolog.parsedResult);
+                this.gameboard.gameState = this.prolog.parsedResult;
+                this.gameboard.movePiece(this.fromTile, this.toTile);
+                this.state = 'waiting select piece';
+                this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                 break;
         }
 
@@ -181,21 +197,50 @@ class MyGameOrchestrator
 
 	onObjectSelected(obj, id){
 		if(obj instanceof MyPiece){
-			if(this.state == 'waiting user click'){
-                this.prolog.sendValidMoves(this.gameboard.gameState, this.gameboard.getLine(obj.tile.id), this.gameboard.getColumn(obj.tile.id));
-                this.state = 'waiting valid moves';
+			
+            switch(this.state){
+                case 'waiting select piece':
+                    if(obj.color == this.currPlayer)
+                    {
+                        this.prolog.sendValidMoves(this.gameboard.gameState, obj.tile.line, obj.tile.column);
+                        this.state = 'waiting valid moves';
+                        this.fromTile = obj.tile;
+                    }
+                    break;
+
+                case 'waiting move tile':
+                    if(obj.color != this.currPlayer)
+                    {
+                        this.gameboard.unselectAllTiles();
+                        this.state = 'waiting select piece';
+                    }
+                    break;
             }
+
 		}
 		else if(obj instanceof MyTile){
-            if(this.state == 'waiting user click')
-            {
-                if(obj.hasPlayer(this.currPlayer)){               
-                    this.prolog.sendValidMoves(this.gameboard.gameState, this.gameboard.getLine(obj.id), this.gameboard.getColumn(obj.id));
-                    this.state = 'waiting valid moves';
-                }
-                else{
-                    this.gameboard.unselectAllTiles();
-                }
+           switch(this.state){
+                case 'waiting select piece':
+                    if(obj.hasPlayer(this.currPlayer)){               
+                        this.prolog.sendValidMoves(this.gameboard.gameState, obj.line, obj.column);
+                        this.state = 'waiting valid moves';
+                        this.fromTile = obj;
+                    }
+                    break;
+
+                case 'waiting move tile':
+                    if(obj.selected)
+                    {
+                        this.prolog.sendMove(this.gameboard.gameState,this.currPlayer,this.fromTile.line,this.fromTile.column, obj.line, obj.column);
+                        this.state = 'waiting move result';
+                        this.toTile = obj;
+                    }
+                    else if(!obj.hasPlayer(this.currPlayer))
+                    {
+                        this.gameboard.unselectAllTiles();
+                        this.state = 'waiting select piece';
+                    }
+                    break;
             }
 		}
 		else {
