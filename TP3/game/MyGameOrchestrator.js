@@ -34,6 +34,7 @@ class MyGameOrchestrator {
     onGraphLoaded() {
         this.gameboard.setTiles(this.theme.tiles);
         this.gameboard.setPieces(this.theme.pieces);
+        this.score.setLevel(this.level);
     }
 
     startGame(ambient, level, game_mode) {
@@ -59,6 +60,9 @@ class MyGameOrchestrator {
     }
 
     update(time) {
+        this.lastTime = this.lastTime || 0;
+        this.deltaTime = time - this.lastTime;
+        this.lastTime = time;
         switch (this.state) {
             case 'start':
                 this.prolog.testConnection();
@@ -121,6 +125,7 @@ class MyGameOrchestrator {
                 this.gameboard.movePiece(this.fromTile, this.toTile);
                 this.state = 'waiting select piece';
                 this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
+                this.score.updateScore(this.gameboard.getScore());
                 console.log(this.prolog.parsedResult[1]);
                 break;
         }
@@ -137,8 +142,11 @@ class MyGameOrchestrator {
                     }
                     this.initGame = true;
                 }
-            }
-        }
+            }  
+            //console.log(this.deltaTime);
+            this.score.updateTime(this.deltaTime,this.currPlayer);
+        }  
+        
         this.theme.update(time);
         this.checkKeys();
     }
@@ -163,7 +171,7 @@ class MyGameOrchestrator {
             this.menu.toggleMenu();
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
-            console.log('Undo');
+            this.undoMove();
         }
     }
 
@@ -185,7 +193,11 @@ class MyGameOrchestrator {
                 results.splice(0, results.length);
             }
     }
-
+    undoMove()
+    {
+        console.log('UndoMove');
+        console.log(this.gameboard.getScore());
+    }
     onObjectSelected(obj, id) {
 
         if (obj instanceof MyPiece) {
@@ -232,7 +244,7 @@ class MyGameOrchestrator {
             }
         }
         else if (obj instanceof MyUndoButton) {
-            console.log('UndoButton');
+            this.undoMove();
         }
         else {
             console.log("Picked object of type: " + obj.constructor.name + ", with pick id " + id);

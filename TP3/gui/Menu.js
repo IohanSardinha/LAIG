@@ -20,6 +20,7 @@ class Menu extends CGFobject {
         this.mainMenu = true;
         this.ambient = 1;
         this.options = false;
+        this.music = true;
         this.level = level;
         this.game_mode = mode;
         this.game_modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
@@ -29,7 +30,7 @@ class Menu extends CGFobject {
         this.background_music = new Audio('audio/lake.mp3');
         this.background_music.loop = true;
         this.background_music.volume = 0.1;
-        this.background_music.autoplay = true;
+        this.background_music.play();
     }
 
     initMaterials(){
@@ -77,6 +78,7 @@ class Menu extends CGFobject {
         this.mountain_texture = new CGFtexture(this.scene, 'scenes/images/mountain.png');
         this.lake_texture = new CGFtexture(this.scene, 'scenes/images/lake.png');
         this.tile = new CGFtexture(this.scene, 'scenes/images/tile.jpg');
+        this.music = new CGFtexture(this.scene, 'scenes/images/music.jpg');
 
         this.game_mode_texture = new CGFtexture(this.scene, 'scenes/images/game_mode.png');
         this.mode1_texture = new CGFtexture(this.scene, 'scenes/images/mode1.png');
@@ -403,7 +405,7 @@ class Menu extends CGFobject {
 
             //Mountain Button
             this.scene.pushMatrix();
-                this.scene.translate(-1.5, -2.5, 2);
+                this.scene.translate(-1.5, -2.5, 0);
                 this.scene.scale(2, 1, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.pushMatrix();
@@ -424,7 +426,7 @@ class Menu extends CGFobject {
 
             //Lake Button
             this.scene.pushMatrix();
-                this.scene.translate(1.5, -2.5, 2);
+                this.scene.translate(1.5, -2.5, 0);
                 this.scene.scale(2, 1, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.pushMatrix();
@@ -451,12 +453,21 @@ class Menu extends CGFobject {
 
     startGame(){
         this.mainMenu = false;
-        this.exitMenu();
+        this.scene.gameOrchestrator.score.started = true;
         this.background_music.pause();
+        this.exitMenu();
+        
     }
 
-    restartMusic(){
-        this.background_music.play();
+    toggleMusic(){
+        if(this.music)
+        {
+           this.background_music.play(); 
+        }
+        else{
+            this.background_music.pause(); 
+        }
+        
     }
 
 
@@ -527,6 +538,9 @@ class Menu extends CGFobject {
                                 break;
                             case 11:
                                 this.exitMenu();
+                                break;
+                            case 12:
+                                this.toggleMusic();
                                 break;
                             default:
                                 break;

@@ -32,8 +32,9 @@ class ScoreClock extends CGFobject {
         this.score = "00-00";
         this.level = level || 1;
 
-        this.firstPlayerTime = 150000 * this.level;
-        this.secondPlayerTime = 150000 * this.level;
+        this.firstPlayerTime ;
+        this.secondPlayerTime;
+        this.started = false;
 
         this.createTimeString();
 
@@ -46,7 +47,6 @@ class ScoreClock extends CGFobject {
     
     setLevel(level){
         this.level = level;
-
         this.firstPlayerTime = 150000 * this.level;
         this.secondPlayerTime = 150000 * this.level;
             
@@ -408,31 +408,32 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
     }
 
-    updateScore(player1Score, player2Score){
+    updateScore(score){
         this.score = "";
-        if(player1Score < 10){
+        if (score[0] < 10){
             this.score += String(0);
         }
-        this.score += String(player1Score);
+        this.score += String(score[0]);
         
         this.score += "-";
 
-        if(player2Score < 10){
+        if (score[1] < 10){
             this.score += String(0);
         }
-        this.score += String(player2Score);
+        this.score += String(score[1]);
     }
 
     updateTime(t, player){
-        if(player === 1){
+        if(this.started)
+        {
+        if(player === 'r'){
             this.firstPlayerTime -= t;
             if(this.firstPlayerTime <= 0){
-
                 this.alarm.play();
                 this.firstPlayerTime = 0;
                 return true;
             }
-        }else if(player === 2){
+        }else if(player === 'y'){
             this.secondPlayerTime -= t;
             if(this.secondPlayerTime <= 0){
                 this.alarm.play();
@@ -441,7 +442,9 @@ class ScoreClock extends CGFobject {
             }
         }
 
-        this.createTimeString();
+        this.createTimeString(); 
+        }
+       
     }
     
     createTimeString(){

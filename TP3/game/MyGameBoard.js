@@ -31,8 +31,11 @@ class MyGameBoard{
 	setPieces(pieces){
 		this.pieces = pieces;
 		for(let piece of this.pieces){
-			this.tiles[piece.tile].piece = piece;
-			piece.tile = this.tiles[piece.tile];
+			if (this.tiles[piece.tile])
+			{
+				this.tiles[piece.tile].piece = piece 
+				piece.tile = this.tiles[piece.tile];
+			}
 		}
 	}
 
@@ -61,6 +64,10 @@ class MyGameBoard{
 		if(this.tiles[stringPosition] != -1)
 			return this.tiles[stringPosition];
 		return false;
+	}
+
+	getScore(){
+		return this.gameState['scores'];
 	}
 
 
