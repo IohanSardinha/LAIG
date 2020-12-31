@@ -115,11 +115,13 @@ class MyGameOrchestrator
                 break;
             
             case 'move piece':
-                this.gameStateStack.push(this.prolog.parsedResult);
-                this.gameboard.gameState = this.prolog.parsedResult;
+                let gameState = new MyGameState(this.prolog.parsedResult[0]);
+                this.gameStateStack.push(gameState);
+                this.gameboard.gameState = gameState;
                 this.gameboard.movePiece(this.fromTile, this.toTile);
                 this.state = 'waiting select piece';
                 this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
+                console.log(this.prolog.parsedResult[1]);
                 break;
         }
 

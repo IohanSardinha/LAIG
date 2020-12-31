@@ -67,10 +67,9 @@ class MyPrologInterface{
 		this.requestReady = false;
 		this.parsedResult = null;
 		let requestString = 'valid_moves('+gameState.toString()+','+(8-column)+','+(line)+')';
-		console.log((8-column)+','+(line));
 		var request = new XMLHttpRequest();
 
-		request.onload = (data) => this.parseValidMoves(data);
+		request.onload = (data) => this.parseListReply(data);
 		request.onerror = this.startPrologGameError;
 
 		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
@@ -79,15 +78,13 @@ class MyPrologInterface{
 		request.send();
 	}
 
-	parseValidMoves(data){
+	parseListReply(data){
 		if(this.status=== 400)
 		{
 			console.log("ERROR");
 			return;
 		}
 
-
-		console.log(data.target.response);
 		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
 		this.parsedResult = this.textStringToArray(data.target.response);
 		
@@ -104,7 +101,7 @@ class MyPrologInterface{
 		let requestString = 'move('+gameState.toString()+','+move+')';
 		var request = new XMLHttpRequest();
 
-		request.onload = (data) => this.parseGameStateReply(data);
+		request.onload = (data) => this.parseListReply(data);
 		request.onerror = this.startPrologGameError;
 
 		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);

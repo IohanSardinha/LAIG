@@ -300,13 +300,27 @@ playerTurn(GameState,Player,GameMode):-
     nextTurn(NewGameState, Player, GameMode)
 .
 
-move_and_count(GameState, [Player,FromLine, FromColumn, ToLine, ToColumn], NewGameState):-
+move_and_count(GameState, [Player,FromLine, FromColumn, ToLine, ToColumn], [NewGameState, walk]):-
+    board(GameState, Board),
+    validWalk(Board, FromLine, FromColumn, ToLine, ToColumn),
     moveFish(GameState,Player, FromLine, FromColumn, ToLine, ToColumn, TempGameState1),
     board(TempGameState1, NewBoard),
     countFish(NewBoard, ToLine, ToColumn, ScoreToAdd),
     addScore(TempGameState1,Player, ScoreToAdd,TempGameState2),
     updateBoard(TempGameState2, NewBoard, NewGameState)
 .
+
+move_and_count(GameState, [Player,FromLine, FromColumn, ToLine, ToColumn], [NewGameState, jump]):-
+    board(GameState, Board),
+    validJump(Board, FromLine, FromColumn, ToLine, ToColumn),
+    moveFish(GameState,Player, FromLine, FromColumn, ToLine, ToColumn, TempGameState1),
+    board(TempGameState1, NewBoard),
+    countFish(NewBoard, ToLine, ToColumn, ScoreToAdd),
+    addScore(TempGameState1,Player, ScoreToAdd,TempGameState2),
+    updateBoard(TempGameState2, NewBoard, NewGameState)
+.
+
+move_and_count(GameState, _ , [GameState, invalid]).
 
 valid_drops(GameState,FreePlaces):-
     board(GameState, Board),
