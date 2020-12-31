@@ -451,10 +451,7 @@ class Menu extends CGFobject {
 
     startGame(){
         this.mainMenu = false;
-        this.scene.selectedView = this.scene.gameOrchestrator.theme.defaultViewId;
-        this.scene.changeCamera();
-        this.scene.interface.setInterface();
-        this.orchestrator.startGame(this.ambient, this.level, this.game_mode);
+        this.exitMenu();
         this.background_music.pause();
     }
 
@@ -464,12 +461,14 @@ class Menu extends CGFobject {
 
 
     showMenu(){
+        this.scene.gameOrchestrator.displayMenu = true;
         this.scene.selectedView = 'Menu';
         this.scene.changeCamera();
         this.scene.interface.setInterface();
     }
 
     exitMenu(){
+        this.scene.gameOrchestrator.displayMenu = false;
         this.scene.selectedView = this.scene.gameOrchestrator.theme.defaultViewId;
         this.scene.changeCamera(); 
         this.scene.interface.setInterface();
@@ -528,9 +527,6 @@ class Menu extends CGFobject {
                                 break;
                             case 11:
                                 this.exitMenu();
-                                break;
-                            case 12:
-                                console.log('Undo');
                                 break;
                             default:
                                 break;

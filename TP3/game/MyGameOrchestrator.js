@@ -1,43 +1,42 @@
 /*
 Manages the entire game:
-	• Load of new scenes
-	• Manage gameplay (game states)
-	• Manages undo•Manages movie play
-	• Manage object selection
+    • Load of new scenes
+    • Manage gameplay (game states)
+    • Manages undo•Manages movie play
+    • Manage object selection
 */
 
-class MyGameOrchestrator
-{
-	constructor(scene){
-		this.scene = scene;
-		this.gameSequence= new MyGameSequence();
-		this.animator= new MyAnimator();
-		this.gameboard= new MyGameBoard();
-		this.theme= new MySceneGraph('jinli.xml', this.scene);
-		this.prolog= new MyPrologInterface();		
-	
+class MyGameOrchestrator {
+    constructor(scene) {
+        this.scene = scene;
+        this.gameSequence = new MyGameSequence();
+        this.animator = new MyAnimator();
+        this.gameboard = new MyGameBoard();
+        this.theme = new MySceneGraph('jinli.xml', scene);
+        this.prolog = new MyPrologInterface();
+
         this.prolog.testConnection();
 
-		this.displayMenu = false;
+        this.displayMenu = false;
         //this.startGame(1, 1, 'Player vs. Player');
-		this.initGame = false;
+        this.initGame = false;
         this.level = 1;
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
-        this.menu = new Menu(this,scene, this.level, this.mode);
+        this.menu = new Menu(this, scene, this.level, this.mode);
+        this.score = new ScoreClock(this.scene, this.level);
         this.gameStateStack = [];
 
         this.state = 'start';
         this.currPlayer = 'r';
-        this.score = new ScoreClock(this.scene,this.level);
-	}
+    }
 
-    onGraphLoaded(){
+    onGraphLoaded() {
         this.gameboard.setTiles(this.theme.tiles);
         this.gameboard.setPieces(this.theme.pieces);
     }
 
-	startGame(ambient, level, game_mode) {
+    startGame(ambient, level, game_mode) {
         this.level = level;
         this.mode = game_mode;
 
@@ -50,27 +49,29 @@ class MyGameOrchestrator
                 filename = "jinli.xml";
                 break;
             default:
-                filename = "jinli.xml";
+                filename = "menu.xml";
                 break;
         }
-        //this.scene.sceneInitiated = false;
-        //this.theme = new MySceneGraph(filename, this.scene);
+        this.scene.sceneInitiated = false;
+        this.displayMenu = false;
+
+        this.theme = new MySceneGraph(filename, this.scene);
     }
 
-	update(time) {
-        switch(this.state){
+    update(time) {
+        switch (this.state) {
             case 'start':
                 this.prolog.testConnection();
                 this.state = 'testing connection';
                 break;
-            
+
             case 'testing connection':
-                if(this.prolog.connectionStablished === true)
+                if (this.prolog.connectionStablished === true)
                     this.state = 'connected';
-                if(this.prolog.connectionStablished === false)
+                if (this.prolog.connectionStablished === false)
                     this.state = 'connection error';
                 break;
-            
+
             case 'connection error':
                 alert('Could not connect to server');
                 this.state = 'broken';
@@ -82,7 +83,7 @@ class MyGameOrchestrator
                 break;
 
             case 'waiting initial':
-                if(this.prolog.requestReady)
+                if (this.prolog.requestReady)
                     this.state = 'initial parsed';
                 break;
 
@@ -97,10 +98,10 @@ class MyGameOrchestrator
                 break;
 
             case 'waiting valid moves':
-                this.state = this.prolog.requestReady ?  'recieved valid moves' : 'waiting valid moves';
+                this.state = this.prolog.requestReady ? 'received valid moves' : 'waiting valid moves';
                 break;
 
-            case 'recieved valid moves':
+            case 'received valid moves':
                 this.gameboard.showValidMoves(this.prolog.parsedResult);
                 this.state = 'waiting move tile';
                 break;
@@ -109,10 +110,10 @@ class MyGameOrchestrator
                 break;
 
             case 'waiting move result':
-                if(this.prolog.requestReady)
+                if (this.prolog.requestReady)
                     this.state = 'move piece';
                 break;
-            
+
             case 'move piece':
                 let gameState = new MyGameState(this.prolog.parsedResult[0]);
                 this.gameStateStack.push(gameState);
@@ -124,8 +125,8 @@ class MyGameOrchestrator
                 break;
         }
 
-		
-            
+        if (!this.displayMenu) {
+            if (this.sceneInited) {
                 if (!this.initGame) {
                     let mode;
                     for (let i = 0; i < this.modes.length; i++) {
@@ -136,29 +137,29 @@ class MyGameOrchestrator
                     }
                     this.initGame = true;
                 }
-
-                this.checkKeys();
-                this.theme.update(time);
-
-            
-        
+            }
         }
-
-	display() {
-		//...
-
-        this.theme.displayScene();        
-        this.menu.display();
-        this.score.display();
-        this.managePick(this.scene.pickMode, this.scene.pickResults);
-     
-		//this.gameboard.display();
-		//this.animator.display();
-		//...
+        this.theme.update(time);
+        this.checkKeys();
     }
-    
+
+    display() {
+        //...
+
+        this.theme.displayScene();
+        this.score.display();
+        if (this.displayMenu) {
+            this.menu.display();
+        }
+        else {
+            this.managePick(this.scene.pickMode, this.scene.pickResults);
+        }
+        //this.gameboard.display();
+        //this.animator.display();
+        //...
+    }
     checkKeys() {
-        if (this.scene.gui.isKeyPressed("Escape") || this.scene.gui.isKeyPressed("KeyM") ) {
+        if (this.scene.gui.isKeyPressed("Escape") || this.scene.gui.isKeyPressed("KeyM")) {
             this.menu.toggleMenu();
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
@@ -166,49 +167,32 @@ class MyGameOrchestrator
         }
     }
 
-	logPicking() {
-        if (this.scene.pickMode == false) {
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-                console.log(this.scene.pickResults);
-                for (var i = 0; i < this.scene.pickResults.length; i++) {
-                    var obj = this.scene.pickResults[i][0];
-                    if (obj) {
-                        var customId = this.scene.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
+    managePick(mode, results) {
+        if (mode == false /* && some other game conditions */)
+            if (results != null && results.length > 0)  // any results? 
+            {
+                for (var i = 0; i < results.length; i++) {
+                    var obj = results[i][0]; // get object from result
+                    if (obj)  // exists? 
+                    {
+                        var uniqueId = results[i][1] // get idt
+                        this.onObjectSelected(obj, uniqueId);
                     }
                 }
-                this.scene.pickResults.splice(0, this.scene.pickResults.length);
+
+                // clear results 
+
+                results.splice(0, results.length);
             }
-        }
     }
 
-	managePick(mode, results) {
-		if (mode == false /* && some other game conditions */)
-			if (results != null && results.length> 0)  // any results? 
-			{
-				for (var i=0; i< results.length; i++) 
-				{
-					var obj= results[i][0]; // get object from result
-						if (obj)  // exists? 
-						{
-							var uniqueId= results[i][1] // get idt
-							this.onObjectSelected(obj, uniqueId);
-						}
-				} 
+    onObjectSelected(obj, id) {
 
-				// clear results 
+        if (obj instanceof MyPiece) {
 
-				results.splice(0, results.length);
-			}
-	}
-
-	onObjectSelected(obj, id){
-		if(obj instanceof MyPiece){
-			
-            switch(this.state){
+            switch (this.state) {
                 case 'waiting select piece':
-                    if(obj.color == this.currPlayer)
-                    {
+                    if (obj.color == this.currPlayer) {
                         this.prolog.sendValidMoves(this.gameboard.gameState, obj.tile.line, obj.tile.column);
                         this.state = 'waiting valid moves';
                         this.fromTile = obj.tile;
@@ -216,19 +200,18 @@ class MyGameOrchestrator
                     break;
 
                 case 'waiting move tile':
-                    if(obj.color != this.currPlayer)
-                    {
+                    if (obj.color != this.currPlayer) {
                         this.gameboard.unselectAllTiles();
                         this.state = 'waiting select piece';
                     }
                     break;
             }
 
-		}
-		else if(obj instanceof MyTile){
-           switch(this.state){
+        }
+        else if (obj instanceof MyTile) {
+            switch (this.state) {
                 case 'waiting select piece':
-                    if(obj.hasPlayer(this.currPlayer)){               
+                    if (obj.hasPlayer(this.currPlayer)) {
                         this.prolog.sendValidMoves(this.gameboard.gameState, obj.line, obj.column);
                         this.state = 'waiting valid moves';
                         this.fromTile = obj;
@@ -236,23 +219,25 @@ class MyGameOrchestrator
                     break;
 
                 case 'waiting move tile':
-                    if(obj.selected)
-                    {
-                        this.prolog.sendMove(this.gameboard.gameState,this.currPlayer,this.fromTile.line,this.fromTile.column, obj.line, obj.column);
+                    if (obj.selected) {
+                        this.prolog.sendMove(this.gameboard.gameState, this.currPlayer, this.fromTile.line, this.fromTile.column, obj.line, obj.column);
                         this.state = 'waiting move result';
                         this.toTile = obj;
                     }
-                    else if(!obj.hasPlayer(this.currPlayer))
-                    {
+                    else if (!obj.hasPlayer(this.currPlayer)) {
                         this.gameboard.unselectAllTiles();
                         this.state = 'waiting select piece';
                     }
                     break;
             }
-		}
-		else {
-			// error ? 
-		}
-	}
+        }
+        else if (obj instanceof MyUndoButton) {
+            console.log('UndoButton');
+        }
+        else {
+            console.log("Picked object of type: " + obj.constructor.name + ", with pick id " + id);
+            console.log(obj);
+        }
+    }
 
 }
