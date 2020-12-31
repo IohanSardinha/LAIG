@@ -6,12 +6,16 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="main view">
+    <views default="Main View">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="main view" near="0.1" far="500" angle="45">
+        <perspective id="Main View" near="0.1" far="500" angle="45">
             <from x="-5" y="30" z="40" />
             <to x="-5" y="0" z="25" />
-        </perspective> 
+        </perspective>
+        <perspective id="Menu" near="0.1" far="50" angle="45">
+            <from x="0" y="70" z="20" />
+            <to x="0" y="70" z="19" />
+        </perspective>  
     </views>
 
     <illumination>
@@ -29,6 +33,14 @@
             <ambient r="0.1" g="0.1" b="0.1" a="0.5" />                   <!-- ambient component -->
             <diffuse r="0.1" g="0.1" b="0.1" a="0.5" />             <!-- diffuse component -->
             <specular r="0.1" g="0.1" b="0.1" a="0.5" />            <!-- specular component -->
+        </light>
+        <light id="Sun">
+            <enable value="1" />
+
+            <position x="100" y="100" z="0" w="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
+            <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
+            <specular r="0.25" g="0.25" b="0.25" a="0.25" />
         </light>
        
     </lights>

@@ -26,19 +26,14 @@ class MyInterface extends CGFinterface {
 
         return true;
     }
-
+ 
     setInterface(){
-        // this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
-
-        // this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
-        // this.gui.add(this.scene, 'displayLights').name('Display Lights');
-
-        // this.gui.add(this.scene.graph, 'activateMaterials').name('Materials Active');
-
-        // this.gui.add(this.scene.graph, 'activateTextures').name('Textures Active');
+        this.gui.destroy();
+        this.gui = new dat.GUI();
         
-        // this.gui.add(this.scene, 'selectedView', Array.from(this.scene.graph.viewMap.keys())).name('Current Camera').onChange(this.scene.changeCamera.bind(this.scene));
+        if (this.scene.graph.viewMap != null){
+            this.gui.add(this.scene, 'selectedView', Array.from(this.scene.graph.viewMap.keys())).name('Current Camera').onChange(this.scene.changeCamera.bind(this.scene));
+        }
 
         // this.lightsFolder = this.gui.addFolder('Enable Lights');
 
@@ -57,20 +52,27 @@ class MyInterface extends CGFinterface {
      * initKeys
      */
     initKeys() {
-        this.scene.gui=this;
-        this.processKeyboard=function(){};
-        this.activeKeys={};
+        // create reference from the scene to the GUI
+        this.scene.gui = this;
+        // disable the processKeyboard function
+        this.processKeyboard = function () { };
+        // create a named array to store which keys are being pressed
+        this.activeKeys = {};
     }
-
     processKeyDown(event) {
-        this.activeKeys[event.code]=true;
+        // called when a key is pressed down
+        // mark it as active in the array
+        this.activeKeys[event.code] = true;
     };
-
     processKeyUp(event) {
-        this.activeKeys[event.code]=false;
+        // called when a key is released, mark it as inactive in the array
+        this.activeKeys[event.code] = false;
     };
-
     isKeyPressed(keyCode) {
+        if (this.activeKeys[keyCode] === true) {
+            this.activeKeys[keyCode] = false;
+            return true;
+        }
         return this.activeKeys[keyCode] || false;
     }
 }

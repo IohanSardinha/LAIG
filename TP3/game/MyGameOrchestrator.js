@@ -13,7 +13,7 @@ class MyGameOrchestrator
 		this.gameSequence= new MyGameSequence();
 		this.animator= new MyAnimator();
 		this.gameboard= new MyGameBoard();
-		this.theme= new MySceneGraph('menu.xml', scene);
+		this.theme= new MySceneGraph('jinli.xml', this.scene);
 		this.prolog= new MyPrologInterface();		
 	
         this.prolog.testConnection();
@@ -29,6 +29,7 @@ class MyGameOrchestrator
 
         this.state = 'start';
         this.currPlayer = 'r';
+        this.score = new ScoreClock(this.scene,this.level);
 	}
 
     onGraphLoaded(){
@@ -49,13 +50,11 @@ class MyGameOrchestrator
                 filename = "jinli.xml";
                 break;
             default:
-                filename = "menu.xml";
+                filename = "jinli.xml";
                 break;
         }
-        this.scene.sceneInitiated = false;
-        this.displayMenu = false;
-        
-        this.theme = new MySceneGraph(filename, this.scene);
+        //this.scene.sceneInitiated = false;
+        //this.theme = new MySceneGraph(filename, this.scene);
     }
 
 	update(time) {
@@ -125,8 +124,8 @@ class MyGameOrchestrator
                 break;
         }
 
-		if (!this.displayMenu) {
-            if (this.sceneInited) {
+		
+            
                 if (!this.initGame) {
                     let mode;
                     for (let i = 0; i < this.modes.length; i++) {
@@ -139,27 +138,33 @@ class MyGameOrchestrator
                 }
 
                 this.checkKeys();
-                this.theme.update(t);
+                this.theme.update(time);
 
-            }
+            
+        
         }
-	}
 
 	display() {
 		//...
 
-		this.theme.displayScene();
-        if (this.displayMenu) {
-            this.menu.display();
-        }
-        else
-        {
-    	    this.managePick(this.scene.pickMode, this.scene.pickResults);
-        }
+        this.theme.displayScene();        
+        this.menu.display();
+        this.score.display();
+        this.managePick(this.scene.pickMode, this.scene.pickResults);
+     
 		//this.gameboard.display();
 		//this.animator.display();
 		//...
-	}
+    }
+    
+    checkKeys() {
+        if (this.scene.gui.isKeyPressed("Escape") || this.scene.gui.isKeyPressed("KeyM") ) {
+            this.menu.toggleMenu();
+        }
+        if (this.scene.gui.isKeyPressed("KeyR")) {
+            console.log('Undo');
+        }
+    }
 
 	logPicking() {
         if (this.scene.pickMode == false) {

@@ -10,11 +10,14 @@ class Menu extends CGFobject {
         this.scene = scene;
 
         this.plane = new MyPlane(scene, 15, 15);
+        this.rectangle = new MyRectangle(scene, -1, -1, 1, 1);
+
 
         this.initMaterials();
         this.initTextures();
         this.initMusic();
 
+        this.mainMenu = true;
         this.ambient = 1;
         this.options = false;
         this.level = level;
@@ -55,8 +58,8 @@ class Menu extends CGFobject {
         this.material.setTextureWrap('REPEAT', 'REPEAT');
 
         this.highlight_material = new CGFappearance(this.scene);
-        this.highlight_material.setAmbient(0.5, 0.25, 0.125, 1);
-        this.highlight_material.setDiffuse(0.5, 0.25, 0.125, 1);
+        this.highlight_material.setAmbient(0.9, 0.5, 0.2, 1);
+        this.highlight_material.setDiffuse(0.9, 0.5, 0.2, 1);
         this.highlight_material.setSpecular(0.1, 0.05, 0.025, 0.1);
         this.highlight_material.setShininess(1.0);
             
@@ -69,6 +72,7 @@ class Menu extends CGFobject {
 
     initTextures(){
         this.options_texture = new CGFtexture(this.scene, 'scenes/images/options.png');
+        this.return_texture = new CGFtexture(this.scene, 'scenes/images/return.png');
         this.go_back_texture = new CGFtexture(this.scene, 'scenes/images/go_back.png');
         this.mountain_texture = new CGFtexture(this.scene, 'scenes/images/mountain.png');
         this.lake_texture = new CGFtexture(this.scene, 'scenes/images/lake.png');
@@ -88,7 +92,11 @@ class Menu extends CGFobject {
     display() {
         this.pickResults();
         this.scene.clearPickRegistration();
-
+        
+        this.scene.pushMatrix();
+        this.scene.scale(1.5, 1, 1);
+        this.scene.translate(0, 70, 10);      
+        this.displayBackground();
         if(this.options){
             this.displayOptions();
             this.scene.clearPickRegistration();
@@ -96,6 +104,16 @@ class Menu extends CGFobject {
             this.displayMenu();
             this.scene.clearPickRegistration();
         }
+        this.scene.popMatrix();
+    }
+
+    displayBackground(){
+        this.scene.pushMatrix();
+        this.scene.scale(6,5, 1);
+        this.material.setTexture(this.tile);
+        this.material.apply();
+        this.rectangle.display();
+        this.scene.popMatrix();
     }
 
     displayOptions(){
@@ -170,8 +188,8 @@ class Menu extends CGFobject {
                         this.scene.popMatrix();
 
                         this.scene.pushMatrix();
-                            this.scene.translate(-0.04, 0, 0.01);
-                            this.scene.scale(0.3, 1, 0.2);
+                            this.scene.translate(0.015, 0, 0.00);
+                            this.scene.scale(0.4, 1, 0.2);
                             this.material.setTexture(this.easy_texture);
                             this.material.apply();
                             this.plane.display();
@@ -332,7 +350,6 @@ class Menu extends CGFobject {
 
     displayMenu(){
         this.scene.pushMatrix();
-            this.scene.scale(0.8, 1, 1);
 
             //JIN LI NAME
             this.scene.pushMatrix();
@@ -344,24 +361,35 @@ class Menu extends CGFobject {
                 this.plane.display();
             this.scene.popMatrix();
 
-            //Play Button
             this.scene.pushMatrix();
                 this.scene.translate(0, 0.25, 0);
-                this.scene.scale(2, 0.8, 1);
-                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                this.scene.scale(2, 1, 1);
+                this.scene.rotate(Math.PI / 2, 1, 0, 0);
                 this.material.setTexture(null);
                 this.material.apply();
+            
+            if(this.mainMenu)
+            {
+                //Play Button
                 this.scene.registerForPick(1, this.plane);
+                this.plane.display();         
+                this.play_material.apply();  
+            }
+            else
+            {
+                //Return Button
+                this.scene.registerForPick(11, this.plane);
                 this.plane.display();
-
-                this.play_material.apply();
+                this.material.setTexture(this.return_texture);
+                this.material.apply();
+            }
                 this.plane.display();
-            this.scene.popMatrix();
+                this.scene.popMatrix();
 
             //Options Button
             this.scene.pushMatrix();
                 this.scene.translate(0, -1, 0);
-                this.scene.scale(2, 0.8, 1);
+                this.scene.scale(2, 1, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.registerForPick(2, this.plane);
                 this.material.setTexture(null);
@@ -379,7 +407,7 @@ class Menu extends CGFobject {
                 this.scene.scale(2, 1, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.pushMatrix();
-                    this.scene.scale(1.05, 1.05, 1.05);
+                    this.scene.scale(1.025, 1.05, 1.05);
                     if(this.ambient === 1){
                         this.highlight_material.apply();
                     }else{
@@ -400,7 +428,7 @@ class Menu extends CGFobject {
                 this.scene.scale(2, 1, 1);
                 this.scene.rotate(Math.PI/2, 1, 0, 0);
                 this.scene.pushMatrix();
-                    this.scene.scale(1.05, 1.05, 1.05);
+                    this.scene.scale(1.025,1, 1.05);
                     if(this.ambient === 2){
                         this.highlight_material.apply();
                     }else{
@@ -422,6 +450,10 @@ class Menu extends CGFobject {
     }
 
     startGame(){
+        this.mainMenu = false;
+        this.scene.selectedView = this.scene.gameOrchestrator.theme.defaultViewId;
+        this.scene.changeCamera();
+        this.scene.interface.setInterface();
         this.orchestrator.startGame(this.ambient, this.level, this.game_mode);
         this.background_music.pause();
     }
@@ -430,6 +462,28 @@ class Menu extends CGFobject {
         this.background_music.play();
     }
 
+
+    showMenu(){
+        this.scene.selectedView = 'Menu';
+        this.scene.changeCamera();
+        this.scene.interface.setInterface();
+    }
+
+    exitMenu(){
+        this.scene.selectedView = this.scene.gameOrchestrator.theme.defaultViewId;
+        this.scene.changeCamera(); 
+        this.scene.interface.setInterface();
+    }
+
+    toggleMenu(){
+        if (this.scene.selectedView == 'Menu')
+        {
+            this.exitMenu();
+        }
+        else{
+            this.showMenu();
+        }
+    }
     pickResults() {
 		if (this.scene.pickMode == false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
@@ -471,6 +525,13 @@ class Menu extends CGFobject {
                                 break;
                             case 10:
                                 this.game_mode = this.game_modes[2];
+                                break;
+                            case 11:
+                                this.exitMenu();
+                                break;
+                            case 12:
+                                console.log('Undo');
+                                break;
                             default:
                                 break;
                         }

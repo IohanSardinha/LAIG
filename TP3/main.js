@@ -41,7 +41,19 @@ serialInclude(['../lib/CGF.js',
     'game/MyTile.js',
     'game/MyPiece.js',
     'game/MyGameState.js',
-    
+    'clock/ScoreClock.js',
+    'clock/MyUndoButton.js', 
+    'clock/Hexagon.js', 
+    'clock/Zero.js', 
+    'clock/One.js', 
+    'clock/Two.js', 
+    'clock/Three.js', 
+    'clock/Four.js', 
+    'clock/Five.js', 
+    'clock/Six.js', 
+    'clock/Seven.js', 
+    'clock/Eight.js', 
+    'clock/Nine.js', 
 
 main=function()
 {
@@ -60,7 +72,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "menu.xml";
+    var filename=getUrlVars()['file'] || "jinli.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
