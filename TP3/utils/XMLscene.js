@@ -125,6 +125,8 @@ class XMLscene extends CGFscene {
         this.interface.setInterface();
         
         this.sceneInitiated = true;
+
+        this.gameOrchestrator.onGraphLoaded();
     }
 
     changeCamera() {

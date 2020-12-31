@@ -17,7 +17,7 @@ class MyGameState{
 	}
 
 	getTile(stringPosition){
-		let i = stringPosition.toLowerCase().charCodeAt(0);
+		let i = stringPosition.toLowerCase().charCodeAt(0) - 96;
 		let j = parseInt(stringPosition[1]);
 
 		return this.boardMatrix[i][j];

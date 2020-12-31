@@ -21,9 +21,28 @@ class MyTile extends CGFobject {
 
 		this.plane = new MyPlane(scene, 1, 1);
 
+		this.gameboard = null;
+		this.piece = null;
+
 	}
 	
-	select(){
+
+	hasPlayer(player){
+		return this.gameboard != null && this.piece != null && this.piece.color == player;
+
+	}
+
+	select(value = null){
+
+		if(value != null)
+		{
+			if(value)
+				this.material = this.selectedMaterial;
+			else
+				this.material = this.unselectedMaterial;
+			return;
+		}
+
 		if(this.material == this.unselectedMaterial)
 			this.material = this.selectedMaterial;
 		else

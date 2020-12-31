@@ -45,6 +45,7 @@ class MySceneGraph {
         this.initialInstant = 0;
 
         this.tiles = [];
+        this.pieces = [];
 
         // File reading 
         this.reader = new CGFXMLreader();
@@ -1171,6 +1172,17 @@ class MySceneGraph {
                             this.tiles[id] = tile;
 
                             nodeChildren.push(tile);
+                        }
+                        else if(type == 'piece'){
+                            let color = this.reader.getString(grandgrandChildren[k],'color');
+                            let tileID = this.reader.getString(grandgrandChildren[k],'tileID');
+
+                            let piece = new MyPiece(this.scene, tileID, color);
+
+                            nodeChildren.push(piece);
+
+                            this.pieces.push(piece);
+
                         }
                         else
                         {

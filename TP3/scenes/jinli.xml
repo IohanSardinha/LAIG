@@ -918,28 +918,30 @@
 
             <transformations>
                 <translation x="0" y="0" z="-1.15" />
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
             <clickable id='50'/>
 
             <descendants>
-                <noderef id="koi"/>
+                <leaf type="piece" color="r" tileID='A1'/>
             </descendants>
         </node>
         <node id="redKoi2">
-            <material id="null" />
+            <material id="redMaterial" />
 
             <texture id="null">
             </texture>
 
             <transformations>
                 <translation x="0" y="0" z="1.15" />
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
             <clickable id='51'/>
 
             <descendants>
-                <noderef id="koi"/>
+                <leaf type="piece" color="r" tileID='G1'/>
             </descendants>
         </node>
 
@@ -967,15 +969,15 @@
 
             <transformations>
                 <translation x="0" y="0" z="1.15" />
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
             <clickable id='52'/>
 
             <descendants>
-                <noderef id="koi"/>
+                <leaf type="piece" color="y" tileID='A7'/>
             </descendants>
         </node>
-
         <node id="yellowKoi2">
             <material id="null" />
 
@@ -984,25 +986,13 @@
 
             <transformations>
                 <translation x="0" y="0" z="-1.15" />
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
             </transformations>
 
             <clickable id='53'/>
 
             <descendants>
-                <noderef id="koi"/>
-            </descendants>
-        </node>
-
-        <node id="koi">
-
-            <material id="null" />
-            <texture id="null">
-            </texture>
-            <transformations>
-                <scale sx="0.004" sy="0.004" sz="0.004"/>
-            </transformations>
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/koi.obj" wireframe="0"/>
+                <leaf type="piece" color="y" tileID='G7'/>
             </descendants>
         </node>
     </nodes>

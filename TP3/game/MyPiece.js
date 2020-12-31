@@ -9,20 +9,20 @@
 */
 class MyPiece extends CGFobject {
 
-
-	//<leaf type="clickable" id='' pick_id='' size='' />
-	constructor(scene, id) {
+	constructor(scene,tileID, color) {
 		super(scene);
 			
-		this.id = id;
+		this.tile = tileID;
 
-		this.plane = new MyPlane(scene, 1, 1);
+		this.color = color;
+
+		this.koi_model = new CGFOBJModel(scene, 'scenes/models/koi.obj', false);
 
 	}
 	
 	display()
 	{
-        this.plane.display();
+        this.koi_model.display();
 	}
 
 }

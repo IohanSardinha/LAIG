@@ -9,7 +9,6 @@ Manages the entire game:
 class MyGameOrchestrator
 {
 	constructor(scene){
-
 		this.scene = scene;
 		this.gameSequence= new MyGameSequence();
 		this.animator= new MyAnimator();
@@ -26,9 +25,16 @@ class MyGameOrchestrator
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
         this.menu = new Menu(this,scene, this.level, this.mode);
+        this.gameStateStack = [];
 
         this.state = 'start';
+        this.currPlayer = 'r';
 	}
+
+    onGraphLoaded(){
+        this.gameboard.setTiles(this.theme.tiles);
+        this.gameboard.setPieces(this.theme.pieces);
+    }
 
 	startGame(ambient, level, game_mode) {
         this.level = level;
@@ -83,6 +89,21 @@ class MyGameOrchestrator
 
             case 'initial parsed':
                 this.displayMenu = true;
+                this.gameboard.gameState = this.prolog.parsedResult;
+                this.gameStateStack.push(this.prolog.parsedResult);
+                this.state = 'waiting user click';
+                break;
+
+            case 'waiting user click':
+                break;
+
+            case 'waiting valid moves':
+                this.state = this.prolog.requestReady ?  'recieved valid moves' : 'waiting valid moves';
+                break;
+
+            case 'recieved valid moves':
+                this.gameboard.showValidMoves(this.prolog.parsedResult);
+                this.state = 'waiting user click';
                 break;
         }
 
@@ -160,11 +181,22 @@ class MyGameOrchestrator
 
 	onObjectSelected(obj, id){
 		if(obj instanceof MyPiece){
-			// do something with id knowing it is a piece
+			if(this.state == 'waiting user click'){
+                this.prolog.sendValidMoves(this.gameboard.gameState, this.gameboard.getLine(obj.tile.id), this.gameboard.getColumn(obj.tile.id));
+                this.state = 'waiting valid moves';
+            }
 		}
 		else if(obj instanceof MyTile){
-            obj.select();
-			// do something with id knowing it is a tile
+            if(this.state == 'waiting user click')
+            {
+                if(obj.hasPlayer(this.currPlayer)){               
+                    this.prolog.sendValidMoves(this.gameboard.gameState, this.gameboard.getLine(obj.id), this.gameboard.getColumn(obj.id));
+                    this.state = 'waiting valid moves';
+                }
+                else{
+                    this.gameboard.unselectAllTiles();
+                }
+            }
 		}
 		else {
 			// error ? 
