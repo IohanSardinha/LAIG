@@ -112,6 +112,5 @@ parse_input(valid_moves(GameState, Line, Column),ListOfMoves) :- valid_moves(Gam
 %Move = [Player,FromLine, FromColumn, ToLine, ToColumn]
 parse_input(move(GameState, Move), NewGameState) :- move_and_count(GameState, Move, NewGameState).
 parse_input(move_bot(GameState,Computer, Mode), NewGameState) :- move_bot_and_count(GameState, Computer , Mode, NewGameState).
-parse_input(game_over(GameState), Winner) :- game_over(GameState, Winner).
 parse_input(valid_drops(GameState),FreePlaces) :- valid_drops(GameState,FreePlaces).
 parse_input(quit, goodbye).	

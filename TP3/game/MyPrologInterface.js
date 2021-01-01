@@ -47,21 +47,6 @@ class MyPrologInterface{
 		this.requestReady = false;
 	}
 
-	parseGameStateReply(data){
-		 
-		if(this.status=== 400)
-		{
-			console.log("ERROR");
-			return;
-		}
-
-		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
-		let responseArray = this.textStringToArray(data.target.response);
-		
-		this.requestReady = true;
-		this.parsedResult = new MyGameState(responseArray);
-	}
-
 	sendValidMoves(gameState,line,column){
 
 		this.requestReady = false;
@@ -76,20 +61,6 @@ class MyPrologInterface{
 
 		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 		request.send();
-	}
-
-	parseListReply(data){
-		if(this.status=== 400)
-		{
-			console.log("ERROR");
-			return;
-		}
-
-		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
-		this.parsedResult = this.textStringToArray(data.target.response);
-		
-		this.requestReady = true;
-
 	}
 
 	sendMove(gameState,player,fromline,fromColumn, toLine, toColumn){
@@ -110,6 +81,50 @@ class MyPrologInterface{
 		request.send();
 	}
 
+	sendValidDrops(gameState){
+		this.requestReady = false;
+		this.parsedResult = null;
+
+		let requestString = 'valid_drops('+gameState.toString()+')';
+		var request = new XMLHttpRequest();
+
+		request.onload = (data) => this.parseListReply(data);
+		request.onerror = this.startPrologGameError;
+
+		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
+
+		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		request.send();
+	}
+
+	parseGameStateReply(data){
+		 
+		if(this.status=== 400)
+		{
+			console.log("ERROR");
+			return;
+		}
+
+		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
+		let responseArray = this.textStringToArray(data.target.response);
+		
+		this.requestReady = true;
+		this.parsedResult = new MyGameState(responseArray);
+	}
+
+	parseListReply(data){
+		if(this.status=== 400)
+		{
+			console.log("ERROR");
+			return;
+		}
+
+		// theanswer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
+		this.parsedResult = this.textStringToArray(data.target.response);
+		
+		this.requestReady = true;
+
+	}
 
 	startPrologGameError(){
 

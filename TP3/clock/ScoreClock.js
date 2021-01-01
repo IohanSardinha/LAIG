@@ -413,14 +413,14 @@ class ScoreClock extends CGFobject {
         if (score[0] < 10){
             this.score += String(0);
         }
-        this.score += String(score[0]);
+        this.score += String(score[1]);
         
         this.score += "-";
 
         if (score[1] < 10){
             this.score += String(0);
         }
-        this.score += String(score[1]);
+        this.score += String(score[0]);
     }
 
     updateTime(t, player){

@@ -98,6 +98,14 @@
             <specular r="0" g="0.0" b="0.5" a="1" />
             <emissive r="0" g="0.0" b="0.0" a="1" />
         </material>
+
+        <material id="grayMaterial">
+            <shininess value="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
     
     </materials>
 
@@ -901,6 +909,45 @@
                 <noderef id="redKoi"/>
                 <noderef id="yellowKoi"/>
                 <noderef id="board"/>
+                <noderef id='stones'/>
+            </descendants>
+        </node>
+
+        <node id="stones">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="-2.15" y="0.25" z="3.85" />
+                <scale sx='0.1' sy='0.05' sz='0.1'/>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+
             </descendants>
         </node>
 

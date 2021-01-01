@@ -14,7 +14,21 @@ class MyGameBoard{
 	contructor(){
 		this.tiles = [];
 		this.pieces = [];
+		this.red_stones = [];
+		this.yellow_stones = [];
 		this.gameState;
+	}
+
+	dropStone(currPlayer, tile){
+		this.unselectAllTiles();
+
+		if(currPlayer == 'r')
+		{
+			this.red_stones.pop().tile = tile;
+		}
+		else{
+			this.yellow_stones.pop().tile = tile;
+		}
 	}
 
 	getTile(ID){
@@ -39,9 +53,9 @@ class MyGameBoard{
 		}
 	}
 
-	showValidMoves(validMoves){
-		for(let validMove of validMoves){
-			let id = String.fromCharCode(64+validMove[1])+(8-validMove[0]);
+	selectTiles(positions){
+		for(let position of positions){
+			let id = String.fromCharCode(64+position[1])+(8-position[0]);
 			this.tiles[id].select();
 		}
 	}

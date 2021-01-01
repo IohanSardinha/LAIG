@@ -46,6 +46,8 @@ class MySceneGraph {
 
         this.tiles = [];
         this.pieces = [];
+        this.red_stones = [];
+        this.yellow_stones = [];
 
         // File reading 
         this.reader = new CGFXMLreader();
@@ -1183,6 +1185,22 @@ class MySceneGraph {
 
                             this.pieces.push(piece);
 
+                        }
+                        else if(type == 'stone'){
+                            let color = this.reader.getString(grandgrandChildren[k],'color');
+
+                            let stone = new MyStone(this.scene, color, color == 'r' ? this.red_stones.length : this.yellow_stones.length);
+
+                            if(color == 'r')
+                            {
+                                this.red_stones.push(stone);
+                            }
+                            else
+                            {
+                                this.yellow_stones.push(stone);
+                            }
+
+                            nodeChildren.push(stone);
                         }
                         else
                         {
