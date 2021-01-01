@@ -969,7 +969,7 @@
         </node>
 
         <node id="redKoi1">
-            <material id="null" />
+            <material id="blueMaterial" />
 
             <texture id="null">
             </texture>
@@ -1018,7 +1018,7 @@
         </node>
 
         <node id="yellowKoi1">
-            <material id="yellowMaterial" />
+            <material id="grayMaterial" />
 
             <texture id="null">
             </texture>
