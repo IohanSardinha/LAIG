@@ -85,6 +85,18 @@ dropStone(GameState, Player, NewGameState):-
     updateBoard(TempGameState, NewBoard, NewGameState)
 .
 
+dropStone(GameState , Player, _ , _, NewGameState):-
+    stones(Player, GameState, 0),
+    GameState = NewGameState
+.
+
+dropStone(GameState, Player, Line, Column, NewGameState):-
+    board(GameState,Board),
+    replaceInMatrix(Board, Line, Column, stone, NewBoard),
+    removeStone(GameState,Player, TempGameState),
+    updateBoard(TempGameState, NewBoard, NewGameState)
+.
+
 %addFishCount(+Board, +Line, +Column, +OldCount, -NewCount)
 addFishCount(Board,Line,Column, OldCount, NewCount) :-
     at(Board, Line, Column, r),

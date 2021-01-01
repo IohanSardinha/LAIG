@@ -89,24 +89,12 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     at(Board, FromLine, StoneColumn, stone)
 .
 
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
-% [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][S][X][S][ ] --> [X][S][ ][S][ ]
-% [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
-validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
-    ToLine is FromLine,
-    ToColumn is FromColumn-2,
-    StoneColumn is FromColumn-1,
-    at(Board, ToLine, ToColumn, empty),
-    at(Board, FromLine, StoneColumn, stone)
-.
 
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][X]
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][x]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine+2,
     ToColumn is FromColumn+2,
@@ -120,7 +108,7 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][X]
+% [ ][ ][ ][ ][ ]     [x][ ][ ][ ][ ]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine-2,
     ToColumn is FromColumn+2,
@@ -130,11 +118,11 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     at(Board, StoneLine, StoneColumn, stone)
 .
 
-% [ ][ ][ ][ ][ ]     [X][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [X][ ][ ][ ][ ]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine+2,
     ToColumn is FromColumn-2,
@@ -144,11 +132,11 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     at(Board, StoneLine, StoneColumn, stone)
 .
 
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [X][ ][ ][ ][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [X][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine-2,
     ToColumn is FromColumn-2,
@@ -158,11 +146,11 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     at(Board, StoneLine, StoneColumn, stone)
 .
 
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
+% [ ][S][S][S][ ]     [ ][S][S][S][ ]
+% [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
+% [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][ ][ ][ ][ ]     [ ][ ][X][ ][ ]
-% [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
-% [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine+2,
     ToColumn is FromColumn,
@@ -171,11 +159,11 @@ validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     at(Board, StoneLine, FromColumn, stone)
 .
 
-% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
+% [ ][ ][ ][ ][ ]     [ ][ ][X][ ][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
 % [ ][S][X][S][ ] --> [ ][S][ ][S][ ]
 % [ ][S][S][S][ ]     [ ][S][S][S][ ]
-% [ ][ ][ ][ ][ ]     [ ][ ][X][ ][ ]
+% [ ][ ][ ][ ][ ]     [ ][ ][ ][ ][ ]
 validJump(Board, FromLine, FromColumn, ToLine, ToColumn) :-
     ToLine is FromLine-2,
     ToColumn is FromColumn,

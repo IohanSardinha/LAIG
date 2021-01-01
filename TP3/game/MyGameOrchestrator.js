@@ -128,7 +128,6 @@ class MyGameOrchestrator {
                 this.gameboard.movePiece(this.fromTile, this.toTile);
                 this.score.updateScore(this.gameboard.getScore());
 
-
                 if(gameState.getScore(this.currPlayer) >= this.winningScore){
                     this.state = 'game over';
                 }
@@ -154,7 +153,18 @@ class MyGameOrchestrator {
             case 'waiting drop tile click':
                 break;
 
+            case 'waiting drop stone result':
+                if(this.prolog.requestReady)
+                {
+                    this.gameboard.gameState = this.prolog.parsedResult;
+                    this.gameStateStack.push(this.prolog.parsedResult);
+                    this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
+                    this.state = 'waiting select piece';
+                }
+                break;
+
             case 'game over':
+                alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
                 break;
 
         }
@@ -240,11 +250,10 @@ class MyGameOrchestrator {
                     }
                     break;
 
-                case 'waiting move tile':
-                    if (obj.color != this.currPlayer) {
-                        this.gameboard.unselectAllTiles();
-                        this.state = 'waiting select piece';
-                    }
+                case 'waiting move tile':    
+                    this.gameboard.unselectAllTiles();
+                    this.state = 'waiting select piece';
+                    
                     break;
             }
 
@@ -265,7 +274,7 @@ class MyGameOrchestrator {
                         this.state = 'waiting move result';
                         this.toTile = obj;
                     }
-                    else if (!obj.hasPlayer(this.currPlayer)) {
+                    else{
                         this.gameboard.unselectAllTiles();
                         this.state = 'waiting select piece';
                     }
@@ -275,10 +284,8 @@ class MyGameOrchestrator {
                     if(obj.selected)
                     {
                         this.gameboard.dropStone(this.currPlayer, obj);
-                        //this.prolog.sendDropStone(this.gameBoard.gameState, this.currPlayer, obj.line, obj.column);
-                        this.state = 'waiting select piece';
-                        this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
-
+                        this.prolog.sendDropStone(this.gameboard.gameState, this.currPlayer, obj.line, obj.column);
+                        this.state = 'waiting drop stone result';
                     }
                     break;
             }

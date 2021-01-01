@@ -97,6 +97,23 @@ class MyPrologInterface{
 		request.send();
 	}
 
+	sendDropStone(gameState, player, line, column){
+		this.requestReady = false;
+		this.parsedResult = null;
+
+		let requestString = 'drop_stone('+gameState.toString()+','+player+','+(8-column)+','+line+')';
+		var request = new XMLHttpRequest();
+
+		request.onload = (data) => this.parseGameStateReply(data);
+		request.onerror = this.startPrologGameError;
+
+		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
+
+		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		request.send();
+	}
+
+
 	parseGameStateReply(data){
 		 
 		if(this.status=== 400)
@@ -110,6 +127,7 @@ class MyPrologInterface{
 		
 		this.requestReady = true;
 		this.parsedResult = new MyGameState(responseArray);
+		console.log(data.target.response);
 	}
 
 	parseListReply(data){
@@ -123,6 +141,8 @@ class MyPrologInterface{
 		this.parsedResult = this.textStringToArray(data.target.response);
 		
 		this.requestReady = true;
+
+		console.log(data.target.response);
 
 	}
 

@@ -36,6 +36,7 @@ class MyGameBoard{
 	}
 
 	setTiles(tiles){
+
 		for(let id in tiles){
 			tiles[id].gameboard = this;
 		}
@@ -54,10 +55,13 @@ class MyGameBoard{
 	}
 
 	selectTiles(positions){
+		let print = '';
 		for(let position of positions){
 			let id = String.fromCharCode(64+position[1])+(8-position[0]);
 			this.tiles[id].select();
+			print += position + ' -> '+ id + ', ';
 		}
+		console.log(print);
 	}
 
 	movePiece(fromTile, toTile){
