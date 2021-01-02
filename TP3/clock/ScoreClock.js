@@ -51,7 +51,9 @@ class ScoreClock extends CGFobject {
         this.level = level;
         this.firstPlayerTime = 150000 * this.level;
         this.secondPlayerTime = 150000 * this.level;
-            
+        this.turnP1.powered = true;
+        this.turnP2.powered = false;
+
         this.createTimeString();
     }
 

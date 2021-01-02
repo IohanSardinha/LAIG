@@ -1,0 +1,1061 @@
+<lsf>
+    <initials>
+        <reference length="10" />
+        <!-- axis length; "0" means no axis displayed -->
+        <root id="root" />
+        <!-- identifier of root node of the scene graph; this node -->
+        <!-- must be defined in one of the following NODE declarations -->
+    </initials>
+    <views default="Main View">
+        <!-- at least one of the following type of cameras must be declared -->
+        <perspective id="Main View" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="40" />
+            <to x="-5" y="0" z="25" />
+        </perspective>
+        <perspective id="Menu" near="0.1" far="50" angle="45">
+            <from x="0" y="70" z="20" />
+            <to x="0" y="70" z="19" />
+        </perspective>  
+    </views>
+
+    <illumination>
+        <ambient r="0.5" g="0.5" b="0.5" a="0.1" />           <!-- global ambient -->
+        <background r="0.2" g="0.2" b="1" a="1.0" />        <!-- background color -->
+    </illumination>
+
+
+    <lights>
+        <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+        <light id="top light">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="0" y="15" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0.1" g="0.1" b="0.1" a="0.5" />                   <!-- ambient component -->
+            <diffuse r="0.1" g="0.1" b="0.1" a="0.5" />             <!-- diffuse component -->
+            <specular r="0.1" g="0.1" b="0.1" a="0.5" />            <!-- specular component -->
+        </light>
+        <light id="Sun">
+            <enable value="1" />
+
+            <position x="100" y="100" z="0" w="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
+            <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
+            <specular r="0.25" g="0.25" b="0.25" a="0.25" />
+        </light>
+       
+    </lights>
+
+
+    <textures>
+        <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+        <texture id="boardTexture" path="./scenes/images/board.png" />
+    </textures>
+
+    <spritesheets>
+    </spritesheets>
+
+
+    <materials>
+        <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
+         requires a distinct "id". At least one material should be present. -->
+        
+        <material id="whiteMaterial">
+            <shininess value="0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="0.1" g="0.1" b="0.1" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+            <emissive r="0" g="0" b="0" a="1" />
+        </material>
+        
+        <material id="transparentMaterial">
+            <shininess value="0" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="0" g="0" b="0" a="0" />
+            <specular r="0" g="0" b="0" a="0" />
+            <emissive r="0" g="0" b="0" a="0" />
+        </material>
+
+        <material id="yellowMaterial">
+            <shininess value="1" />
+            <ambient r="1" g="1" b="0.0" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0" a="1.0" />
+            <specular r="0.5" g="0.5" b="0" a="1.0" />
+            <emissive r="0" g="0" b="0.0" a="1" />
+        </material>
+
+        <material id="redMaterial">
+            <shininess value="0" />
+            <ambient r="0.5" g="0.0" b="0.0" a="1" />
+            <diffuse r="0.5" g="0.0" b="0.0" a="1" />
+            <specular r="0.5" g="0.0" b="0.0" a="1" />
+            <emissive r="0.5" g="0.0" b="0.0" a="1" />
+        </material>
+
+          <material id="blueMaterial">
+            <shininess value="0" />
+            <ambient  r="0" g="0.0" b="0.5" a="1" />
+            <diffuse  r="0" g="0.0" b="0.5" a="1" />
+            <specular r="0" g="0.0" b="0.5" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="greenMaterial">
+            <shininess value="0" />
+            <ambient  r="0.1" g="0.2" b="0.1" a="1" />
+            <diffuse  r="0.1" g="0.2" b="0.1" a="1" />
+            <specular r="0.1" g="0.2" b="0.1" a="1" />
+            <emissive r="0.1" g="0.2" b="0.1" a="1" />
+        </material>
+
+        <material id="grayMaterial">
+            <shininess value="0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1" />
+            <specular r="0.5" g="0.5" b="0.5" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+    
+    </materials>
+
+    <animations>
+    </animations>
+
+
+    <nodes>
+        <node id="root">            <!-- defines one intermediate node; may be repeated as necessary -->
+            <!-- next two lines are mandatory -->
+            <material id="blueMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+            <texture id="null"><!-- declared texture superimposes the texture received from parent node id="null" maintains texture from parent node id="clear" clears texture declaration received from parent node -->
+            </texture>
+
+            <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+            <transformations>
+            </transformations>
+
+            <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+            <descendants>
+
+                <noderef id="lake"/>
+            </descendants>
+        </node>
+
+        <node id="board">            
+            <material id="whiteMaterial" />
+
+            <texture id="boardTexture">
+             <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-1" y="0.2" z="5" />
+                <scale sx="3" sy="3" sz="3"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="plane" npartsU="10" npartsV="10" />
+
+                <noderef id="A1"/>
+                <noderef id="A2"/>
+                <noderef id="A3"/>
+                <noderef id="A4"/>
+                <noderef id="A5"/>
+                <noderef id="A6"/>
+                <noderef id="A7"/>
+
+                <noderef id="B1"/>
+                <noderef id="B2"/>
+                <noderef id="B3"/>
+                <noderef id="B4"/>
+                <noderef id="B5"/>
+                <noderef id="B6"/>
+                <noderef id="B7"/>
+                
+                <noderef id="C1"/>
+                <noderef id="C2"/>
+                <noderef id="C3"/>
+                <noderef id="C4"/>
+                <noderef id="C5"/>
+                <noderef id="C6"/>
+                <noderef id="C7"/>
+
+                <noderef id="D1"/>
+                <noderef id="D2"/>
+                <noderef id="D3"/>
+                <noderef id="D4"/>
+                <noderef id="D5"/>
+                <noderef id="D6"/>
+                <noderef id="D7"/>
+
+                <noderef id="E1"/>
+                <noderef id="E2"/>
+                <noderef id="E3"/>
+                <noderef id="E4"/>
+                <noderef id="E5"/>
+                <noderef id="E6"/>
+                <noderef id="E7"/>
+
+                <noderef id="F1"/>
+                <noderef id="F2"/>
+                <noderef id="F3"/>
+                <noderef id="F4"/>
+                <noderef id="F5"/>
+                <noderef id="F6"/>
+                <noderef id="F7"/>
+
+                <noderef id="G1"/>
+                <noderef id="G2"/>
+                <noderef id="G3"/>
+                <noderef id="G4"/>
+                <noderef id="G5"/>
+                <noderef id="G6"/>
+                <noderef id="G7"/>
+
+            </descendants>
+        </node>
+
+        <node id="A1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='1'/>
+            <descendants>
+                <leaf type="tile" id='A1' />
+            </descendants>
+        </node>
+
+        <node id="A2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='2'/>
+            <descendants>
+                <leaf type="tile" id='A2' />
+            </descendants>
+        </node>
+
+        <node id="A3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='3'/>
+            <descendants>
+                <leaf type="tile" id='A3' />
+            </descendants>
+        </node>
+
+        <node id="A4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='4'/>
+            <descendants>
+                <leaf type="tile" id='A4' />
+            </descendants>
+        </node>
+
+        <node id="A5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='5'/>
+            <descendants>
+                <leaf type="tile" id='A5' />
+            </descendants>
+        </node>
+
+        <node id="A6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='6'/>
+            <descendants>
+                <leaf type="tile" id='A6' />
+            </descendants>
+        </node>
+
+        <node id="A7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.39' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='7'/>
+            <descendants>
+                <leaf type="tile" id='A7' />
+            </descendants>
+        </node>
+
+        <node id="B1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='8'/>
+            <descendants>
+                <leaf type="tile" id='B1' />
+            </descendants>
+        </node>
+
+        <node id="B2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='9'/>
+            <descendants>
+                <leaf type="tile" id='B2' />
+            </descendants>
+        </node>
+
+        <node id="B3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='10'/>
+            <descendants>
+                <leaf type="tile" id='B3' />
+            </descendants>
+        </node>
+
+        <node id="B4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='11'/>
+            <descendants>
+                <leaf type="tile" id='B4' />
+            </descendants>
+        </node>
+
+        <node id="B5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='12'/>
+            <descendants>
+                <leaf type="tile" id='B5' />
+            </descendants>
+        </node>
+
+        <node id="B6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='13'/>
+            <descendants>
+                <leaf type="tile" id='B6' />
+            </descendants>
+        </node>
+
+        <node id="B7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.26' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='14'/>
+            <descendants>
+                <leaf type="tile" id='B7' />
+            </descendants>
+        </node>
+
+        <node id="C1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='15'/>
+            <descendants>
+                <leaf type="tile" id='C1' />
+            </descendants>
+        </node>
+
+        <node id="C2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='16'/>
+            <descendants>
+                <leaf type="tile" id='C2' />
+            </descendants>
+        </node>
+
+        <node id="C3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='17'/>
+            <descendants>
+                <leaf type="tile" id='C3' />
+            </descendants>
+        </node>
+
+        <node id="C4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='18'/>
+            <descendants>
+                <leaf type="tile" id='C4' />
+            </descendants>
+        </node>
+
+        <node id="C5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='19'/>
+            <descendants>
+                <leaf type="tile" id='C5' />
+            </descendants>
+        </node>
+
+        <node id="C6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='20'/>
+            <descendants>
+                <leaf type="tile" id='C6' />
+            </descendants>
+        </node>
+
+        <node id="C7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='-0.13' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='21'/>
+            <descendants>
+                <leaf type="tile" id='C7' />
+            </descendants>
+        </node>
+
+        <node id="D1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='22'/>
+            <descendants>
+                <leaf type="tile" id='D1' />
+            </descendants>
+        </node>
+
+        <node id="D2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='23'/>
+            <descendants>
+                <leaf type="tile" id='D2' />
+            </descendants>
+        </node>
+
+        <node id="D3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='24'/>
+            <descendants>
+                <leaf type="tile" id='D3' />
+            </descendants>
+        </node>
+
+        <node id="D4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='25'/>
+            <descendants>
+                <leaf type="tile" id='D4' />
+            </descendants>
+        </node>
+
+        <node id="D5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='26'/>
+            <descendants>
+                <leaf type="tile" id='D5' />
+            </descendants>
+        </node>
+
+        <node id="D6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='27'/>
+            <descendants>
+                <leaf type="tile" id='D6' />
+            </descendants>
+        </node>
+
+        <node id="D7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='28'/>
+            <descendants>
+                <leaf type="tile" id='D7' />
+            </descendants>
+        </node>
+
+        <node id="E1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='29'/>
+            <descendants>
+                <leaf type="tile" id='E1' />
+            </descendants>
+        </node>
+
+        <node id="E2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='30'/>
+            <descendants>
+                <leaf type="tile" id='E2' />
+            </descendants>
+        </node>
+
+        <node id="E3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='31'/>
+            <descendants>
+                <leaf type="tile" id='E3' />
+            </descendants>
+        </node>
+
+        <node id="E4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='32'/>
+            <descendants>
+                <leaf type="tile" id='E4' />
+            </descendants>
+        </node>
+
+        <node id="E5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='33'/>
+            <descendants>
+                <leaf type="tile" id='E5' />
+            </descendants>
+        </node>
+
+        <node id="E6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='34'/>
+            <descendants>
+                <leaf type="tile" id='E6' />
+            </descendants>
+        </node>
+
+        <node id="E7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.13' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='35'/>
+            <descendants>
+                <leaf type="tile" id='E7' />
+            </descendants>
+        </node>
+
+        <node id="F1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='36'/>
+            <descendants>
+                <leaf type="tile" id='F1' />
+            </descendants>
+        </node>
+
+        <node id="F2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='37'/>
+            <descendants>
+                <leaf type="tile" id='F2' />
+            </descendants>
+        </node>
+
+        <node id="F3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='38'/>
+            <descendants>
+                <leaf type="tile" id='F3' />
+            </descendants>
+        </node>
+
+        <node id="F4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='39'/>
+            <descendants>
+                <leaf type="tile" id='F4' />
+            </descendants>
+        </node>
+
+        <node id="F5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='40'/>
+            <descendants>
+                <leaf type="tile" id='F5' />
+            </descendants>
+        </node>
+
+        <node id="F6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='41'/>
+            <descendants>
+                <leaf type="tile" id='F6' />
+            </descendants>
+        </node>
+
+        <node id="F7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.26' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='42'/>
+            <descendants>
+                <leaf type="tile" id='F7' />
+            </descendants>
+        </node>
+
+        <node id="G1">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='43'/>
+            <descendants>
+                <leaf type="tile" id='G1' />
+            </descendants>
+        </node>
+
+        <node id="G2">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='44'/>
+            <descendants>
+                <leaf type="tile" id='G2' />
+            </descendants>
+        </node>
+
+        <node id="G3">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='45'/>
+            <descendants>
+                <leaf type="tile" id='G3' />
+            </descendants>
+        </node>
+
+        <node id="G4">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='0'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='46'/>
+            <descendants>
+                <leaf type="tile" id='G4' />
+            </descendants>
+        </node>
+
+        <node id="G5">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='-0.13'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='47'/>
+            <descendants>
+                <leaf type="tile" id='G5' />
+            </descendants>
+        </node>
+
+        <node id="G6">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='-0.26'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='48'/>
+            <descendants>
+                <leaf type="tile" id='G6' />
+            </descendants>
+        </node>
+
+        <node id="G7">            
+            <material id="transparentMaterial" />
+            <texture id="clear">
+            </texture>
+            <transformations>
+                <translation x='0.39' y='0.001' z='-0.39'/>
+                <scale sx='0.12' sy='0.12' sz='0.12'/>
+            </transformations>
+            <clickable id='49'/>
+            <descendants>
+                <leaf type="tile" id='G7' />
+            </descendants>
+        </node>
+
+
+        <node id="lake">            
+            <material id="blueMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <scale sx="5" sy="5" sz="5"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/lake2.obj" wireframe="0"/>
+                <noderef id="redKoi"/>
+                <noderef id="yellowKoi"/>
+                <noderef id="board"/>
+                <noderef id='stones'/>
+            </descendants>
+        </node>
+
+        <node id="stones">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="-2.15" y="0.25" z="3.85" />
+                <scale sx='0.1' sy='0.05' sz='0.1'/>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+                <leaf type='stone' color='r'/>
+
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+                <leaf type='stone' color='y'/>
+
+            </descendants>
+        </node>
+
+        <node id="redKoi">
+            <material id="redMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="-2.15" y="0.3" z="3.85" />
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="redKoi1"/>
+                <noderef id="redKoi2"/>
+            </descendants>
+        </node>
+
+        <node id="redKoi1">
+            <material id="null" />
+
+            <texture id="null">
+            </texture>
+
+
+            <transformations>
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
+            </transformations>
+
+            <clickable id='50'/>
+
+            <descendants>
+                <leaf type="piece" color="r" tileID='A1'/>
+            </descendants>
+        </node>
+        <node id="redKoi2">
+            <material id="redMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
+            </transformations>
+
+            <clickable id='51'/>
+
+            <descendants>
+                <leaf type="piece" color="r" tileID='G1'/>
+            </descendants>
+        </node>
+
+        <node id="yellowKoi">
+            <material id="yellowMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="-2.15" y="0.3" z="3.85" />
+            </transformations>
+            <descendants>
+                <noderef id="yellowKoi1"/>
+                <noderef id="yellowKoi2"/>
+            </descendants>
+        </node>
+
+        <node id="yellowKoi1">
+            <material id="null" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
+            </transformations>
+
+            <clickable id='52'/>
+
+            <descendants>
+                <leaf type="piece" color="y" tileID='A7'/>
+            </descendants>
+        </node>
+        <node id="yellowKoi2">
+            <material id="null" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <scale sx="0.004" sy="0.004" sz="0.004"/>
+            </transformations>
+
+            <clickable id='53'/>
+
+            <descendants>
+                <leaf type="piece" color="y" tileID='G7'/>
+            </descendants>
+        </node>
+    </nodes>
+</lsf>

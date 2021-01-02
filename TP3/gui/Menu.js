@@ -31,6 +31,7 @@ class Menu extends CGFobject {
         this.background_music.loop = true;
         this.background_music.volume = 0.1;
         this.background_music.play();
+
     }
 
     initMaterials(){
@@ -482,6 +483,10 @@ class Menu extends CGFobject {
     startGame(){
         this.mainMenu = false;
         this.scene.gameOrchestrator.score.started = true;
+        if(this.sound)
+        {
+            this.background_music.play();
+        }
         this.exitMenu();
         
     }
@@ -544,9 +549,11 @@ class Menu extends CGFobject {
                                 break;
                             case 3:
                                 this.ambient = 1;
+                                this.scene.gameOrchestrator.changeAmbient();
                                 break;
                             case 4:
                                 this.ambient = 2;
+                                this.scene.gameOrchestrator.changeAmbient();
                                 break;
                             case 5:
                                 this.options = false;

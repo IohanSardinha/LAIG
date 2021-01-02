@@ -12,28 +12,26 @@ class MyGameOrchestrator {
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator();
         this.gameboard = new MyGameBoard();
-        this.theme = new MySceneGraph('jinli.xml', scene);
+        this.theme = new MySceneGraph('mountain.xml', scene);
         this.prolog = new MyPrologInterface();
 
         this.prolog.testConnection();
 
         this.displayMenu = false;
-        //this.startGame(1, 1, 'Player vs. Player');
         this.initGame = false;
         this.level = 1;
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
+        this.ambient = 1;
         this.menu = new Menu(this, scene, this.level, this.mode);
         this.score = new ScoreClock(this.scene, this.level);
-        this.gameStateStack = [];
         this.gameMove;
         this.winningScore = 10;
-
-        this.state = 'start';
         this.currPlayer = 'r';
     }
 
     onGraphLoaded() {
+        this.state = 'start';
         this.gameboard.setTiles(this.theme.tiles);
         this.gameboard.setPieces(this.theme.pieces);
         this.score.setLevel(this.level);
@@ -42,29 +40,30 @@ class MyGameOrchestrator {
         this.gameboard.yellow_stones = this.theme.yellow_stones;
         this.gameboard.placed_yellow_stones = [];
         this.gameSequence.moveStack = [];
+        this.gameStateStack = [];
     }
 
-    startGame(ambient, level, game_mode) {
-        this.level = level;
-        this.mode = game_mode;
-
-        let filename;
-        switch (ambient) {
-            case 1:
-                filename = "jinli.xml";
-                break;
-            case 2:
-                filename = "jinli.xml";
-                break;
-            default:
-                filename = "menu.xml";
-                break;
+    changeAmbient()
+    {   
+        if(this.ambient != this.menu.ambient)
+        {
+            if(this.menu.ambient == 1)
+            {
+                this.theme = new MySceneGraph('mountain.xml', this.scene);
+                this.ambient = 1;
+            }
+            if (this.menu.ambient == 2){
+                this.theme = new MySceneGraph('lake.xml', this.scene);
+                this.ambient = 2;
+            }
+            else{
+                this.theme = new MySceneGraph('mountain.xml', this.scene);
+                this.ambient = 1;
+            }
         }
-        this.scene.sceneInitiated = false;
-        this.displayMenu = false;
-
-        this.theme = new MySceneGraph(filename, this.scene);
     }
+
+
 
     update(time) {
 
