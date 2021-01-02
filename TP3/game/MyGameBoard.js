@@ -15,7 +15,9 @@ class MyGameBoard{
 		this.tiles = [];
 		this.pieces = [];
 		this.red_stones = [];
+		this.placed_red_stones = [];
 		this.yellow_stones = [];
+		this.placed_yellow_stones = [];
 		this.gameState;
 	}
 
@@ -24,10 +26,14 @@ class MyGameBoard{
 
 		if(currPlayer == 'r')
 		{
-			this.red_stones.pop().tile = tile;
+			let stone = this.red_stones.pop();
+			this.placed_red_stones.push(stone);
+			stone.tile = tile;
 		}
 		else{
-			this.yellow_stones.pop().tile = tile;
+			let stone = this.yellow_stones.pop();
+			this.placed_yellow_stones.push(stone);
+			stone.tile = tile;
 		}
 	}
 
@@ -69,6 +75,20 @@ class MyGameBoard{
 		toTile.piece = fromTile.piece;
 		fromTile.piece = null;
 		this.unselectAllTiles();
+	}
+
+	removeStone(currPlayer){
+		if (currPlayer == 'y') {
+
+			let stone = this.placed_yellow_stones.pop();
+			stone.tile = null;
+			this.yellow_stones.push(stone);
+		}
+		else {
+			let stone = this.placed_red_stones.pop();
+			stone.tile = null;
+			this.red_stones.push(stone);
+		}
 	}
 
 	unselectAllTiles(){

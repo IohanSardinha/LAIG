@@ -8,3 +8,21 @@ Has:
 Methods:
 	* Animate
 */
+class MyGameMove extends CGFobject {
+
+	constructor(scene,movedPiece, originTile, DestinationTile) {
+		super(scene);
+		this.movedPiece = movedPiece;
+
+		this.originTile = originTile;
+
+		this.DestinationTile = DestinationTile;
+
+	}
+
+	animate() {
+	}
+
+}
+
+

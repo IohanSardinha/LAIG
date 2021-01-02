@@ -9,15 +9,15 @@ class MyUndoButton extends CGFobject {
         this.scene = scene;
 
         this.buttonMaterial = new CGFappearance(this.scene);
-        this.buttonMaterial.setAmbient(0.3, 0.3, 0.3, 1);
-        this.buttonMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
-        this.buttonMaterial.setSpecular(0.3, 0.3, 0.3, 0.1);
+        this.buttonMaterial.setAmbient(0.5, 0.5, 0.5, 1);
+        this.buttonMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.buttonMaterial.setSpecular(0.5, 0.5, 0.5, 0.1);
         this.buttonMaterial.setShininess(1.0);
         
         this.undoMaterial = new CGFappearance(this.scene);
-        this.undoMaterial.setAmbient(0.3, 0.3, 0.3, 1);
-        this.undoMaterial.setDiffuse(0.3, 0.3, 0.3, 1);
-        this.undoMaterial.setSpecular(0.3, 0.3, 0.3, 0.1);
+        this.undoMaterial.setAmbient(0.5, 0.5, 0.5, 1);
+        this.undoMaterial.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.undoMaterial.setSpecular(0.5, 0.5, 0.5, 0.1);
         this.undoMaterial.setShininess(1.0);
         this.undoMaterial.loadTexture('scenes/images/undo.png');
 		this.undoMaterial.setTextureWrap('REPEAT', 'REPEAT');

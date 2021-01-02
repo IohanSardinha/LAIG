@@ -69,6 +69,22 @@ class Menu extends CGFobject {
         this.black_material.setDiffuse(0, 0, 0, 1);
         this.black_material.setSpecular(0, 0, 0, 1);
         this.black_material.setShininess(1.0);
+
+        this.musicMaterial = new CGFappearance(this.scene);
+        this.musicMaterial.setAmbient(1.0, 1.0, 1.0, 1);
+        this.musicMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.musicMaterial.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.musicMaterial.setShininess(1.0);
+        this.musicMaterial.loadTexture('scenes/images/music.png');
+        this.musicMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.nomusicMaterial = new CGFappearance(this.scene);
+        this.nomusicMaterial.setAmbient(1.0, 1.0, 1.0, 1);
+        this.nomusicMaterial.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.nomusicMaterial.setSpecular(0.1, 0.1, 0.1, 0.1);
+        this.nomusicMaterial.setShininess(1.0);
+        this.nomusicMaterial.loadTexture('scenes/images/nomusic.png');
+        this.nomusicMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     initTextures(){
@@ -78,7 +94,7 @@ class Menu extends CGFobject {
         this.mountain_texture = new CGFtexture(this.scene, 'scenes/images/mountain.png');
         this.lake_texture = new CGFtexture(this.scene, 'scenes/images/lake.png');
         this.tile = new CGFtexture(this.scene, 'scenes/images/tile.jpg');
-        this.music = new CGFtexture(this.scene, 'scenes/images/music.jpg');
+        this.music = new CGFtexture(this.scene, 'scenes/images/music.png');
 
         this.game_mode_texture = new CGFtexture(this.scene, 'scenes/images/game_mode.png');
         this.mode1_texture = new CGFtexture(this.scene, 'scenes/images/mode1.png');
@@ -445,6 +461,19 @@ class Menu extends CGFobject {
                 this.material.apply();
                 this.plane.display();
             this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+            this.scene.translate(4.5, 2.5, 0);
+            this.scene.scale(0.5, 1, 1);
+            this.scene.rotate(Math.PI / 2, 1, 0, 0);
+            if (this.music) {
+                this.musicMaterial.apply();
+            } else {
+                this.nomusicMaterial.apply();
+            }
+            this.scene.registerForPick(12, this.plane);
+            this.plane.display();
+            this.scene.popMatrix();
             
             this.scene.clearPickRegistration();
 
@@ -454,7 +483,6 @@ class Menu extends CGFobject {
     startGame(){
         this.mainMenu = false;
         this.scene.gameOrchestrator.score.started = true;
-        this.background_music.pause();
         this.exitMenu();
         
     }
@@ -462,10 +490,13 @@ class Menu extends CGFobject {
     toggleMusic(){
         if(this.music)
         {
-           this.background_music.play(); 
+           this.background_music.pause(); 
+           this.music = false;
         }
         else{
-            this.background_music.pause(); 
+            this.background_music.play(); 
+            this.music = true;
+
         }
         
     }

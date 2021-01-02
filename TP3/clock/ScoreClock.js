@@ -8,16 +8,16 @@ class ScoreClock extends CGFobject {
         super(scene);
         this.scene = scene;
 
-        this.buttonMaterial = new CGFappearance(this.scene);
-        this.buttonMaterial.setAmbient(0.2, 0.1, 0.0, 1);
-        this.buttonMaterial.setDiffuse(0.2, 0.1, 0.0, 1);
-        this.buttonMaterial.setSpecular(0.02, 0.01, 0.0, 0.1);
-        this.buttonMaterial.setShininess(1.0);
+        this.woodMaterial = new CGFappearance(this.scene);
+        this.woodMaterial.setAmbient(0.2, 0.1, 0.0, 1);
+        this.woodMaterial.setDiffuse(0.2, 0.1, 0.0, 1);
+        this.woodMaterial.setSpecular(0.02, 0.01, 0.0, 0.1);
+        this.woodMaterial.setShininess(1.0);
 
         this.digitMaterial = new CGFappearance(this.scene);
-        this.digitMaterial.setAmbient(0.0, 0.2, 0.7, 1);
-        this.digitMaterial.setDiffuse(0.0, 0.2, 0.7, 1);
-        this.digitMaterial.setSpecular(0.0, 0.2, 0.7, 0.1);
+        this.digitMaterial.setAmbient(0.8,0.8,0.8, 1);
+        this.digitMaterial.setDiffuse(0.8,0.8,0.8, 1);
+        this.digitMaterial.setSpecular(0.8,0.8,0.8, 0.1);
         this.digitMaterial.setShininess(10.0);
         
         this.plane = new MyPlane(scene, 15, 15);
@@ -27,12 +27,14 @@ class ScoreClock extends CGFobject {
         this.triangle1 = new MyTriangle(scene, 0, 0, 0.25, 0, 0, this.height);
         this.triangle2 = new MyTriangle(scene, 0, 0, 0, this.height, 0.25, 0);
         this.undo = new MyUndoButton(scene);
+        this.turnP1 = new MyTurnIndicator(scene);
+        this.turnP2 = new MyTurnIndicator(scene);
         this.createNumbers();
 
         this.score = "00-00";
         this.level = level || 1;
-
-        this.firstPlayerTime ;
+        this.turnP1.powered = true;
+        this.firstPlayerTime;
         this.secondPlayerTime;
         this.started = false;
 
@@ -71,16 +73,26 @@ class ScoreClock extends CGFobject {
 
     display() {
         this.scene.pushMatrix(); 
-        this.scene.pushMatrix();
-        this.scene.translate(6,5,23);
-        this.scene.scale(1.3, 2, 1.5);
-        this.scene.registerForPick(400, this.undo);
-        this.undo.display(); 
-        this.scene.clearPickRegistration();
 
-        this.scene.popMatrix();
+            this.scene.pushMatrix();
+            this.scene.translate(6,5,25);
+            this.scene.scale(1.3, 2, 1.5);
+            this.scene.registerForPick(400, this.undo);
+            this.undo.display(); 
+            this.scene.clearPickRegistration();
+            this.scene.popMatrix();
 
-            this.buttonMaterial.apply();
+            this.scene.pushMatrix();
+            this.scene.translate(6, 5, 22.5);
+            this.turnP2.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+            this.scene.translate(6, 5, 27.5);
+            this.turnP1.display();
+            this.scene.popMatrix();
+
+            this.woodMaterial.apply();
             this.scene.scale(4,4,8);
             this.scene.translate(1.5, 0.3, 3.1);
             this.scene.rotate(Math.PI, 0, 1, 0);
@@ -426,18 +438,25 @@ class ScoreClock extends CGFobject {
     updateTime(t, player){
         if(this.started)
         {
+            
         if(player === 'r'){
             this.firstPlayerTime -= t;
+            this.turnP1.powered = true;
+            this.turnP2.powered = false;
             if(this.firstPlayerTime <= 0){
                 this.alarm.play();
                 this.firstPlayerTime = 0;
+               
                 return true;
             }
         }else if(player === 'y'){
             this.secondPlayerTime -= t;
+             this.turnP1.powered = false;
+             this.turnP2.powered = true;
             if(this.secondPlayerTime <= 0){
                 this.alarm.play();
                 this.secondPlayerTime = 0;
+               
                 return true;
             }
         }
