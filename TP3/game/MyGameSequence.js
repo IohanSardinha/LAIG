@@ -16,7 +16,12 @@ class MyGameSequence{
 		this.moveStack.push(move);
 	}
 	
-	undoMove(move) {
+	undoMove() {
+		return this.moveStack.pop();
+	}
 
+	getMoves()
+	{
+		return this.moveStack;
 	}
 }

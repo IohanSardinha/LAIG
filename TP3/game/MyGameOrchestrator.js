@@ -300,7 +300,7 @@ class MyGameOrchestrator {
                 break;
             case 'undo move':
                 let nGameState = this.gameStateStack.length;
-                this.gameMove = this.gameSequence.moveStack.pop();
+                this.gameMove = this.gameSequence.undoMove();
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
                 if (this.gameMove.movedPiece instanceof MyPiece) {
