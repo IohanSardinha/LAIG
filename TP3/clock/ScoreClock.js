@@ -443,8 +443,11 @@ class ScoreClock extends CGFobject {
             this.firstPlayerTime -= t;
             this.turnP1.powered = true;
             this.turnP2.powered = false;
+
             if(this.firstPlayerTime <= 0){
-                this.alarm.play();
+                if(this.scene.gameOrchestrator.menu.sound){
+                    this.alarm.play();
+                }
                 this.firstPlayerTime = 0;
                
                 return true;
@@ -454,7 +457,9 @@ class ScoreClock extends CGFobject {
              this.turnP1.powered = false;
              this.turnP2.powered = true;
             if(this.secondPlayerTime <= 0){
-                this.alarm.play();
+                if (this.scene.gameOrchestrator.menu.sound) {
+                    this.alarm.play();
+                }
                 this.secondPlayerTime = 0;
                
                 return true;

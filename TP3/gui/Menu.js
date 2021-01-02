@@ -20,7 +20,7 @@ class Menu extends CGFobject {
         this.mainMenu = true;
         this.ambient = 1;
         this.options = false;
-        this.music = true;
+        this.sound = true;
         this.level = level;
         this.game_mode = mode;
         this.game_modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
@@ -94,7 +94,6 @@ class Menu extends CGFobject {
         this.mountain_texture = new CGFtexture(this.scene, 'scenes/images/mountain.png');
         this.lake_texture = new CGFtexture(this.scene, 'scenes/images/lake.png');
         this.tile = new CGFtexture(this.scene, 'scenes/images/tile.jpg');
-        this.music = new CGFtexture(this.scene, 'scenes/images/music.png');
 
         this.game_mode_texture = new CGFtexture(this.scene, 'scenes/images/game_mode.png');
         this.mode1_texture = new CGFtexture(this.scene, 'scenes/images/mode1.png');
@@ -466,7 +465,7 @@ class Menu extends CGFobject {
             this.scene.translate(4.5, 2.5, 0);
             this.scene.scale(0.5, 1, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            if (this.music) {
+            if (this.sound) {
                 this.musicMaterial.apply();
             } else {
                 this.nomusicMaterial.apply();
@@ -488,14 +487,14 @@ class Menu extends CGFobject {
     }
 
     toggleMusic(){
-        if(this.music)
+        if(this.sound)
         {
            this.background_music.pause(); 
-           this.music = false;
+           this.sound = false;
         }
         else{
             this.background_music.play(); 
-            this.music = true;
+            this.sound = true;
 
         }
         

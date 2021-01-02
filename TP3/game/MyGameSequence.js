@@ -7,7 +7,16 @@ Methods:
 */
 
 class MyGameSequence{
-	contructor(){
-		
+	contructor() {
+		this.moveStack;
+	}
+
+	addMove(move)
+	{
+		this.moveStack.push(move);
+	}
+	
+	undoMove(move) {
+
 	}
 }

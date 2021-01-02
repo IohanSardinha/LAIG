@@ -26,7 +26,6 @@ class MyGameOrchestrator {
         this.menu = new Menu(this, scene, this.level, this.mode);
         this.score = new ScoreClock(this.scene, this.level);
         this.gameStateStack = [];
-        this.gameMoveStack = [];
         this.gameMove;
         this.winningScore = 10;
 
@@ -42,6 +41,7 @@ class MyGameOrchestrator {
         this.gameboard.placed_red_stones = [];
         this.gameboard.yellow_stones = this.theme.yellow_stones;
         this.gameboard.placed_yellow_stones = [];
+        this.gameSequence.moveStack = [];
     }
 
     startGame(ambient, level, game_mode) {
@@ -179,7 +179,7 @@ class MyGameOrchestrator {
                 this.fromTile.piece.animator = null;
                 let gameState = new MyGameState(this.prolog.parsedResult[0]);
                 this.gameMove = new MyGameMove(this.scene,this.fromTile.piece,this.fromTile,this.toTile);
-                this.gameMoveStack.push(this.gameMove);
+                this.gameSequence.addMove(this.gameMove);
                 this.gameStateStack.push(gameState);
                 this.gameboard.gameState = gameState;
                 this.gameboard.movePiece(this.fromTile, this.toTile);
@@ -269,7 +269,7 @@ class MyGameOrchestrator {
                     stone = this.gameboard.yellow_stones[this.gameboard.yellow_stones.length-1]
                 }
                 this.gameMove = new MyGameMove(this.scene, stone, null, this.toTile);
-                this.gameMoveStack.push(this.gameMove);
+                this.gameSequence.addMove(this.gameMove);
                 this.gameboard.gameState = this.prolog.parsedResult;
                 this.gameboard.dropStone(this.currPlayer, this.toTile);
                 this.gameStateStack.push(this.prolog.parsedResult);
@@ -300,7 +300,7 @@ class MyGameOrchestrator {
                 break;
             case 'undo move':
                 let nGameState = this.gameStateStack.length;
-                this.gameMove = this.gameMoveStack.pop();
+                this.gameMove = this.gameSequence.moveStack.pop();
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
                 if (this.gameMove.movedPiece instanceof MyPiece) {
@@ -359,18 +359,18 @@ class MyGameOrchestrator {
         }
 
         if (!this.displayMenu) {
-            if (this.sceneInited) {
-                if (!this.initGame) {
-                    let mode;
-                    for (let i = 0; i < this.modes.length; i++) {
-                        if (this.modes[i] === this.mode) {
-                            mode = i + 1;
-                            break;
-                        }
-                    }
-                    this.initGame = true;
-                }
-            }  
+            // if (this.sceneInited) {
+            //     if (!this.initGame) {
+            //         let mode;
+            //         for (let i = 0; i < this.modes.length; i++) {
+            //             if (this.modes[i] === this.mode) {
+            //                 mode = i + 1;
+            //                 break;
+            //             }
+            //         }
+            //         this.initGame = true;
+            //     }
+            // }  
             //console.log(this.deltaTime);
             this.score.updateTime(this.deltaTime,this.currPlayer);
         }  
