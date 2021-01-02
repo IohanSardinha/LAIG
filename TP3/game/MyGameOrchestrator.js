@@ -310,25 +310,10 @@ class MyGameOrchestrator {
                 }
                 else {
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
+                    this.scene.camera.orbit([0, 1, 0], Math.PI);
                     this.gameboard.removeStone(this.currPlayer);
-                    let end = {
-                        translation: { x: 0, y: 0, z: 0 },
-                        rotation: { x: 0, y: 0, z: 0 },
-                        scale: { x: 1, y: 1, z: 1 }
-                    };
-
+                   
                     let stone_position = this.gameboard.getStonePosition(this.currPlayer);
-
-                    let middle = {
-                        translation: {
-                            x: (stone_position[0] + ((this.toTile.line - 1) * 3.85)) / 2,
-                            y: 30,
-                            z: (stone_position[2] - ((this.toTile.column - 1) * 3.85)) / 2
-                        },
-                        rotation: { x: 0, y: 0, z: 0 },
-                        scale: { x: 1, y: 1, z: 1 }
-                    };
-
 
                     let start = {
                         translation: {
@@ -339,7 +324,20 @@ class MyGameOrchestrator {
                         rotation: { x: 0, y: 0, z: 0 },
                         scale: { x: 1, y: 1, z: 1 }
                     };
-
+                    let middle = {
+                        translation: {
+                            x: (stone_position[0] + ((this.toTile.line - 1) * 3.85)) / 2,
+                            y: 30,
+                            z: (stone_position[2] - ((this.toTile.column - 1) * 3.85)) / 2
+                        },
+                        rotation: { x: 0, y: 0, z: 0 },
+                        scale: { x: 1, y: 1, z: 1 }
+                    };
+                    let end = {
+                        translation: { x: 0, y: 0, z: 0 },
+                        rotation: { x: 0, y: 0, z: 0 },
+                        scale: { x: 1, y: 1, z: 1 }
+                    };
                     let frames = [];
                     frames[this.secsFromStart] = start;
                     frames[this.secsFromStart + 0.3] = middle;
