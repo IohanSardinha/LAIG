@@ -20,7 +20,7 @@
 
     <illumination>
         <ambient r="0.5" g="0.5" b="0.5" a="0.1" />           <!-- global ambient -->
-        <background r="0" g="0" b="0.75" a="1.0" />        <!-- background color -->
+        <background r="0.2" g="0.2" b="1" a="1.0" />        <!-- background color -->
     </illumination>
 
 
@@ -93,10 +93,18 @@
 
           <material id="blueMaterial">
             <shininess value="0" />
-            <ambient r="0" g="0.0" b="0.5" a="1" />
-            <diffuse r="0" g="0.0" b="0.5" a="1" />
+            <ambient  r="0" g="0.0" b="0.5" a="1" />
+            <diffuse  r="0" g="0.0" b="0.5" a="1" />
             <specular r="0" g="0.0" b="0.5" a="1" />
             <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="greenMaterial">
+            <shininess value="0" />
+            <ambient  r="0.1" g="0.2" b="0.1" a="1" />
+            <diffuse  r="0.1" g="0.2" b="0.1" a="1" />
+            <specular r="0.1" g="0.2" b="0.1" a="1" />
+            <emissive r="0.1" g="0.2" b="0.1" a="1" />
         </material>
 
         <material id="grayMaterial">
@@ -895,7 +903,7 @@
 
 
         <node id="lake">            
-            <material id="blueMaterial" />
+            <material id="greenMaterial" />
 
             <texture id="null">
             </texture>
@@ -969,7 +977,7 @@
         </node>
 
         <node id="redKoi1">
-            <material id="blueMaterial" />
+            <material id="null" />
 
             <texture id="null">
             </texture>
@@ -1018,7 +1026,7 @@
         </node>
 
         <node id="yellowKoi1">
-            <material id="grayMaterial" />
+            <material id="null" />
 
             <texture id="null">
             </texture>

@@ -22,7 +22,9 @@ class MyPiece extends CGFobject {
 	
 	display()
 	{
+
 		this.scene.pushMatrix();
+	
 
 			this.scene.translate(97*(this.tile.line-1), 0, 97*(7-this.tile.column));
 
@@ -31,6 +33,13 @@ class MyPiece extends CGFobject {
 			else
 				this.scene.rotate(-Math.PI/2, 0, 1, 0);
 
+			if(this.animator){
+				let display = this.animator.apply();
+				if(display)
+				{
+					this.scene.multMatrix(display);
+				}
+			}
         	this.koi_model.display();
 		
 		this.scene.popMatrix();

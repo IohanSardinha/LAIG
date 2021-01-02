@@ -36,7 +36,7 @@ class XMLscene extends CGFscene {
         this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);   // defines the blending function
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(25);
+        this.setUpdatePeriod(10);
         this.setPickEnabled(true);
 
         this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);

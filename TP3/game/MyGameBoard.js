@@ -20,8 +20,6 @@ class MyGameBoard{
 	}
 
 	dropStone(currPlayer, tile){
-		this.unselectAllTiles();
-
 		if(currPlayer == 'r')
 		{
 			this.red_stones.pop().tile = tile;
@@ -29,6 +27,23 @@ class MyGameBoard{
 		else{
 			this.yellow_stones.pop().tile = tile;
 		}
+	}
+
+	setStoneAnimator(currPlayer, animator){
+		if(currPlayer == 'r')
+		{
+			this.red_stones[this.red_stones.length - 1].animator = animator;
+		}
+		else{
+			this.yellow_stones[this.yellow_stones.length - 1].animator = animator;
+		}
+	}
+
+	getStonePosition(currPlayer){
+		if(currPlayer == 'r')
+			return [-(-4.9+(this.red_stones.length)*3), 0 ,-6];
+		
+		return [-(-4.9+(this.yellow_stones.length)*3), 0, 29];
 	}
 
 	getTile(ID){
@@ -55,20 +70,17 @@ class MyGameBoard{
 	}
 
 	selectTiles(positions){
-		let print = '';
 		for(let position of positions){
 			let id = String.fromCharCode(64+position[1])+(8-position[0]);
 			this.tiles[id].select();
-			print += position + ' -> '+ id + ', ';
 		}
-		console.log(print);
+
 	}
 
 	movePiece(fromTile, toTile){
 		fromTile.piece.tile = toTile;
 		toTile.piece = fromTile.piece;
 		fromTile.piece = null;
-		this.unselectAllTiles();
 	}
 
 	unselectAllTiles(){
