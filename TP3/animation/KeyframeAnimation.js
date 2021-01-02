@@ -1,7 +1,7 @@
 /**
  * KeyframeAnimation
  */
-class KeyframeAnimation extends Animation {
+class KeyframeAnimation extends MyAnimation {
 /*
  * @constructor
  * @param initial_instant - integer:  second from begining in which the animation starts

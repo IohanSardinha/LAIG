@@ -18,14 +18,23 @@ class MyStone extends CGFobject {
 		this.scene.pushMatrix();
 
 
-			if(this.tile != null)
+			if(this.tile != null){
 				this.scene.translate(3.85*(this.tile.line-1), 0, 3.85*(7-this.tile.column));
+			}
 			else{
 				if(this.color == 'r')
 				{
 					this.scene.translate(-2+this.index*3,0,29);
 				}else{
 					this.scene.translate(-2+this.index*3,0,-6);
+				}
+				
+				if(this.animator){
+					let display = this.animator.apply();
+					if(display)
+					{
+						this.scene.multMatrix(display);
+					}
 				}
 			}
 			this.scene.rotate(this.rotation, 0, 1, 0);

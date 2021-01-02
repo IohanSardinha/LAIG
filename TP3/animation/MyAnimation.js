@@ -1,8 +1,8 @@
 /**
- * Animation
+ * MyAnimation
  * @abstract
  */
-class Animation {
+class MyAnimation {
 /*
  * @constructor
  * @param instant - integer:  second from begining in which the animation starts

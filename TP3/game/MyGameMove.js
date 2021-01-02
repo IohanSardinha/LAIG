@@ -1,10 +1,9 @@
 /*
 * Stores a game move
 Has:
-	* Pointer to movedpiece(MyPiece)
-	* Pointer to origintile (MyTile)
-	* Pointer to destinationtile (MyTile)
-	* Pointerto destinationtile (MyTile)
+	* Pointer to moved piece(MyPiece)
+	* Pointer to origin tile (MyTile)
+	* Pointer to destination tile (MyTile)
 Methods:
 	* Animate
 */

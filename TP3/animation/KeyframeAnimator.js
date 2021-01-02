@@ -10,6 +10,7 @@ class KeyframeAnimator {
         this.keyframeAnimations = [];
         this.scene = scene;
         this.visible = false;
+        this.ended = false;
 
         let instants = Object.keys(keyframes).sort();
         let keyframeAnimation;
@@ -26,11 +27,18 @@ class KeyframeAnimator {
 
      update(instant)
      {
+        //console.log(this.currentKeyframe);
+
         if((this.keyframeAnimations.length < 1) || (instant < this.keyframeAnimations[0].instant))
         {
             this.visible = false;
             return;
         }
+        if(instant > this.keyframeAnimations[this.keyframeAnimations.length - 1].final_instant)
+        {
+            this.ended = true;
+        }
+
         this.visible = true;
         for(let i = 0; i < this.keyframeAnimations.length; i++)
             if((instant >= this.keyframeAnimations[i].instant && instant < this.keyframeAnimations[i].final_instant) || i == this.keyframeAnimations.length-1)

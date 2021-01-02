@@ -127,7 +127,7 @@ class MyPrologInterface{
 		
 		this.requestReady = true;
 		this.parsedResult = new MyGameState(responseArray);
-		console.log(data.target.response);
+		//console.log(data.target.response);
 	}
 
 	parseListReply(data){
@@ -142,7 +142,7 @@ class MyPrologInterface{
 		
 		this.requestReady = true;
 
-		console.log(data.target.response);
+		//console.log(data.target.response);
 
 	}
 
