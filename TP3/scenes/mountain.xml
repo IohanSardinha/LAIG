@@ -16,7 +16,7 @@
             <from x="0" y="70" z="20" />
             <to x="0" y="70" z="19" />
         </perspective> 
-          <perspective id="Maidasdn View" near="0.1" far="500" angle="45">
+          <perspective id="Free View" near="0.1" far="500" angle="45">
             <from x="-5" y="30" z="40" />
             <to x="-5" y="0" z="25" />
         </perspective> 

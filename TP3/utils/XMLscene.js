@@ -112,7 +112,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this, this.gameOrchestrator.theme.referenceLength);
 
-        this.gl.clearColor(...this.gameOrchestrator.theme.background);
+        if(this.gameOrchestrator.theme.background)
+            this.gl.clearColor(...this.gameOrchestrator.theme.background);
 
         this.setGlobalAmbientLight(...this.gameOrchestrator.theme.ambient);
 

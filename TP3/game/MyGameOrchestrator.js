@@ -38,19 +38,36 @@ class MyGameOrchestrator {
 
         this.state = 'start';
         this.currPlayer = 'r';
+
+        this.firstLoad = true;
     }
 
     onGraphLoaded() {
-        this.state = 'start';
-        this.gameboard.setTiles(this.theme.tiles);
-        this.gameboard.setPieces(this.theme.pieces);
-        this.score.setLevel(this.level);
-        this.gameboard.red_stones = this.theme.red_stones;
-        this.gameboard.placed_red_stones = [];
-        this.gameboard.yellow_stones = this.theme.yellow_stones;
-        this.gameboard.placed_yellow_stones = [];
-        this.gameSequence.moveStack = [];
-        this.gameStateStack = [];
+        if((this.theme.filename == 'mountain.xml' || this.theme.filename == 'lake.xml') && this.firstLoad)
+        {
+            this.state = 'start';
+            this.gameboard.setTiles(this.theme.tiles);
+            this.gameboard.setPieces(this.theme.pieces);
+            this.score.setLevel(this.level);
+            this.gameboard.red_stones = this.theme.red_stones;
+            this.gameboard.placed_red_stones = [];
+            this.gameboard.yellow_stones = this.theme.yellow_stones;
+            this.gameboard.placed_yellow_stones = [];
+            this.gameSequence.moveStack = [];
+            this.gameStateStack = [];
+            this.firstLoad = false;
+        }
+        else ((this.theme.filename == 'mountain.xml' || this.theme.filename == 'lake.xml') && !this.firstLoad)
+        {
+            this.gameboard.setTiles(this.theme.tiles);
+            this.gameboard.redefinePieces(this.theme.pieces);
+            this.gameboard.redefineStones(this.theme.red_stones, this.theme.yellow_stones);
+
+            if(this.currPlayer == 'y' && this.displayMenu)
+                this.shouldRotateCamera = true;
+
+        }
+        
     }
 
     changeAmbient()
@@ -71,6 +88,7 @@ class MyGameOrchestrator {
                 this.ambient = 1;
             }
         }
+            
     }
 
 
@@ -342,6 +360,10 @@ class MyGameOrchestrator {
         }
 
         if (!this.displayMenu) {
+            if(this.shouldRotateCamera){
+                this.scene.camera.orbit([0, 1, 0], Math.PI);
+                this.shouldRotateCamera = false;
+            }
             this.score.updateTime(this.deltaTime, this.currPlayer);
            
         }  

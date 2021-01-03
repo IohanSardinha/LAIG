@@ -15,7 +15,11 @@
         <perspective id="Menu" near="0.1" far="50" angle="45">
             <from x="0" y="70" z="20" />
             <to x="0" y="70" z="19" />
-        </perspective>  
+        </perspective> 
+          <perspective id="Free View" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="40" />
+            <to x="-5" y="0" z="25" />
+        </perspective> 
     </views>
 
     <illumination>
@@ -61,10 +65,10 @@
         
         <material id="whiteMaterial">
             <shininess value="0" />
-            <ambient r="1" g="1" b="1" a="0" />
-            <diffuse r="0.1" g="0.1" b="0.1" a="0" />
-            <specular r="0.1" g="0.1" b="0.1" a="0" />
-            <emissive r="0" g="0" b="0" a="0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="0.1" g="0.1" b="0.1" a="1" />
+            <specular r="0.1" g="0.1" b="0.1" a="1" />
+            <emissive r="0" g="0" b="0" a="1" />
         </material>
         
         <material id="transparentMaterial">
@@ -92,10 +96,10 @@
         </material>
 
           <material id="blueMaterial">
-            <shininess value="0" />
-            <ambient  r="0" g="0.0" b="0.5" a="1" />
-            <diffuse  r="0" g="0.0" b="0.5" a="1" />
-            <specular r="0" g="0.0" b="0.5" a="1" />
+            <shininess value="1" />
+            <ambient  r="0.2" g="0.2" b="0.5" a="1" />
+            <diffuse  r="0.2" g="0.2" b="0.5" a="1" />
+            <specular r="0.2" g="0.2" b="0.5" a="1" />
             <emissive r="0" g="0.0" b="0.0" a="1" />
         </material>
 
@@ -106,6 +110,13 @@
             <specular r="0.1" g="0.2" b="0.1" a="1" />
             <emissive r="0.1" g="0.2" b="0.1" a="1" />
         </material>
+        <material id="tallGrassMaterial">
+            <shininess value="1" />
+            <ambient  r="0.4" g="0.8" b="0.4" a="1" />
+            <diffuse  r="0.4" g="0.8" b="0.4" a="1" />
+            <specular r="0.3" g="0.6" b="0.3" a="1" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
 
         <material id="grayMaterial">
             <shininess value="0" />
@@ -114,7 +125,47 @@
             <specular r="0.5" g="0.5" b="0.5" a="1" />
             <emissive r="0" g="0.0" b="0.0" a="1" />
         </material>
-    
+
+        <material id="flowerMaterial">
+            <shininess value="1" />
+            <ambient r="0.9" g="0.4" b="0.8" a="1" />
+            <diffuse r="0.9" g="0.4" b="0.8" a="1" />
+            <specular r="1.0" g="0.5" b="0.9" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="flowerbudMaterial">
+            <shininess value="0" />
+            <ambient r="0.7" g="0.5" b="0.2" a="1" />
+            <diffuse r="0.7" g="0.5" b="0.2" a="1" />
+            <specular r="0.7" g="0.5" b="0.3" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+        
+        <material id="treeMaterial">
+            <shininess value="0" />
+            <ambient r="0.2" g="0.15" b="0.0" a="1" />
+            <diffuse r="0.2" g="0.15" b="0.0" a="1" />
+            <specular r="0.2" g="0.05" b="0.0" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="treeleafMaterial">
+            <shininess value="0" />
+            <ambient  r="0.1" g="0.3" b="0.1" a="1" />
+            <diffuse  r="0.1" g="0.3" b="0.1" a="1" />
+            <specular r="0.0" g="0.2" b="0.0" a="1" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1" />
+        </material>
+
+        <material id="deadtreeMaterial">
+            <shininess value="0" />
+            <ambient r="0.4" g="0.25" b="0.15" a="1" />
+            <diffuse r="0.4" g="0.25" b="0.15" a="1" />
+            <specular r="0.4" g="0.25" b="0.2" a="1" />
+            <emissive r="0" g="0.0" b="0.0" a="1" />
+        </material>
+
     </materials>
 
     <animations>
@@ -149,7 +200,7 @@
             </texture>
 
             <transformations>
-                <translation x="-1" y="0.2" z="5" />
+                <translation x="-1" y="0.05" z="5" />
                 <scale sx="3" sy="3" sz="3"/>
             </transformations>
 
@@ -903,7 +954,7 @@
 
 
         <node id="lake">            
-            <material id="greenMaterial" />
+            <material id="blueMaterial" />
 
             <texture id="null">
             </texture>
@@ -913,7 +964,18 @@
             </transformations>
 
             <descendants>
-                <leaf type="objmodel" model="scenes/models/lake2.obj" wireframe="0"/>
+                <noderef id="bigRocks"/>
+                <noderef id="water"/>
+                <noderef id="deadTrees"/>
+                <noderef id="scoreTree"/>
+                <noderef id="flowers"/>
+                <noderef id="flowerbuds"/>
+                <noderef id="rocks"/>
+                <noderef id="grass"/>
+                <noderef id="treeleafs"/>
+                <noderef id="trees"/>
+                <noderef id="tallGrass"/>
+                <noderef id="redKoi"/>
                 <noderef id="redKoi"/>
                 <noderef id="yellowKoi"/>
                 <noderef id="board"/>
@@ -928,7 +990,7 @@
             </texture>
 
             <transformations>
-                <translation x="-2.15" y="0.25" z="3.85" />
+                <translation x="-2.15" y="0.05" z="3.85" />
                 <scale sx='0.1' sy='0.05' sz='0.1'/>
                 
             </transformations>
@@ -959,6 +1021,194 @@
             </descendants>
         </node>
 
+        <node id="water">
+            <material id="blueMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/water.obj" wireframe="0"/>
+                
+
+            </descendants>
+        </node>
+        <node id="grass">
+            <material id="greenMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/grass.obj" wireframe="0"/>
+                <leaf type="objmodel" model="scenes/models/bottom.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+        
+         <node id="tallGrass">
+            <material id="tallGrassMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/tallgrass.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="bigRocks">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/bigrocks.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="deadTrees">
+            <material id="deadtreeMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/deadtrees.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="scoreTree">
+            <material id="deadtreeMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/scoretree.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="flowers">
+            <material id="flowerMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/flowers.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="flowerbuds">
+            <material id="flowerbudMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/flowerbuds.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="lilypads">
+            <material id="greenMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/lilypads.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="rocks">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/rocks.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="treeleafs">
+            <material id="treeleafMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/treeleafs.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+        <node id="trees">
+            <material id="treeMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/trees.obj" wireframe="0"/>
+
+            </descendants>
+        </node>
+
+
+
+
+
+
+
+
         <node id="redKoi">
             <material id="redMaterial" />
 
@@ -966,7 +1216,7 @@
             </texture>
 
             <transformations>
-                <translation x="-2.15" y="0.3" z="3.85" />
+                <translation x="-2.15" y="0.12" z="3.85" />
                 
             </transformations>
 
@@ -975,7 +1225,6 @@
                 <noderef id="redKoi2"/>
             </descendants>
         </node>
-
         <node id="redKoi1">
             <material id="null" />
 
@@ -1017,7 +1266,7 @@
             </texture>
 
             <transformations>
-                <translation x="-2.15" y="0.3" z="3.85" />
+                <translation x="-2.15" y="0.12" z="3.85" />
             </transformations>
             <descendants>
                 <noderef id="yellowKoi1"/>

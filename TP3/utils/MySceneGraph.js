@@ -24,6 +24,8 @@ class MySceneGraph {
     constructor(filename, scene) {
         this.loadedOk = null;
 
+        this.filename = filename;
+
         // Establish bidirectional references between scene and graph.
         this.scene = scene;
         scene.graph = this;
@@ -1220,6 +1222,8 @@ class MySceneGraph {
             this.nodeInfo[nodeID] = new MyNode(this.scene, nodeID, material, texID, afs, aft, transformArray, nodeChildren, animationref, picking_id);
         }
 
+        console.log('   Parsed nodes');
+
     }
 
 
@@ -1454,8 +1458,8 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
-        this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1},false);
+        if(this.nodeInfo)
+            this.displayNode(this.nodeInfo[this.idRoot],this.defaultMaterialID,"null",{s:1,t:1},false);
     }
 
     update(t)

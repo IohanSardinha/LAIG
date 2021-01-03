@@ -22,6 +22,39 @@ class MyGameBoard{
 		
 	}
 
+	redefineStones(red_stones, yellow_stones){
+		for(let i = 0; i < this.red_stones.length; i++)
+		{
+			this.red_stones[i] = red_stones[i];
+		}
+		for(let i = 0; i < this.placed_red_stones.length; i++){
+			red_stones[this.red_stones.length + i].tile = this.placed_red_stones[i].tile;
+			this.placed_red_stones[i] = red_stones[this.red_stones.length + i];
+		}
+
+		for(let i = 0; i < this.yellow_stones.length; i++)
+		{
+			this.yellow_stones[i] = yellow_stones[i];
+		}
+		for(let i = 0; i < this.placed_yellow_stones.length; i++){
+			yellow_stones[this.yellow_stones.length + i].tile = this.placed_yellow_stones[i].tile;
+			this.placed_yellow_stones[i] = yellow_stones[this.yellow_stones.length + i];
+		}
+
+
+	}
+
+	redefinePieces(pieces){
+		for(let index in this.pieces){
+			let id = this.pieces[index].tile.id;
+			
+			this.tiles[id].piece = pieces[index];
+			pieces[index].tile = this.tiles[id];
+			pieces[index].angle = this.pieces[index].angle;
+		}
+		this.pieces = pieces;
+	}
+
 	resetPosition(){
 		this.red_stones = [...this.red_stones, ...this.placed_red_stones];
 		this.placed_red_stones = [];
