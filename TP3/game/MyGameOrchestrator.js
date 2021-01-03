@@ -31,6 +31,7 @@ class MyGameOrchestrator {
         this.score = new ScoreClock(this.scene, this.level);
         this.gameMove;
         this.winningScore = 10;
+        this.currentCamera = 'Overview';
 
         this.redPlayerMode = 'Human';
         this.yellowPlayerMode = 'Human';
@@ -304,7 +305,7 @@ class MyGameOrchestrator {
                 this.rotationTime = 0;
                 this.Camerarotation=0;
                 this.state = 'next turn';
-                if(this.scene.camera == 'Main Camera')
+                if(this.currentCamera == 'Main Camera')
                 {
                     this.state = 'rotating camera';
                 }               
