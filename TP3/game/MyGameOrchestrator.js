@@ -121,6 +121,7 @@ class MyGameOrchestrator {
                 break;
 
             case 'waiting move tile':
+                
                 break;
 
             case 'waiting move result':
@@ -159,22 +160,22 @@ class MyGameOrchestrator {
                     frames[this.secsFromStart+0.3] = middle;
                     frames[this.secsFromStart+0.6] = end;
 
-                    this.animator = new KeyframeAnimator(frames, this.scene);
-                    this.fromTile.piece.animator = this.animator;
+                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
+                    this.fromTile.piece.animator = this.frameAnimator;
 
                     this.state = 'animating moving';
                 }
                 break;
 
             case 'animating moving':
-                this.animator.update(this.secsFromStart);
-                if(this.animator.ended)
+                this.frameAnimator.update(this.secsFromStart);
+                if(this.frameAnimator.ended)
                     this.state = 'move piece';
                 
                 break;
 
             case 'move piece':
-                this.animator = null;
+                this.frameAnimator = null;
                 this.fromTile.piece.animator = null;
                 let gameState = new MyGameState(this.prolog.parsedResult[0]);
                 this.gameMove = new MyGameMove(this.scene,this.fromTile.piece,this.fromTile,this.toTile);
@@ -245,16 +246,16 @@ class MyGameOrchestrator {
                     frames[this.secsFromStart+0.3] = middle;
                     frames[this.secsFromStart+0.6] = end;
 
-                    this.animator = new KeyframeAnimator(frames, this.scene);
-                    this.gameboard.setStoneAnimator(this.currPlayer, this.animator);
+                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
+                    this.gameboard.setStoneAnimator(this.currPlayer, this.frameAnimator);
 
                     this.state = 'animating drop';
                 }
                 break;
 
             case 'animating drop':
-                this.animator.update(this.secsFromStart);
-                if(this.animator.ended)
+                this.frameAnimator.update(this.secsFromStart);
+                if(this.frameAnimator.ended)
                     this.state = 'drop stone';
                 break;
 
@@ -293,8 +294,6 @@ class MyGameOrchestrator {
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                     this.state = 'waiting select piece';
                     this.scene.camera.orbit([0,1,0], Math.PI - this.Camerarotation);
-                    console.log(this.Camerarotation);
-                    console.log(this.scene.camera);
                 }
                 break;
             case 'undo move':
@@ -342,8 +341,8 @@ class MyGameOrchestrator {
                     frames[this.secsFromStart + 0.3] = middle;
                     frames[this.secsFromStart + 0.6] = end;
 
-                    this.animator = new KeyframeAnimator(frames, this.scene);
-                    this.gameboard.setStoneAnimator(this.currPlayer, this.animator);
+                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
+                    this.gameboard.setStoneAnimator(this.currPlayer, this.frameAnimator);
                     this.prolog.sendValidDrops(this.gameboard.gameState);
                     this.state = 'waiting drop tiles result';
 
@@ -370,17 +369,14 @@ class MyGameOrchestrator {
             //         this.initGame = true;
             //     }
             // }  
-            //console.log(this.deltaTime);
-            this.score.updateTime(this.deltaTime,this.currPlayer);
+            this.score.updateTime(this.deltaTime, this.currPlayer);
+           
         }  
-        
         this.theme.update(time);
         this.checkKeys();
     }
 
     display() {
-        //...
-
         this.theme.displayScene();
         this.score.display();
         if (this.displayMenu) {
@@ -389,17 +385,16 @@ class MyGameOrchestrator {
         else {
             this.managePick(this.scene.pickMode, this.scene.pickResults);
         }
-        //this.gameboard.display();
-        //this.animator.display();
-        //...
     }
+
     checkKeys() {
         if (this.scene.gui.isKeyPressed("Escape") || this.scene.gui.isKeyPressed("KeyM")) {
+            if (this.state != 'rotating camera')
             this.menu.toggleMenu();
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
-        }
+        }     
     }
 
     managePick(mode, results) {

@@ -20,7 +20,7 @@ class Menu extends CGFobject {
         this.mainMenu = true;
         this.ambient = 1;
         this.options = false;
-        this.sound = true;
+        this.sound = false;
         this.level = level;
         this.game_mode = mode;
         this.game_modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
@@ -30,7 +30,8 @@ class Menu extends CGFobject {
         this.background_music = new Audio('audio/lake.mp3');
         this.background_music.loop = true;
         this.background_music.volume = 0.1;
-        this.background_music.play();
+        if(this.sound)
+            this.background_music.play();
 
     }
 
