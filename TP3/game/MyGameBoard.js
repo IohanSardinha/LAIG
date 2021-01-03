@@ -35,6 +35,26 @@ class MyGameBoard{
 		}
 	}
 
+	removeStoneAnimator(scene, initialMoment, currPlayer){
+		let start = {
+			translation: { x: 0, y: 0, z: 0 },
+			rotation: { x: 0, y: 0, z: 0 },
+			scale: { x: 1, y: 1, z: 1 }
+		}; 
+
+		let frames = [];
+		frames[initialMoment] = start;
+
+		let animator = new KeyframeAnimator(frames, scene);
+
+		if (currPlayer == 'r') {
+			this.red_stones[this.red_stones.length - 1].animator = animator;
+		}
+		else {
+			this.yellow_stones[this.yellow_stones.length - 1].animator = animator;
+		}
+
+	}
 	setStoneAnimator(scene, initialMoment, currPlayer, dropTile){
 
         let start = {
@@ -141,7 +161,7 @@ class MyGameBoard{
 		fromTile.piece = null;
 	}
 
-	removeStone(currPlayer){
+	removeStone(scene,currPlayer,time){
 		if (currPlayer == 'y') {
 
 			let stone = this.placed_yellow_stones.pop();
@@ -153,6 +173,9 @@ class MyGameBoard{
 			stone.tile = null;
 			this.red_stones.push(stone);
 		}
+
+		this.removeStoneAnimator(scene, time, currPlayer);
+		this.animateStone(currPlayer, time);
 	}
 
 	unselectAllTiles(){

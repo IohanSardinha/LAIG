@@ -128,6 +128,7 @@ class MyGameOrchestrator {
                 break;
 
             case 'received valid moves':
+                console.log(this.prolog.parsedResult);
                 this.gameboard.selectTiles(this.prolog.parsedResult);
                 this.state = 'waiting move tile';
                 break;
@@ -198,9 +199,17 @@ class MyGameOrchestrator {
                 break;
 
             case 'drop stone':
-                this.gameboard.dropStone(this.currPlayer, this.dropTile);
+                let stone;
+                if (this.currPlayer == 'r') {
+                    stone = this.gameboard.red_stones[this.gameboard.red_stones.length - 1]
+                }
+                else {
+                    stone = this.gameboard.yellow_stones[this.gameboard.yellow_stones.length - 1]
+                }
+                this.gameMove = new MyGameMove(this.scene, stone, null, this.dropTile);
+                this.gameSequence.addMove(this.gameMove);
                 this.gameboard.gameState = this.prolog.parsedResult;
-                this.gameboard.dropStone(this.currPlayer, this.toTile);
+                this.gameboard.dropStone(this.currPlayer, this.dropTile);
                 this.gameStateStack.push(this.prolog.parsedResult);
                 this.state = 'set camera to rotate';
                 break;
@@ -221,7 +230,7 @@ class MyGameOrchestrator {
                 }
                 else{
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
-                    this.scene.camera.orbit([0,1,0], Math.PI - this.Camearotation);
+                    this.scene.camera.orbit([0,1,0], Math.PI - this.Camerarotation);
                     this.state = 'next turn';
                 }
                 break;
@@ -240,17 +249,7 @@ class MyGameOrchestrator {
                 else {
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                     this.scene.camera.orbit([0, 1, 0], Math.PI);
-                    this.gameboard.removeStone(this.currPlayer);
-                    let end = {
-                        translation: { x: 0, y: 0, z: 0 },
-                        rotation: { x: 0, y: 0, z: 0 },
-                        scale: { x: 1, y: 1, z: 1 }
-                    };
-                    let frames = [];
-                    frames[this.secsFromStart] = end;
-
-                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
-                    this.gameboard.setStoneAnimator(this.currPlayer, this.frameAnimator);
+                    this.gameboard.removeStone(this.scene,this.currPlayer, this.secsFromStart);
                     this.prolog.sendValidDrops(this.gameboard.gameState);
                     this.state = 'waiting drop tiles result';
 
@@ -280,8 +279,12 @@ class MyGameOrchestrator {
                         let move = this.prolog.parsedResult[1];
                         this.fromTile = this.gameboard.getTileByPosition(move[0],move[1]);
                         this.toTile = this.gameboard.getTileByPosition(move[2],move[3]);
+                        this.gameMove = new MyGameMove(this.scene, this.fromTile.piece, this.fromTile, this.toTile);
+                        this.gameSequence.addMove(this.gameMove);
                         let dropPosition = this.prolog.parsedResult[2];
                         this.dropTile = dropPosition ? this.gameboard.getTileByPosition(dropPosition[0],dropPosition[1]) : null;
+                        // this.gameMove = new MyGameMove(this.scene, this.dropTile.piece, null, this.dropTile);
+                        // this.gameSequence.addMove(this.gameMove);
                         this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
                         this.state = 'animating bot move';
                     }
@@ -291,7 +294,14 @@ class MyGameOrchestrator {
                     if(!this.fromTile.piece.animate(this.secsFromStart))
                     {
                         this.fromTile.piece.animator = null;
+
                         this.gameboard.movePiece(this.fromTile, this.toTile);
+                        let x = this.gameboard.getScore();
+                        if(!x)
+                        {
+                            console.log(this.gameboard.getScore());
+                        }
+                        
                         this.score.updateScore(this.gameboard.getScore());
                         
                         if(this.dropTile == null){
@@ -308,6 +318,8 @@ class MyGameOrchestrator {
                     if(!this.gameboard.animateStone(this.currPlayer,this.secsFromStart))
                     {
                         this.gameboard.dropStone(this.currPlayer, this.dropTile);
+                        this.gameboard.gameState = this.prolog.parsedResult;
+                        this.gameStateStack.push(this.prolog.parsedResult);
                         this.state = 'set camera to rotate';
                     }
                     break;
@@ -357,7 +369,11 @@ class MyGameOrchestrator {
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
-        }     
+        }  
+        if (this.scene.gui.isKeyPressed("KeyS")) {
+            console.log(this.gameSequence);
+            console.log(this.gameStateStack);
+        }    
     }
 
     managePick(mode, results) {
@@ -390,67 +406,67 @@ class MyGameOrchestrator {
 
     }
 
-    calculateAngle(from,to)
-    {
-        let angle = 0;
-        let angMultX = 0;
-        if (from.line == to.line)
-        {
-            if (from.column < to.column)
-            {
-                angle = 90;
-                angMultX = - 1 * (from.column - to.column);
-            }
-            else{
-                angle = 270;
-                angMultX = 1 * (from.column - to.column);
-            }
-        }
-        else if (from.column == to.column)
-        {
-            if (from.line < to.line) {
-                angle = 0;
-                angMultX = -1 * (from.line - to.line);
-            }
-            else {
-                angle = 180;
-                angMultX = 1 * (from.line - to.line);
-            }
-        }
-        else if (from.column == to.column) {
-            if (from.line < to.line) {
-                angle = 0;
-                angMultX = -1 * (from.line - to.line);
-            }
-            else {
-                angle = 180;
-                angMultX = 1 * (from.line - to.line);
-            }
-        }
-        else if (from.column < to.column) {
-            if (from.line < to.line) {
-                angle = 45;
-                angMultX = -1 * (from.line - to.line);
-            }
-            else {
-                angle = 135;
-                angMultX = 1 * (from.line - to.line);
-            }
-        }
-        else if (from.column > to.column) {
-            if (from.line > to.line) {
-                angle = 225;
-                angMultX = 1 * (from.line - to.line);
-            }
-            else {
-                angle = 315;
-                angMultX = -1 * (from.line - to.line);
-            }
-        }
+    // calculateAngle(from,to)
+    // {
+    //     let angle = 0;
+    //     let angMultX = 0;
+    //     if (from.line == to.line)
+    //     {
+    //         if (from.column < to.column)
+    //         {
+    //             angle = 90;
+    //             angMultX = - 1 * (from.column - to.column);
+    //         }
+    //         else{
+    //             angle = 270;
+    //             angMultX = 1 * (from.column - to.column);
+    //         }
+    //     }
+    //     else if (from.column == to.column)
+    //     {
+    //         if (from.line < to.line) {
+    //             angle = 0;
+    //             angMultX = -1 * (from.line - to.line);
+    //         }
+    //         else {
+    //             angle = 180;
+    //             angMultX = 1 * (from.line - to.line);
+    //         }
+    //     }
+    //     else if (from.column == to.column) {
+    //         if (from.line < to.line) {
+    //             angle = 0;
+    //             angMultX = -1 * (from.line - to.line);
+    //         }
+    //         else {
+    //             angle = 180;
+    //             angMultX = 1 * (from.line - to.line);
+    //         }
+    //     }
+    //     else if (from.column < to.column) {
+    //         if (from.line < to.line) {
+    //             angle = 45;
+    //             angMultX = -1 * (from.line - to.line);
+    //         }
+    //         else {
+    //             angle = 135;
+    //             angMultX = 1 * (from.line - to.line);
+    //         }
+    //     }
+    //     else if (from.column > to.column) {
+    //         if (from.line > to.line) {
+    //             angle = 225;
+    //             angMultX = 1 * (from.line - to.line);
+    //         }
+    //         else {
+    //             angle = 315;
+    //             angMultX = -1 * (from.line - to.line);
+    //         }
+    //     }
         
         
-        return [angle,angMultX];
-    }
+    //     return [angle,angMultX];
+    // }
 
     onObjectSelected(obj, id) {
 
@@ -503,7 +519,6 @@ class MyGameOrchestrator {
                         this.prolog.sendDropStone(this.gameboard.gameState, this.currPlayer, obj.line, obj.column);
                         this.gameboard.unselectAllTiles();
                         this.state = 'waiting drop stone result';
-                        this.toTile = obj;
 
                     }
                     break;
