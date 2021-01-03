@@ -903,7 +903,7 @@
 
 
         <node id="lake">            
-            <material id="blueMaterial" />
+            <material id="greenMaterial" />
 
             <texture id="null">
             </texture>

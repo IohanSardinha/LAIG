@@ -77,26 +77,26 @@ class ScoreClock extends CGFobject {
         this.scene.pushMatrix(); 
 
             this.scene.pushMatrix();
-            this.scene.translate(6,5,25);
-            this.scene.scale(1.3, 2, 1.5);
+            this.scene.translate(5,5.2,25);
+            this.scene.scale(0.8,1,2);
             this.scene.registerForPick(400, this.undo);
             this.undo.display(); 
             this.scene.clearPickRegistration();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
-            this.scene.translate(6, 5, 22.5);
+            this.scene.translate(5, 5.2, 22.5);
             this.turnP2.display();
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
-            this.scene.translate(6, 5, 27.5);
+            this.scene.translate(5, 5.2, 27.5);
             this.turnP1.display();
             this.scene.popMatrix();
 
             this.woodMaterial.apply();
-            this.scene.scale(4,4,8);
-            this.scene.translate(1.5, 0.3, 3.1);
+            this.scene.scale(2,4,8);
+            this.scene.translate(2.5, 0.4, 3.1);
             this.scene.rotate(Math.PI, 0, 1, 0);
 
             this.scene.pushMatrix();
