@@ -240,17 +240,19 @@ class MyGameOrchestrator {
                 this.gameboard.movePiece(this.fromTile, this.toTile);
                 this.score.updateScore(this.gameboard.getScore());
 
-                if (this.gameboard.gameEnded()) {
-                    this.state = 'game over';
-                    break;
-                }
-                else if(this.prolog.parsedResult[1] == 'walk' && gameState.getStones(this.currPlayer) > 0)
+                
+                if(this.prolog.parsedResult[1] == 'walk' && gameState.getStones(this.currPlayer) > 0)
                 {
                     this.prolog.sendValidDrops(this.gameboard.gameState);
                     this.state = 'waiting drop tiles result';
                 }
                 else{
                     this.state = 'set camera to rotate';
+                }
+
+                if (this.gameboard.gameEnded()) {
+                    this.state = 'game over';
+
                 }
                 break;
 
@@ -398,11 +400,12 @@ class MyGameOrchestrator {
                             this.score.updateScore(this.gameboard.getScore());
                         this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
                         
+                        
+                        this.state = 'animating bot move';
                         if (this.gameboard.gameEnded()) {
                             this.state = 'game over';
-                            
+
                         }
-                        this.state = 'animating bot move';
                     }
                     break;
 
@@ -439,7 +442,11 @@ class MyGameOrchestrator {
 
             case 'game over':
                 alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
-                location = location;
+                this.state = 'reload';
+                break;
+            case 'reload':
+                
+                location.reload();
                 break;
 
         }
