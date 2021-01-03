@@ -45,16 +45,6 @@ class MyPiece extends CGFobject {
 				angMultX = 1 * (from.line - to.line);
 			}
 		}
-		else if (from.column == to.column) {
-			if (from.line < to.line) {
-				angle = 0;
-				angMultX = -1 * (from.line - to.line);
-			}
-			else {
-				angle = 180;
-				angMultX = 1 * (from.line - to.line);
-			}
-		}
 		else if (from.column < to.column) {
 			if (from.line < to.line) {
 				angle = 45;
@@ -64,6 +54,8 @@ class MyPiece extends CGFobject {
 				angle = 135;
 				angMultX = 1 * (from.line - to.line);
 			}
+			if (angMultX == 2)
+				angMultX++;
 		}
 		else if (from.column > to.column) {
 			if (from.line > to.line) {
@@ -74,9 +66,10 @@ class MyPiece extends CGFobject {
 				angle = 315;
 				angMultX = -1 * (from.line - to.line);
 			}
+			if (angMultX == 2)
+				angMultX++;
 		}
-
-
+		
 		return [angle, angMultX];
 	}
 	setAnimator(toTile, fromTile, initial_moment){
