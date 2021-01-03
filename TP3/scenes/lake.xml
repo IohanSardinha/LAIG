@@ -6,20 +6,32 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="Main View">
+    <views default="Overview">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="Main View" near="0.1" far="500" angle="45">
+         <perspective id="Menu" near="0.1" far="50" angle="45">
+            <from x="0" y="70" z="20" />
+            <to x="0" y="70" z="19" />
+        </perspective>
+        <perspective id="Main Camera" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="40" />
+            <to x="-5" y="0" z="25" />
+        </perspective> 
+        <perspective id="Overview" near="0.1" far="500" angle="45">
+            <from x="-40" y="30" z="50" />
+            <to x="-5" y="10" z="25" />
+        </perspective>
+        <perspective id="Player 1" near="0.1" far="500" angle="45">
             <from x="-5" y="30" z="40" />
             <to x="-5" y="0" z="25" />
         </perspective>
-        <perspective id="Menu" near="0.1" far="50" angle="45">
-            <from x="0" y="70" z="20" />
-            <to x="0" y="70" z="19" />
-        </perspective> 
-          <perspective id="Free View" near="0.1" far="500" angle="45">
-            <from x="-5" y="30" z="40" />
+        <perspective id="Player 2" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="10" />
             <to x="-5" y="0" z="25" />
-        </perspective> 
+        </perspective>  
+        <perspective id="Sideview" near="0.1" far="500" angle="45">
+            <from x="-25" y="20" z="25" />
+            <to x="-5" y="0" z="25" />
+        </perspective>
     </views>
 
     <illumination>

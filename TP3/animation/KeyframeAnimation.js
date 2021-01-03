@@ -44,15 +44,12 @@ class KeyframeAnimation extends MyAnimation {
      	}
      	else
      	{
-            //if(this.init) return;
-            //this.init = true;
      		let deltaTime = instant - this.instant;
      		this.transform = {
      			translation : this.difCoord3D(this.initial_transform.translation, this.final_transform.translation, deltaTime),
      			rotation  : this.difCoord3D(this.initial_transform.rotation, this.final_transform.rotation, deltaTime),
      			scale     : this.difCoord3D(this.initial_transform.scale, this.final_transform.scale, deltaTime)
      		};
-            //console.log(this.transform.translation);
      	}
      }
 

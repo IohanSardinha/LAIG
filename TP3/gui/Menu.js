@@ -484,12 +484,13 @@ class Menu extends CGFobject {
     startGame(){
         this.mainMenu = false;
         this.scene.gameOrchestrator.score.started = true;
+        this.scene.gameOrchestrator.initGame = true;
         if(this.sound)
         {
             this.background_music.play();
         }
-        this.exitMenu();
-        
+        this.scene.gameOrchestrator.setMode(this.level, this.game_mode);
+        this.scene.gameOrchestrator.start();   
     }
 
     toggleMusic(){
@@ -561,18 +562,23 @@ class Menu extends CGFobject {
                                 break;
                             case 6:
                                 this.level = 1;
+                                this.scene.gameOrchestrator.setMode(this.level, this.game_mode);
                                 break;
                             case 7:
                                 this.level = 2;
+                                this.scene.gameOrchestrator.setMode(this.level,this.game_mode);
                                 break;
                             case 8:
                                 this.game_mode = this.game_modes[0];
+                                this.scene.gameOrchestrator.setMode(this.level, this.game_mode);
                                 break;
                             case 9:
                                 this.game_mode = this.game_modes[1];
+                                this.scene.gameOrchestrator.setMode(this.level, this.game_mode);
                                 break;
                             case 10:
                                 this.game_mode = this.game_modes[2];
+                                this.scene.gameOrchestrator.setMode(this.level, this.game_mode);
                                 break;
                             case 11:
                                 this.exitMenu();
