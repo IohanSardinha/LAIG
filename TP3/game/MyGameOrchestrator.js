@@ -296,11 +296,6 @@ class MyGameOrchestrator {
                         this.fromTile.piece.animator = null;
 
                         this.gameboard.movePiece(this.fromTile, this.toTile);
-                        let x = this.gameboard.getScore();
-                        if(!x)
-                        {
-                            console.log(this.gameboard.getScore());
-                        }
                         
                         this.score.updateScore(this.gameboard.getScore());
                         
