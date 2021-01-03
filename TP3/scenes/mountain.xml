@@ -201,7 +201,7 @@
              descendants may be mixed, nodes and leafs -->
             <descendants>
 
-                <noderef id="lake"/>
+                <noderef id="base"/>
             </descendants>
         </node>
 
@@ -965,38 +965,6 @@
             </descendants>
         </node>
 
-
-        <node id="lake">            
-            <material id="blueMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>
-                <scale sx="5" sy="5" sz="5"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="bigRocks"/>
-                <noderef id="bottom"/>
-                <noderef id="water"/>
-                <noderef id="deadTrees"/>
-                <noderef id="scoreTree"/>
-                <noderef id="flowers"/>
-                <noderef id="flowerbuds"/>
-                <noderef id="rocks"/>
-                <noderef id="grass"/>
-                <noderef id="treeleafs"/>
-                <noderef id="trees"/>
-                <noderef id="tallGrass"/>
-                <noderef id="redKoi"/>
-                <noderef id="redKoi"/>
-                <noderef id="yellowKoi"/>
-                <noderef id="board"/>
-                <noderef id='stones'/>
-            </descendants>
-        </node>
-
         <node id="stones">
             <material id="grayMaterial" />
 
@@ -1035,13 +1003,117 @@
             </descendants>
         </node>
 
+
+        <node id="base">            
+            <material id="blueMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <scale sx="5" sy="5" sz="5"/>
+            </transformations>
+
+            <descendants>
+                
+                <noderef id="montains"/>
+                <noderef id="redKoi"/>
+                <noderef id="redKoi"/>
+                <noderef id="yellowKoi"/>
+                <noderef id="board"/>
+                <noderef id='stones'/>
+            </descendants>
+        </node>
+
+
+        <node id="montains">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <scale sx="2" sy="2" sz="2"/>
+                <translation x="-4" y="0.2" z="-5" />
+            </transformations>
+
+            <descendants>
+                <noderef id="montain"/>
+                <noderef id="treeTrunks"/>
+                <noderef id="treeTops"/>
+                <noderef id="mountainBase"/>
+                <noderef id="water"/>
+            </descendants>
+        </node>
+
+
+        <node id="montain">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/montains.obj" wireframe="0"/>
+            </descendants>
+        </node>
+        <node id="mountainBase">
+            <material id="greenMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="0" y="-0.1" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/mountainBase.obj" wireframe="0"/>
+            </descendants>
+        </node>
+
+        <node id="treeTrunks">
+            <material id="treeMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/treeTrunks.obj" wireframe="0"/>
+            </descendants>
+        </node>
+
+        <node id="treeTops">
+            <material id="treeleafMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="objmodel" model="scenes/models/treeTops.obj" wireframe="0"/>
+            </descendants>
+        </node>
+
+
         <node id="water">
             <material id="blueMaterial" />
 
             <texture id="null">
             </texture>
 
-            <transformations>                
+            <transformations>   
+                <scale sx="0.5" sy="0.5" sz="0.5"/>
+                <translation x="10" y="-0.4" z="2" />           
             </transformations>
 
             <descendants>
@@ -1050,189 +1122,6 @@
 
             </descendants>
         </node>
-        <node id="grass">
-            <material id="greenMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/grass.obj" wireframe="0"/>
-                
-
-            </descendants>
-        </node>
-        <node id="bottom">
-            <material id="grayMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/bottom.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="tallGrass">
-            <material id="tallGrassMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/tallgrass.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="bigRocks">
-            <material id="grayMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/bigrocks.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="deadTrees">
-            <material id="deadtreeMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/deadtrees.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="scoreTree">
-            <material id="deadtreeMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/scoretree.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="flowers">
-            <material id="flowerMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/flowers.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="flowerbuds">
-            <material id="flowerbudMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/flowerbuds.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="lilypads">
-            <material id="greenMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/lilypads.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="rocks">
-            <material id="grayMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/rocks.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="treeleafs">
-            <material id="treeleafMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/treeleafs.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-        <node id="trees">
-            <material id="treeMaterial" />
-
-            <texture id="null">
-            </texture>
-
-            <transformations>                
-            </transformations>
-
-            <descendants>
-                <leaf type="objmodel" model="scenes/models/trees.obj" wireframe="0"/>
-
-            </descendants>
-        </node>
-
-
-
-
 
 
 
