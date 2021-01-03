@@ -64,7 +64,7 @@
 
     <textures>
         <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
-        <texture id="boardTexture" path="./scenes/images/board.png" />
+        <texture id="boardTexture" path="./scenes/images/boardT.png" />
     </textures>
 
     <spritesheets>

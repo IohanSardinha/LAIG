@@ -510,12 +510,12 @@ class MyGameOrchestrator {
     
     undoMove()
     {
-        let nGameState = this.gameStateStack.length;
-        if (nGameState > 1 && this.state != 'rotating camera' && this.state != 'animating moving' && this.state != 'animating drop')
-            {
-                this.state = 'undo move';
-            }
-        else this.currPlayer = 'r';
+        // let nGameState = this.gameStateStack.length;
+        // if (nGameState > 1 && this.state != 'rotating camera' && this.state != 'animating moving' && this.state != 'animating drop')
+        //     {
+        //         this.state = 'undo move';
+        //     }
+        // else this.currPlayer = 'r';
 
     }
 
