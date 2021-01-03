@@ -195,5 +195,18 @@ class MyGameBoard{
 		return this.gameState['scores'];
 	}
 
+	gameEnded()
+	{
+		if (this.gameState['scores'][0]>= 10)
+		{
+			return 1;
+		}
+		else if (this.gameState['scores'][1] >= 10)
+		{
+			return 2;
+		}
+			return 0;
+	}
+
 
 }

@@ -20,8 +20,7 @@ class MyGameOrchestrator {
         this.displayMenu = false;
         this.initGame = false;
         this.level = 1;
-        this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
-        this.mode = 'Player vs. CPU';
+        this.mode = 'Player vs. Player';
         this.ambient = 1;
         this.menu = new Menu(this, scene, this.level, this.mode);
         this.score = new ScoreClock(this.scene, this.level);
@@ -71,13 +70,58 @@ class MyGameOrchestrator {
 
     start()
     {
-        console.log(this.level);
         this.initialTime = this.lastTime;
         this.initGame = true;
         this.displayMenu = false;
         this.scene.selectedView = this.theme.defaultViewId;
         this.scene.changeCamera();
         this.scene.interface.setInterface();
+    }
+
+    setMode(level, game_mode)
+    {
+        if(game_mode == 'Player vs. Player')
+        {
+            this.redPlayerMode = 'Human';
+            this.yellowPlayerMode = 'Human';
+            this.level = level;
+            this.mode = 'Player vs Player';
+        }
+        else if (game_mode == 'Player vs. CPU')
+        {
+            this.mode = 'Player vs CPU';
+            this.level = level;
+            if(this.level == 1)
+            {
+                this.redPlayerMode = 'Human';
+                this.yellowPlayerMode = 'Easy'; 
+            }
+            else
+            {
+                this.redPlayerMode = 'Human';
+                this.yellowPlayerMode = 'Hard'; 
+            }
+          
+        }
+        else if (game_mode == 'CPU vs. CPU') {
+            this.mode = 'CPU vs CPU';
+            this.level = level; 
+            if (this.level == 1) {
+                this.redPlayerMode = 'Easy';
+                this.yellowPlayerMode = 'Easy';
+            }
+            else {
+                this.redPlayerMode = 'Hard';
+                this.yellowPlayerMode = 'Hard';
+            }
+        }
+        else
+        {
+            this.redPlayerMode = 'Human';
+            this.yellowPlayerMode = 'Human';
+            this.level = 1;
+            this.mode = 'Player vs Player';
+        }      
     }
 
     update(time) {
@@ -174,8 +218,9 @@ class MyGameOrchestrator {
                 this.gameboard.movePiece(this.fromTile, this.toTile);
                 this.score.updateScore(this.gameboard.getScore());
 
-                if(gameState.getScore(this.currPlayer) >= this.winningScore){
+                if (this.gameboard.gameEnded()) {
                     this.state = 'game over';
+                    break;
                 }
                 else if(this.prolog.parsedResult[1] == 'walk' && gameState.getStones(this.currPlayer) > 0)
                 {
@@ -327,6 +372,11 @@ class MyGameOrchestrator {
                         if (score != null)
                             this.score.updateScore(this.gameboard.getScore());
                         this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
+                        
+                        if (this.gameboard.gameEnded()) {
+                            this.state = 'game over';
+                            
+                        }
                         this.state = 'animating bot move';
                     }
                     break;
@@ -358,7 +408,6 @@ class MyGameOrchestrator {
 
             case 'game over':
                 alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
-                location = location;
                 break;
 
         }
@@ -390,6 +439,10 @@ class MyGameOrchestrator {
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
+        } 
+        if (this.scene.gui.isKeyPressed("KeyS")) {
+            console.log(this.mode);
+            console.log(this.level);
         }   
     }
 
@@ -423,67 +476,6 @@ class MyGameOrchestrator {
 
     }
 
-    // calculateAngle(from,to)
-    // {
-    //     let angle = 0;
-    //     let angMultX = 0;
-    //     if (from.line == to.line)
-    //     {
-    //         if (from.column < to.column)
-    //         {
-    //             angle = 90;
-    //             angMultX = - 1 * (from.column - to.column);
-    //         }
-    //         else{
-    //             angle = 270;
-    //             angMultX = 1 * (from.column - to.column);
-    //         }
-    //     }
-    //     else if (from.column == to.column)
-    //     {
-    //         if (from.line < to.line) {
-    //             angle = 0;
-    //             angMultX = -1 * (from.line - to.line);
-    //         }
-    //         else {
-    //             angle = 180;
-    //             angMultX = 1 * (from.line - to.line);
-    //         }
-    //     }
-    //     else if (from.column == to.column) {
-    //         if (from.line < to.line) {
-    //             angle = 0;
-    //             angMultX = -1 * (from.line - to.line);
-    //         }
-    //         else {
-    //             angle = 180;
-    //             angMultX = 1 * (from.line - to.line);
-    //         }
-    //     }
-    //     else if (from.column < to.column) {
-    //         if (from.line < to.line) {
-    //             angle = 45;
-    //             angMultX = -1 * (from.line - to.line);
-    //         }
-    //         else {
-    //             angle = 135;
-    //             angMultX = 1 * (from.line - to.line);
-    //         }
-    //     }
-    //     else if (from.column > to.column) {
-    //         if (from.line > to.line) {
-    //             angle = 225;
-    //             angMultX = 1 * (from.line - to.line);
-    //         }
-    //         else {
-    //             angle = 315;
-    //             angMultX = -1 * (from.line - to.line);
-    //         }
-    //     }
-        
-        
-    //     return [angle,angMultX];
-    // }
 
     onObjectSelected(obj, id) {
 
