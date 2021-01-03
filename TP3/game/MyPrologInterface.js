@@ -113,6 +113,22 @@ class MyPrologInterface{
 		request.send();
 	}
 
+	sendMoveBot(gameState, player, mode){
+		this.requestReady = false;
+		this.parsedResult = null;
+
+		let requestString = 'move_bot('+gameState.toString()+','+player+','+mode+')';
+		var request = new XMLHttpRequest();
+
+		request.onload = (data) => this.parseListReply(data);
+		request.onerror = this.startPrologGameError;
+
+		request.open('GET', 'http://localhost:'+this.requestPort+'/'+requestString, true);
+
+		request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		request.send();
+	}
+
 
 	parseGameStateReply(data){
 		 
