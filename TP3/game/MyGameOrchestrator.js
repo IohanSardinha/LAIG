@@ -477,20 +477,16 @@ class MyGameOrchestrator {
             if (this.state != 'rotating camera')
             this.menu.toggleMenu();
         }
-        if(this.scene.gui.isKeyPressed("Space") && (this.state == 'waiting select piece' || this.state == 'waiting move tile' || this.state == 'waiting drop tile click'))
-        {
-            this.lastState = this.state;
-            this.gameboard.unselectAllTiles();
-            this.state = 'showing moves';
-        }
+        // if(this.scene.gui.isKeyPressed("Space") && (this.state == 'waiting select piece' || this.state == 'waiting move tile' || this.state == 'waiting drop tile click'))
+        // {
+        //     this.lastState = this.state;
+        //     this.gameboard.unselectAllTiles();
+        //     this.state = 'showing moves';
+        // }
 
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
         } 
-        if (this.scene.gui.isKeyPressed("KeyS")) {
-            console.log(this.mode);
-            console.log(this.level);
-        }   
     }
 
     managePick(mode, results) {
