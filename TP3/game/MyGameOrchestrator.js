@@ -127,18 +127,17 @@ class MyGameOrchestrator {
             case 'waiting move result':
                 if (this.prolog.requestReady)
                 {
-
+                    let [angle,angMultX] = this.calculateAngle(this.fromTile, this.toTile);
                     let start = {
                             translation: {x:0, y:0, z:0},
                             rotation:    {x:0, y:0, z:0},
                             scale:       {x:1, y:1, z:1}
                         }; 
-
                     let middle = {
                         translation: {
-                            x: (this.currPlayer == 'r' ?  1: -1) * 50*(this.toTile.column - this.fromTile.column), 
+                            x: angMultX * 50,
                             y: 100, 
-                            z: (this.currPlayer == 'r' ?  1: -1) * 50*(this.toTile.line - this.fromTile.line)
+                            z: 0,
                         },
                         rotation:    {x:0, y:0, z:45},
                         scale:       {x:1, y:1, z:1}
@@ -147,9 +146,9 @@ class MyGameOrchestrator {
 
                     let end = {
                         translation: {
-                            x: (this.currPlayer == 'r' ?  1: -1) * 100*(this.toTile.column - this.fromTile.column), 
+                            x: angMultX * 100, 
                             y: 0, 
-                            z: (this.currPlayer == 'r' ?  1: -1) * 100*(this.toTile.line - this.fromTile.line)
+                            z: 0,
                         },
                         rotation:    {x:0, y:0, z:0},
                         scale:       {x:1, y:1, z:1}
@@ -159,10 +158,10 @@ class MyGameOrchestrator {
                     frames[this.secsFromStart] = start;
                     frames[this.secsFromStart+0.3] = middle;
                     frames[this.secsFromStart+0.6] = end;
-
                     this.frameAnimator = new KeyframeAnimator(frames, this.scene);
                     this.fromTile.piece.animator = this.frameAnimator;
-
+                    
+                    this.fromTile.piece.angle = angle;
                     this.state = 'animating moving';
                 }
                 break;
@@ -302,6 +301,8 @@ class MyGameOrchestrator {
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
                 if (this.gameMove.movedPiece instanceof MyPiece) {
+                    let [angle, _angMultX] = this.calculateAngle(this.gameMove.originTile,this.gameMove.DestinationTile );
+                    this.gameMove.movedPiece.angle = angle;
                     this.gameboard.movePiece(this.gameMove.DestinationTile, this.gameMove.originTile);
                     this.gameboard.unselectAllTiles();
                     this.state = 'waiting select piece';
@@ -310,36 +311,13 @@ class MyGameOrchestrator {
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                     this.scene.camera.orbit([0, 1, 0], Math.PI);
                     this.gameboard.removeStone(this.currPlayer);
-                   
-                    let stone_position = this.gameboard.getStonePosition(this.currPlayer);
-
-                    let start = {
-                        translation: {
-                            x: stone_position[0] + ((this.toTile.line - 1) * 3.85),
-                            y: 0,
-                            z: stone_position[2] - ((this.toTile.column - 1) * 3.85)
-                        },
-                        rotation: { x: 0, y: 0, z: 0 },
-                        scale: { x: 1, y: 1, z: 1 }
-                    };
-                    let middle = {
-                        translation: {
-                            x: (stone_position[0] + ((this.toTile.line - 1) * 3.85)) / 2,
-                            y: 30,
-                            z: (stone_position[2] - ((this.toTile.column - 1) * 3.85)) / 2
-                        },
-                        rotation: { x: 0, y: 0, z: 0 },
-                        scale: { x: 1, y: 1, z: 1 }
-                    };
                     let end = {
                         translation: { x: 0, y: 0, z: 0 },
                         rotation: { x: 0, y: 0, z: 0 },
                         scale: { x: 1, y: 1, z: 1 }
                     };
                     let frames = [];
-                    frames[this.secsFromStart] = start;
-                    frames[this.secsFromStart + 0.3] = middle;
-                    frames[this.secsFromStart + 0.6] = end;
+                    frames[this.secsFromStart] = end;
 
                     this.frameAnimator = new KeyframeAnimator(frames, this.scene);
                     this.gameboard.setStoneAnimator(this.currPlayer, this.frameAnimator);
@@ -419,12 +397,74 @@ class MyGameOrchestrator {
     undoMove()
     {
         let nGameState = this.gameStateStack.length;
-        if (nGameState > 1 && this.state != 'rotating camera')
+        if (nGameState > 1 && this.state != 'rotating camera' && this.state != 'animating moving' && this.state != 'animating drop')
             {
                 this.state = 'undo move';
             }
         else this.currPlayer = 'r';
 
+    }
+
+    calculateAngle(from,to)
+    {
+        let angle = 0;
+        let angMultX = 0;
+        if (from.line == to.line)
+        {
+            if (from.column < to.column)
+            {
+                angle = 90;
+                angMultX = - 1 * (from.column - to.column);
+            }
+            else{
+                angle = 270;
+                angMultX = 1 * (from.column - to.column);
+            }
+        }
+        else if (from.column == to.column)
+        {
+            if (from.line < to.line) {
+                angle = 0;
+                angMultX = -1 * (from.line - to.line);
+            }
+            else {
+                angle = 180;
+                angMultX = 1 * (from.line - to.line);
+            }
+        }
+        else if (from.column == to.column) {
+            if (from.line < to.line) {
+                angle = 0;
+                angMultX = -1 * (from.line - to.line);
+            }
+            else {
+                angle = 180;
+                angMultX = 1 * (from.line - to.line);
+            }
+        }
+        else if (from.column < to.column) {
+            if (from.line < to.line) {
+                angle = 45;
+                angMultX = -1 * (from.line - to.line);
+            }
+            else {
+                angle = 135;
+                angMultX = 1 * (from.line - to.line);
+            }
+        }
+        else if (from.column > to.column) {
+            if (from.line > to.line) {
+                angle = 225;
+                angMultX = 1 * (from.line - to.line);
+            }
+            else {
+                angle = 315;
+                angMultX = -1 * (from.line - to.line);
+            }
+        }
+        
+        
+        return [angle,angMultX];
     }
 
     onObjectSelected(obj, id) {

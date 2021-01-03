@@ -1178,8 +1178,12 @@ class MySceneGraph {
                         else if(type == 'piece'){
                             let color = this.reader.getString(grandgrandChildren[k],'color');
                             let tileID = this.reader.getString(grandgrandChildren[k],'tileID');
-
-                            let piece = new MyPiece(this.scene, tileID, color);
+                            let angle = 90;
+                            if(color == 'y')
+                            {
+                                angle = 270;
+                            }
+                            let piece = new MyPiece(this.scene, tileID, color,angle);
 
                             nodeChildren.push(piece);
 

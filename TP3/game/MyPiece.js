@@ -9,7 +9,7 @@
 */
 class MyPiece extends CGFobject {
 
-	constructor(scene,tileID, color) {
+	constructor(scene,tileID, color,angle) {
 		super(scene);
 			
 		this.tile = tileID;
@@ -17,6 +17,8 @@ class MyPiece extends CGFobject {
 		this.color = color;
 
 		this.koi_model = new CGFOBJModel(scene, 'scenes/models/koi.obj', false);
+
+		this.angle = angle;
 
 	}
 	
@@ -27,19 +29,18 @@ class MyPiece extends CGFobject {
 	
 
 			this.scene.translate(97*(this.tile.line-1), 0, 97*(7-this.tile.column));
-
-			if(this.color == 'r')
-				this.scene.rotate(Math.PI/2, 0, 1, 0);
-			else
-				this.scene.rotate(-Math.PI/2, 0, 1, 0);
+			this.scene.rotate((Math.PI / 180) * this.angle, 0, 1, 0);
 
 			if(this.animator){
+				
 				let display = this.animator.apply();
 				if(display)
 				{
 					this.scene.multMatrix(display);
 				}
 			}
+			
+				
         	this.koi_model.display();
 		
 		this.scene.popMatrix();
