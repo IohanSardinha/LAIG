@@ -28,7 +28,7 @@ class MyGameOrchestrator {
         this.gameMove;
         this.winningScore = 10;
 
-        this.redPlayerMode = 'Human';
+        this.redPlayerMode = 'Hard';
         this.yellowPlayerMode = 'Hard';
 
         this.state = 'start';
@@ -128,7 +128,7 @@ class MyGameOrchestrator {
                 break;
 
             case 'received valid moves':
-                console.log(this.prolog.parsedResult);
+                
                 this.gameboard.selectTiles(this.prolog.parsedResult);
                 this.state = 'waiting move tile';
                 break;
@@ -211,6 +211,7 @@ class MyGameOrchestrator {
                 this.gameboard.gameState = this.prolog.parsedResult;
                 this.gameboard.dropStone(this.currPlayer, this.dropTile);
                 this.gameStateStack.push(this.prolog.parsedResult);
+
                 this.state = 'set camera to rotate';
                 break;
 
@@ -235,7 +236,9 @@ class MyGameOrchestrator {
                 }
                 break;
             case 'undo move':
-                let nGameState = this.gameStateStack.length;
+                let nGameState = this.gameStateStack.length; 
+                //let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                
                 this.gameMove = this.gameSequence.undoMove();
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
@@ -245,16 +248,30 @@ class MyGameOrchestrator {
                     this.gameboard.movePiece(this.gameMove.DestinationTile, this.gameMove.originTile);
                     this.gameboard.unselectAllTiles();
                     this.state = 'waiting select piece';
+                    let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                    if (playerMode != 'Human') {
+                        this.state = 'undo move';
+                    }
                 }
                 else {
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                     this.scene.camera.orbit([0, 1, 0], Math.PI);
-                    this.gameboard.removeStone(this.scene,this.currPlayer, this.secsFromStart);
-                    this.prolog.sendValidDrops(this.gameboard.gameState);
-                    this.state = 'waiting drop tiles result';
+                    this.gameboard.removeStone(this.scene,this.currPlayer, this.secsFromStart);                    
+                    let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                   
+                    if(playerMode != 'Human')
+                    {
+                        this.state = 'undo move';
+                    }
+                    else{
+                        this.prolog.sendValidDrops(this.gameboard.gameState);
+                        this.state = 'waiting drop tiles result';
+                    }
 
                 }
-                this.score.updateScore(this.gameboard.getScore());
+                let score = this.gameboard.getScore();
+                if(score != null)
+                    this.score.updateScore(this.gameboard.getScore());
                 break;
             case 'next turn':
                     let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
@@ -271,9 +288,8 @@ class MyGameOrchestrator {
                     if(this.prolog.requestReady){
 
                         let gameState = new MyGameState(this.prolog.parsedResult[0]);
-
+                      
                         console.log(gameState.toString());
-
                         this.gameboard.gameState = gameState;
                         this.gameStateStack.push(gameState);
                         let move = this.prolog.parsedResult[1];
@@ -283,8 +299,19 @@ class MyGameOrchestrator {
                         this.gameSequence.addMove(this.gameMove);
                         let dropPosition = this.prolog.parsedResult[2];
                         this.dropTile = dropPosition ? this.gameboard.getTileByPosition(dropPosition[0],dropPosition[1]) : null;
-                        // this.gameMove = new MyGameMove(this.scene, this.dropTile.piece, null, this.dropTile);
-                        // this.gameSequence.addMove(this.gameMove);
+                        let stone;
+                        if (this.currPlayer == 'r') {
+                            stone = this.gameboard.red_stones[this.gameboard.red_stones.length - 1]
+                        }
+                        else {
+                            stone = this.gameboard.yellow_stones[this.gameboard.yellow_stones.length - 1]
+                        }
+                        this.gameMove = new MyGameMove(this.scene, stone, null, this.dropTile);
+                        this.gameSequence.addMove(this.gameMove);
+                        this.gameStateStack.push(gameState);
+                        let score = this.gameboard.getScore();
+                        if (score != null)
+                            this.score.updateScore(this.gameboard.getScore());
                         this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
                         this.state = 'animating bot move';
                     }
@@ -296,9 +323,7 @@ class MyGameOrchestrator {
                         this.fromTile.piece.animator = null;
 
                         this.gameboard.movePiece(this.fromTile, this.toTile);
-                        
-                        this.score.updateScore(this.gameboard.getScore());
-                        
+                                                
                         if(this.dropTile == null){
                             this.state = 'set camera to rotate';
                         }
@@ -313,8 +338,6 @@ class MyGameOrchestrator {
                     if(!this.gameboard.animateStone(this.currPlayer,this.secsFromStart))
                     {
                         this.gameboard.dropStone(this.currPlayer, this.dropTile);
-                        this.gameboard.gameState = this.prolog.parsedResult;
-                        this.gameStateStack.push(this.prolog.parsedResult);
                         this.state = 'set camera to rotate';
                     }
                     break;
@@ -345,6 +368,8 @@ class MyGameOrchestrator {
         this.theme.update(time);
         this.checkKeys();
     }
+
+
 
     display() {
         this.theme.displayScene();
