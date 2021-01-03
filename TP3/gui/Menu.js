@@ -484,12 +484,12 @@ class Menu extends CGFobject {
     startGame(){
         this.mainMenu = false;
         this.scene.gameOrchestrator.score.started = true;
+        this.scene.gameOrchestrator.initGame = true;
         if(this.sound)
         {
             this.background_music.play();
         }
-        this.exitMenu();
-        
+        this.scene.gameOrchestrator.start();   
     }
 
     toggleMusic(){

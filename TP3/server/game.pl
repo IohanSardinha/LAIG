@@ -287,7 +287,12 @@ move_bot_and_count(GameState, Computer , Mode, [NewGameState,[FromLine,FromColum
     
     choose_move(GameState, Computer, Mode, [FromLine, FromColumn, ToLine, ToColumn]),
 
-    move_and_count(GameState, [Computer,FromLine, FromColumn, ToLine, ToColumn], NewGameState)
+    moveFish(GameState,Computer, FromLine, FromColumn, ToLine, ToColumn, TempGameState1),
+    
+    board(TempGameState1, NewBoard),
+    countFish(NewBoard, ToLine, ToColumn, ScoreToAdd),
+    addScore(TempGameState1,Computer, ScoreToAdd,TempGameState2),
+    updateBoard(TempGameState2, NewBoard, NewGameState)
 .
 
 playerTurn(GameState, r, 'ComputerVsComputer'):-

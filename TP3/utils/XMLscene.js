@@ -135,7 +135,7 @@ class XMLscene extends CGFscene {
         this.camera = this.gameOrchestrator.theme.viewMap.get(this.selectedView);
         // this enables the camera movement
         
-        if (this.selectedView === 'Main View' || this.selectedView === 'Menu') {
+        if (this.selectedView === 'Main Camera' || this.selectedView === 'Menu' || this.selectedView === 'Player 1' || this.selectedView === 'Player 2' || this.selectedView === 'Sideview') {
             this.interface.setActiveCamera(this.camera);
             this.interface.setActiveCamera(null);
         } else {

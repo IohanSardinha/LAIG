@@ -6,25 +6,38 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="Main View">
+    <views default="Overview">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="Main View" near="0.1" far="500" angle="45">
-            <from x="-5" y="30" z="40" />
-            <to x="-5" y="0" z="25" />
-        </perspective>
+        
         <perspective id="Menu" near="0.1" far="50" angle="45">
             <from x="0" y="70" z="20" />
             <to x="0" y="70" z="19" />
-        </perspective> 
-          <perspective id="Maidasdn View" near="0.1" far="500" angle="45">
+        </perspective>
+        <perspective id="Main Camera" near="0.1" far="500" angle="45">
             <from x="-5" y="30" z="40" />
             <to x="-5" y="0" z="25" />
         </perspective> 
+        <perspective id="Overview" near="0.1" far="500" angle="45">
+            <from x="-40" y="30" z="50" />
+            <to x="-5" y="10" z="25" />
+        </perspective>
+        <perspective id="Player 1" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="40" />
+            <to x="-5" y="0" z="25" />
+        </perspective>
+        <perspective id="Player 2" near="0.1" far="500" angle="45">
+            <from x="-5" y="30" z="10" />
+            <to x="-5" y="0" z="25" />
+        </perspective>  
+        <perspective id="Sideview" near="0.1" far="500" angle="45">
+            <from x="-25" y="20" z="25" />
+            <to x="-5" y="0" z="25" />
+        </perspective>
     </views>
 
     <illumination>
         <ambient r="0.5" g="0.5" b="0.5" a="0.1" />           <!-- global ambient -->
-        <background r="0.2" g="0.2" b="1" a="1.0" />        <!-- background color -->
+        <background r="0.3" g="0.3" b="1" a="1.0" />        <!-- background color -->
     </illumination>
 
 
@@ -965,6 +978,7 @@
 
             <descendants>
                 <noderef id="bigRocks"/>
+                <noderef id="bottom"/>
                 <noderef id="water"/>
                 <noderef id="deadTrees"/>
                 <noderef id="scoreTree"/>
@@ -1047,12 +1061,26 @@
 
             <descendants>
                 <leaf type="objmodel" model="scenes/models/grass.obj" wireframe="0"/>
+                
+
+            </descendants>
+        </node>
+        <node id="bottom">
+            <material id="grayMaterial" />
+
+            <texture id="null">
+            </texture>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
                 <leaf type="objmodel" model="scenes/models/bottom.obj" wireframe="0"/>
 
             </descendants>
         </node>
-        
-         <node id="tallGrass">
+
+        <node id="tallGrass">
             <material id="tallGrassMaterial" />
 
             <texture id="null">

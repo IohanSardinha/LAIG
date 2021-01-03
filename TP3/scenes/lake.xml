@@ -6,9 +6,9 @@
         <!-- identifier of root node of the scene graph; this node -->
         <!-- must be defined in one of the following NODE declarations -->
     </initials>
-    <views default="Main View">
+    <views default="Overview">
         <!-- at least one of the following type of cameras must be declared -->
-        <perspective id="Main View" near="0.1" far="500" angle="45">
+        <perspective id="Overview" near="0.1" far="500" angle="45">
             <from x="-5" y="30" z="40" />
             <to x="-5" y="0" z="25" />
         </perspective>

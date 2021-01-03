@@ -28,7 +28,7 @@ class MyGameOrchestrator {
         this.gameMove;
         this.winningScore = 10;
 
-        this.redPlayerMode = 'Hard';
+        this.redPlayerMode = 'Human';
         this.yellowPlayerMode = 'Hard';
 
         this.state = 'start';
@@ -37,6 +37,7 @@ class MyGameOrchestrator {
 
     onGraphLoaded() {
         this.state = 'start';
+        this.initGame =false;
         this.gameboard.setTiles(this.theme.tiles);
         this.gameboard.setPieces(this.theme.pieces);
         this.score.setLevel(this.level);
@@ -68,7 +69,16 @@ class MyGameOrchestrator {
         }
     }
 
-
+    start()
+    {
+        console.log(this.level);
+        this.initialTime = this.lastTime;
+        this.initGame = true;
+        this.displayMenu = false;
+        this.scene.selectedView = this.theme.defaultViewId;
+        this.scene.changeCamera();
+        this.scene.interface.setInterface();
+    }
 
     update(time) {
 
@@ -110,7 +120,11 @@ class MyGameOrchestrator {
                 this.displayMenu = true;
                 this.gameboard.gameState = this.prolog.parsedResult;
                 this.gameStateStack.push(this.prolog.parsedResult);
-                this.state = 'waiting select piece';
+                this.state = 'waiting to start';
+                break;
+
+            case 'waiting to start':
+                this.state = this.initGame ? 'waiting select piece' : 'waiting to start';
                 break;
 
             case 'waiting select piece':
@@ -218,7 +232,11 @@ class MyGameOrchestrator {
             case 'set camera to rotate':
                 this.rotationTime = 0;
                 this.Camerarotation=0;
-                this.state = 'rotating camera';
+                this.state = 'next turn';
+                if(this.scene.camera == 'Main Camera')
+                {
+                    this.state = 'rotating camera';
+                }               
                 break;
 
             case 'rotating camera':
@@ -229,16 +247,13 @@ class MyGameOrchestrator {
                     this.scene.camera.orbit([0,1,0], Math.PI/endRotationTime*this.deltaTime/1000);
                     this.rotationTime += this.deltaTime/1000;
                 }
-                else{
-                    this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
+                else{ 
                     this.scene.camera.orbit([0,1,0], Math.PI - this.Camerarotation);
                     this.state = 'next turn';
                 }
                 break;
             case 'undo move':
-                let nGameState = this.gameStateStack.length; 
-                //let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
-                
+                let nGameState = this.gameStateStack.length;              
                 this.gameMove = this.gameSequence.undoMove();
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
@@ -274,6 +289,7 @@ class MyGameOrchestrator {
                     this.score.updateScore(this.gameboard.getScore());
                 break;
             case 'next turn':
+                    this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
                     let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
                     if(playerMode ==  'Human')
                         this.state = 'waiting select piece';
@@ -288,8 +304,6 @@ class MyGameOrchestrator {
                     if(this.prolog.requestReady){
 
                         let gameState = new MyGameState(this.prolog.parsedResult[0]);
-                      
-                        console.log(gameState.toString());
                         this.gameboard.gameState = gameState;
                         this.gameStateStack.push(gameState);
                         let move = this.prolog.parsedResult[1];
@@ -350,20 +364,7 @@ class MyGameOrchestrator {
         }
 
         if (!this.displayMenu) {
-            // if (this.sceneInited) {
-            //     if (!this.initGame) {
-            //         let mode;
-            //         for (let i = 0; i < this.modes.length; i++) {
-            //             if (this.modes[i] === this.mode) {
-            //                 mode = i + 1;
-            //                 break;
-            //             }
-            //         }
-            //         this.initGame = true;
-            //     }
-            // }  
-            this.score.updateTime(this.deltaTime, this.currPlayer);
-           
+            this.score.updateTime(this.deltaTime, this.currPlayer);      
         }  
         this.theme.update(time);
         this.checkKeys();
@@ -389,11 +390,7 @@ class MyGameOrchestrator {
         }
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
-        }  
-        if (this.scene.gui.isKeyPressed("KeyS")) {
-            console.log(this.gameSequence);
-            console.log(this.gameStateStack);
-        }    
+        }   
     }
 
     managePick(mode, results) {

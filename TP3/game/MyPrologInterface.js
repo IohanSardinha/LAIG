@@ -117,8 +117,7 @@ class MyPrologInterface{
 		this.requestReady = false;
 		this.parsedResult = null;
 
-		let requestString = 'move_bot('+gameState.toString()+','+player+','+mode+')';
-		console.log(mode);
+		let requestString = 'move_bot(' + gameState.toString() + ',' + player + ",'" + mode + "')";
 		var request = new XMLHttpRequest();
 
 		request.onload = (data) => this.parseListReply(data);
