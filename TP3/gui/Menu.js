@@ -20,7 +20,7 @@ class Menu extends CGFobject {
         this.mainMenu = true;
         this.ambient = 1;
         this.options = false;
-        this.sound = false;
+        this.sound = true;
         this.level = level;
         this.game_mode = mode;
         this.game_modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
