@@ -142,6 +142,7 @@ class XMLscene extends CGFscene {
         } else {
             this.interface.setActiveCamera(this.camera);
         }
+        this.gameOrchestrator.currentCamera = this.selectedView;
     }
 
     updateLights() {

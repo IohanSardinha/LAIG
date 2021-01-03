@@ -31,6 +31,7 @@ class MyGameOrchestrator {
         this.score = new ScoreClock(this.scene, this.level);
         this.gameMove;
         this.winningScore = 10;
+        this.currentCamera = 'Overview';
 
         this.redPlayerMode = 'Human';
         this.yellowPlayerMode = 'Human';
@@ -304,7 +305,7 @@ class MyGameOrchestrator {
                 this.rotationTime = 0;
                 this.Camerarotation=0;
                 this.state = 'next turn';
-                if(this.scene.camera == 'Main Camera')
+                if(this.currentCamera == 'Main Camera')
                 {
                     this.state = 'rotating camera';
                 }               
@@ -476,20 +477,16 @@ class MyGameOrchestrator {
             if (this.state != 'rotating camera')
             this.menu.toggleMenu();
         }
-        if(this.scene.gui.isKeyPressed("Space") && (this.state == 'waiting select piece' || this.state == 'waiting move tile' || this.state == 'waiting drop tile click'))
-        {
-            this.lastState = this.state;
-            this.gameboard.unselectAllTiles();
-            this.state = 'showing moves';
-        }
+        // if(this.scene.gui.isKeyPressed("Space") && (this.state == 'waiting select piece' || this.state == 'waiting move tile' || this.state == 'waiting drop tile click'))
+        // {
+        //     this.lastState = this.state;
+        //     this.gameboard.unselectAllTiles();
+        //     this.state = 'showing moves';
+        // }
 
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
         } 
-        if (this.scene.gui.isKeyPressed("KeyS")) {
-            console.log(this.mode);
-            console.log(this.level);
-        }   
     }
 
     managePick(mode, results) {
