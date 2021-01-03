@@ -439,6 +439,7 @@ class MyGameOrchestrator {
 
             case 'game over':
                 alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
+                location = location;
                 break;
 
         }
