@@ -9,9 +9,14 @@ Manages the entire game:
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
-        this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator();
         this.gameboard = new MyGameBoard();
+        this.gameSequence = new MyGameSequence();
+
+        //constructor not working idk why
+        this.gameSequence.gameBoard = this.gameboard; 
+        this.gameSequence.currentMove = null;
+        
         this.theme = new MySceneGraph('mountain.xml', scene);
         this.prolog = new MyPrologInterface();
 
@@ -29,7 +34,7 @@ class MyGameOrchestrator {
         this.winningScore = 10;
 
         this.redPlayerMode = 'Human';
-        this.yellowPlayerMode = 'Hard';
+        this.yellowPlayerMode = 'Human';
 
         this.state = 'start';
         this.currPlayer = 'r';
@@ -128,7 +133,6 @@ class MyGameOrchestrator {
                 break;
 
             case 'received valid moves':
-                console.log(this.prolog.parsedResult);
                 this.gameboard.selectTiles(this.prolog.parsedResult);
                 this.state = 'waiting move tile';
                 break;
@@ -257,7 +261,9 @@ class MyGameOrchestrator {
                 this.score.updateScore(this.gameboard.getScore());
                 break;
             case 'next turn':
+
                     let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                    console.log(playerMode);
                     if(playerMode ==  'Human')
                         this.state = 'waiting select piece';
                     else
@@ -319,6 +325,12 @@ class MyGameOrchestrator {
                     }
                     break;
 
+            case 'showing moves':
+                if(!this.gameSequence.showAnimation(this.secsFromStart)){
+                    this.state = this.lastState;
+                }
+                break;
+
             case 'game over':
                 alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
                 location = location;
@@ -362,6 +374,13 @@ class MyGameOrchestrator {
             if (this.state != 'rotating camera')
             this.menu.toggleMenu();
         }
+        if(this.scene.gui.isKeyPressed("Space"))
+        {
+            this.lastState = this.state;
+            this.gameboard.unselectAllTiles();
+            this.state = 'showing moves';
+        }
+
         if (this.scene.gui.isKeyPressed("KeyR")) {
             this.undoMove();
         }  

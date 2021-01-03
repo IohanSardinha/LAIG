@@ -19,6 +19,14 @@ class MyGameBoard{
 		this.yellow_stones = [];
 		this.placed_yellow_stones = [];
 		this.gameState;
+		
+	}
+
+	resetPosition(){
+		for(let piece of this.pieces){
+			this.tiles[piece.originalTile].piece = piece 
+			piece.tile = this.tiles[piece.originalTile];
+		}
 	}
 
 	dropStone(currPlayer, tile){

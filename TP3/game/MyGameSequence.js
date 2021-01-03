@@ -9,6 +9,7 @@ Methods:
 class MyGameSequence{
 	contructor() {
 		this.moveStack;
+		this.currentMove = null;
 	}
 
 	addMove(move)
@@ -23,5 +24,25 @@ class MyGameSequence{
 	getMoves()
 	{
 		return this.moveStack;
+	}
+
+	showAnimation(time){
+
+
+		if(this.currentMove == null){
+			this.gameBoard.resetPosition();
+			this.currentMove = 0;
+		}
+		
+		if(this.currentMove >= this.moveStack.length)
+		{
+			this.currentMove = null;
+			return false;
+		}
+
+		if(!this.moveStack[this.currentMove].animate(time))
+			this.currentMove++;
+
+		return true;
 	}
 }

@@ -9,17 +9,32 @@ Methods:
 */
 class MyGameMove extends CGFobject {
 
-	constructor(scene,movedPiece, originTile, DestinationTile) {
+	constructor(scene,movedPiece, originTile, destinationTile) {
 		super(scene);
+
 		this.movedPiece = movedPiece;
 
 		this.originTile = originTile;
 
-		this.DestinationTile = DestinationTile;
-
+		this.destinationTile = destinationTile;
+	
+		this.animationStarted = false;
 	}
 
-	animate() {
+	setAnimator(time){
+		if(this.movedPiece instanceof MyPiece)
+		{
+			this.movedPiece.setAnimator(this.destinationTile, this.originTile, time);
+			this.animationStarted = true;
+		}
+	}
+
+	animate(time){
+		if(this.movedPiece instanceof MyPiece){
+			if(!this.animationStarted)
+				this.setAnimator(time);
+			return this.movedPiece.animate(time);
+		}
 	}
 
 }

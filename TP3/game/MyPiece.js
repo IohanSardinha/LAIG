@@ -12,6 +12,8 @@ class MyPiece extends CGFobject {
 	constructor(scene,tileID, color,angle) {
 		super(scene);
 			
+		this.originalTile = tileID;
+
 		this.tile = tileID;
 
 		this.color = color;
