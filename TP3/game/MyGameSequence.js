@@ -40,8 +40,27 @@ class MyGameSequence{
 			return false;
 		}
 
-		if(!this.moveStack[this.currentMove].animate(time))
+		this.currPlayer = this.currPlayer || 'r';
+		if(this.moveStack[this.currentMove].movedPiece instanceof MyPiece)
+			this.currPlayer = this.moveStack[this.currentMove].movedPiece.color;
+
+		if(!this.moveStack[this.currentMove].animate(time, this.currPlayer , this.gameBoard))
+		{
+			this.moveStack[this.currentMove].movedPiece.tile = this.moveStack[this.currentMove].destinationTile;
+			this.moveStack[this.currentMove].animationStarted = false;
+			if(this.moveStack[this.currentMove].movedPiece instanceof MyPiece)
+			{
+				this.moveStack[this.currentMove].movedPiece.animator = null;
+				this.moveStack[this.currentMove].destinationTile.piece = this.moveStack[this.currentMove].movedPiece;
+				this.moveStack[this.currentMove].originTile.piece = null;
+			}
+			else{
+				this.gameBoard.dropStone(this.currPlayer, this.moveStack[this.currentMove].destinationTile);
+				console.log(this.gameBoard.red_stones);
+				console.log(this.gameBoard.yellow_stones);
+			}
 			this.currentMove++;
+		}
 
 		return true;
 	}

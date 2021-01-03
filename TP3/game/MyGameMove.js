@@ -21,20 +21,25 @@ class MyGameMove extends CGFobject {
 		this.animationStarted = false;
 	}
 
-	setAnimator(time){
+	setAnimator(time,currPlayer, gameboard){
 		if(this.movedPiece instanceof MyPiece)
 		{
 			this.movedPiece.setAnimator(this.destinationTile, this.originTile, time);
-			this.animationStarted = true;
 		}
+		else{
+			gameboard.setStoneAnimator(this.scene, time, currPlayer, this.destinationTile);
+		}
+		this.animationStarted = true;
 	}
 
-	animate(time){
+	animate(time, currPlayer, gameboard){
+		if(!this.animationStarted)
+			this.setAnimator(time, currPlayer, gameboard);
 		if(this.movedPiece instanceof MyPiece){
-			if(!this.animationStarted)
-				this.setAnimator(time);
 			return this.movedPiece.animate(time);
 		}
+		else
+			return gameboard.animateStone(currPlayer, time);
 	}
 
 }

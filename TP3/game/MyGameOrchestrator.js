@@ -138,7 +138,8 @@ class MyGameOrchestrator {
                 break;
 
             case 'waiting move tile':
-                
+                if(!this.gameboard.isShowingSelected())
+                    this.gameboard.selectTiles(this.prolog.parsedResult);
                 break;
 
             case 'waiting move result':
@@ -186,6 +187,8 @@ class MyGameOrchestrator {
                 break;
 
             case 'waiting drop tile click':
+                if(!this.gameboard.isShowingSelected())
+                    this.gameboard.selectTiles(this.prolog.parsedResult);
                 break;
 
             case 'waiting drop stone result':
@@ -339,18 +342,6 @@ class MyGameOrchestrator {
         }
 
         if (!this.displayMenu) {
-            // if (this.sceneInited) {
-            //     if (!this.initGame) {
-            //         let mode;
-            //         for (let i = 0; i < this.modes.length; i++) {
-            //             if (this.modes[i] === this.mode) {
-            //                 mode = i + 1;
-            //                 break;
-            //             }
-            //         }
-            //         this.initGame = true;
-            //     }
-            // }  
             this.score.updateTime(this.deltaTime, this.currPlayer);
            
         }  
@@ -374,7 +365,7 @@ class MyGameOrchestrator {
             if (this.state != 'rotating camera')
             this.menu.toggleMenu();
         }
-        if(this.scene.gui.isKeyPressed("Space"))
+        if(this.scene.gui.isKeyPressed("Space") && (this.state == 'waiting select piece' || this.state == 'waiting move tile' || this.state == 'waiting drop tile click'))
         {
             this.lastState = this.state;
             this.gameboard.unselectAllTiles();

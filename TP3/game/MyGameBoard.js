@@ -23,6 +23,20 @@ class MyGameBoard{
 	}
 
 	resetPosition(){
+		this.red_stones = [...this.red_stones, ...this.placed_red_stones];
+		this.placed_red_stones = [];
+
+		for(let index in this.red_stones){
+			this.red_stones[index].tile = null;
+		}
+
+		this.yellow_stones = [...this.yellow_stones, ...this.placed_yellow_stones];
+		this.placed_yellow_stones = [];
+
+		for(let index in this.yellow_stones){
+			this.yellow_stones[index].tile = null;
+		}
+
 		for(let piece of this.pieces){
 			this.tiles[piece.originalTile].piece = piece 
 			piece.tile = this.tiles[piece.originalTile];
@@ -35,34 +49,33 @@ class MyGameBoard{
 			let stone = this.red_stones.pop();
 			this.placed_red_stones.push(stone);
 			stone.tile = tile;
+			stone.animator = null;
 		}
 		else{
 			let stone = this.yellow_stones.pop();
 			this.placed_yellow_stones.push(stone);
 			stone.tile = tile;
+			stone.animator = null;
 		}
 	}
 
-	removeStoneAnimator(scene, initialMoment, currPlayer){
-		let start = {
-			translation: { x: 0, y: 0, z: 0 },
-			rotation: { x: 0, y: 0, z: 0 },
-			scale: { x: 1, y: 1, z: 1 }
-		}; 
+	isShowingSelected(){
+		for(let id in this.tiles){
+			if(this.tiles[id].selected)
+				return true;
+		}
+		return false;
+	}
 
-		let frames = [];
-		frames[initialMoment] = start;
-
-		let animator = new KeyframeAnimator(frames, scene);
-
+	removeStoneAnimator(currPlayer){
 		if (currPlayer == 'r') {
-			this.red_stones[this.red_stones.length - 1].animator = animator;
+			this.red_stones[this.red_stones.length - 1].animator = null;
 		}
 		else {
-			this.yellow_stones[this.yellow_stones.length - 1].animator = animator;
+			this.yellow_stones[this.yellow_stones.length - 1].animator = null;
 		}
-
 	}
+
 	setStoneAnimator(scene, initialMoment, currPlayer, dropTile){
 
         let start = {
@@ -115,8 +128,10 @@ class MyGameBoard{
 		{
 			this.red_stones[this.red_stones.length - 1].animator.update(time);
 			return !this.red_stones[this.red_stones.length - 1].animator.ended;
+
 		}
 		this.yellow_stones[this.yellow_stones.length - 1].animator.update(time);
+
 		return !this.yellow_stones[this.yellow_stones.length - 1].animator.ended;
 	}
 
@@ -182,7 +197,7 @@ class MyGameBoard{
 			this.red_stones.push(stone);
 		}
 
-		this.removeStoneAnimator(scene, time, currPlayer);
+		this.removeStoneAnimator(currPlayer);
 		this.animateStone(currPlayer, time);
 	}
 
