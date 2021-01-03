@@ -258,7 +258,7 @@ nextTurn(GameState, Player, GameMode) :-
     nextTurnBot(GameState, Player, Computer, NewBoard, ToLine, ToColumn, GameMode)
 .
 
-move_bot_and_count(GameState, Computer , Mode, NewGameState):-
+move_bot_and_count(GameState, Computer , Mode, [NewGameState,[FromLine,FromColumn,ToLine,ToColumn],[StoneLine, StoneColumn]]):-
     
     choose_move(GameState, Computer, Mode, [FromLine, FromColumn, ToLine, ToColumn]),
 
@@ -283,7 +283,7 @@ move_bot_and_count(GameState, Computer , Mode, NewGameState):-
     updateBoard(TempGameState4, NewBoard, NewGameState)
 .
 
-move_bot_and_count(GameState, Computer , Mode, NewGameState):-
+move_bot_and_count(GameState, Computer , Mode, [NewGameState,[FromLine,FromColumn,ToLine,ToColumn]]):-
     
     choose_move(GameState, Computer, Mode, [FromLine, FromColumn, ToLine, ToColumn]),
 

@@ -27,6 +27,11 @@ class MyGameOrchestrator {
         this.score = new ScoreClock(this.scene, this.level);
         this.gameMove;
         this.winningScore = 10;
+
+        this.redPlayerMode = 'Human';
+        this.yellowPlayerMode = 'Hard';
+
+        this.state = 'start';
         this.currPlayer = 'r';
     }
 
@@ -109,7 +114,14 @@ class MyGameOrchestrator {
                 break;
 
             case 'waiting select piece':
+            {
+                let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                if(playerMode != 'Human'){
+                    this.prolog.sendMoveBot(this.gameboard.gameState, this.currPlayer, playerMode);
+                    this.state = 'waiting move bot results';
+                }
                 break;
+            }
 
             case 'waiting valid moves':
                 this.state = this.prolog.requestReady ? 'received valid moves' : 'waiting valid moves';
@@ -127,54 +139,17 @@ class MyGameOrchestrator {
             case 'waiting move result':
                 if (this.prolog.requestReady)
                 {
-                    let [angle,angMultX] = this.calculateAngle(this.fromTile, this.toTile);
-                    let start = {
-                            translation: {x:0, y:0, z:0},
-                            rotation:    {x:0, y:0, z:0},
-                            scale:       {x:1, y:1, z:1}
-                        }; 
-                    let middle = {
-                        translation: {
-                            x: angMultX * 50,
-                            y: 100, 
-                            z: 0,
-                        },
-                        rotation:    {x:0, y:0, z:45},
-                        scale:       {x:1, y:1, z:1}
-                    }; 
-
-
-                    let end = {
-                        translation: {
-                            x: angMultX * 100, 
-                            y: 0, 
-                            z: 0,
-                        },
-                        rotation:    {x:0, y:0, z:0},
-                        scale:       {x:1, y:1, z:1}
-                    }; 
-
-                    let frames = [];
-                    frames[this.secsFromStart] = start;
-                    frames[this.secsFromStart+0.3] = middle;
-                    frames[this.secsFromStart+0.6] = end;
-                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
-                    this.fromTile.piece.animator = this.frameAnimator;
-                    
-                    this.fromTile.piece.angle = angle;
+                    this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
                     this.state = 'animating moving';
                 }
                 break;
 
             case 'animating moving':
-                this.frameAnimator.update(this.secsFromStart);
-                if(this.frameAnimator.ended)
+                if(!this.fromTile.piece.animate(this.secsFromStart))
                     this.state = 'move piece';
-                
                 break;
 
             case 'move piece':
-                this.frameAnimator = null;
                 this.fromTile.piece.animator = null;
                 let gameState = new MyGameState(this.prolog.parsedResult[0]);
                 this.gameMove = new MyGameMove(this.scene,this.fromTile.piece,this.fromTile,this.toTile);
@@ -193,7 +168,7 @@ class MyGameOrchestrator {
                     this.state = 'waiting drop tiles result';
                 }
                 else{
-                    this.state = 'next turn';
+                    this.state = 'set camera to rotate';
                 }
                 break;
 
@@ -211,71 +186,26 @@ class MyGameOrchestrator {
             case 'waiting drop stone result':
                 if(this.prolog.requestReady)
                 {
-                    let start = {
-                        translation: {x:0, y:0, z:0},
-                        rotation:    {x:0, y:0, z:0},
-                        scale:       {x:1, y:1, z:1}
-                    }; 
-
-                    let stone_position = this.gameboard.getStonePosition(this.currPlayer);
-                    
-                    let middle = {
-                        translation: {
-                            x: (stone_position[0] + ((this.toTile.line-1)*3.85))/2, 
-                            y: 30, 
-                            z: (stone_position[2] - ((this.toTile.column-1)*3.85))/2
-                        },
-                        rotation:    {x:0, y:0, z:0},
-                        scale:       {x:1, y:1, z:1}
-                    }; 
-
-
-                    let end = {
-                        translation: {
-                            x: stone_position[0] + ((this.toTile.line-1)*3.85), 
-                            y: 0, 
-                            z: stone_position[2] - ((this.toTile.column-1)*3.85)
-                        },
-                        rotation:    {x:0, y:0, z:0},
-                        scale:       {x:1, y:1, z:1}
-                    }; 
-
-                    let frames = [];
-                    frames[this.secsFromStart] = start;
-                    frames[this.secsFromStart+0.3] = middle;
-                    frames[this.secsFromStart+0.6] = end;
-
-                    this.frameAnimator = new KeyframeAnimator(frames, this.scene);
-                    this.gameboard.setStoneAnimator(this.currPlayer, this.frameAnimator);
+                    this.gameboard.setStoneAnimator(this.scene, this.secsFromStart, this.currPlayer, this.dropTile);
 
                     this.state = 'animating drop';
                 }
                 break;
 
             case 'animating drop':
-                this.frameAnimator.update(this.secsFromStart);
-                if(this.frameAnimator.ended)
+                if(!this.gameboard.animateStone(this.currPlayer,this.secsFromStart))
                     this.state = 'drop stone';
                 break;
 
             case 'drop stone':
-                let stone;
-                if (this.currPlayer == 'r')
-                {
-                    stone = this.gameboard.red_stones[this.gameboard.red_stones.length - 1]
-                }
-                else{
-                    stone = this.gameboard.yellow_stones[this.gameboard.yellow_stones.length-1]
-                }
-                this.gameMove = new MyGameMove(this.scene, stone, null, this.toTile);
-                this.gameSequence.addMove(this.gameMove);
+                this.gameboard.dropStone(this.currPlayer, this.dropTile);
                 this.gameboard.gameState = this.prolog.parsedResult;
                 this.gameboard.dropStone(this.currPlayer, this.toTile);
                 this.gameStateStack.push(this.prolog.parsedResult);
-                this.state = 'next turn';
+                this.state = 'set camera to rotate';
                 break;
 
-            case 'next turn':
+            case 'set camera to rotate':
                 this.rotationTime = 0;
                 this.Camerarotation=0;
                 this.state = 'rotating camera';
@@ -291,8 +221,8 @@ class MyGameOrchestrator {
                 }
                 else{
                     this.currPlayer = this.currPlayer == 'r' ? 'y' : 'r';
-                    this.state = 'waiting select piece';
-                    this.scene.camera.orbit([0,1,0], Math.PI - this.Camerarotation);
+                    this.scene.camera.orbit([0,1,0], Math.PI - this.Camearotation);
+                    this.state = 'next turn';
                 }
                 break;
             case 'undo move':
@@ -301,7 +231,7 @@ class MyGameOrchestrator {
                 this.gameStateStack.pop();
                 this.gameboard.gameState = this.gameStateStack[nGameState - 2];
                 if (this.gameMove.movedPiece instanceof MyPiece) {
-                    let [angle, _angMultX] = this.calculateAngle(this.gameMove.originTile,this.gameMove.DestinationTile );
+                    let [angle, _angMultX] = this.gameMove.movedPiece.calculateAngle(this.gameMove.originTile,this.gameMove.DestinationTile );
                     this.gameMove.movedPiece.angle = angle;
                     this.gameboard.movePiece(this.gameMove.DestinationTile, this.gameMove.originTile);
                     this.gameboard.unselectAllTiles();
@@ -327,6 +257,61 @@ class MyGameOrchestrator {
                 }
                 this.score.updateScore(this.gameboard.getScore());
                 break;
+            case 'next turn':
+                    let playerMode = this.currPlayer == 'r' ? this.redPlayerMode : this.yellowPlayerMode;
+                    if(playerMode ==  'Human')
+                        this.state = 'waiting select piece';
+                    else
+                    {
+                        this.prolog.sendMoveBot(this.gameboard.gameState, this.currPlayer, playerMode);
+                        this.state = 'waiting move bot results';
+                    }
+                break;
+
+                case 'waiting move bot results':
+                    if(this.prolog.requestReady){
+
+                        let gameState = new MyGameState(this.prolog.parsedResult[0]);
+
+                        console.log(gameState.toString());
+
+                        this.gameboard.gameState = gameState;
+                        this.gameStateStack.push(gameState);
+                        let move = this.prolog.parsedResult[1];
+                        this.fromTile = this.gameboard.getTileByPosition(move[0],move[1]);
+                        this.toTile = this.gameboard.getTileByPosition(move[2],move[3]);
+                        let dropPosition = this.prolog.parsedResult[2];
+                        this.dropTile = dropPosition ? this.gameboard.getTileByPosition(dropPosition[0],dropPosition[1]) : null;
+                        this.fromTile.piece.setAnimator(this.toTile, this.fromTile, this.secsFromStart);
+                        this.state = 'animating bot move';
+                    }
+                    break;
+
+                case 'animating bot move':
+                    if(!this.fromTile.piece.animate(this.secsFromStart))
+                    {
+                        this.fromTile.piece.animator = null;
+                        this.gameboard.movePiece(this.fromTile, this.toTile);
+                        this.score.updateScore(this.gameboard.getScore());
+                        
+                        if(this.dropTile == null){
+                            this.state = 'set camera to rotate';
+                        }
+                        else{
+                            this.gameboard.setStoneAnimator(this.scene, this.secsFromStart, this.currPlayer, this.dropTile);   
+                            this.state = 'animating bot drop';
+                        }
+                    }
+                    break;
+
+                case 'animating bot drop':
+                    if(!this.gameboard.animateStone(this.currPlayer,this.secsFromStart))
+                    {
+                        this.gameboard.dropStone(this.currPlayer, this.dropTile);
+                        this.state = 'set camera to rotate';
+                    }
+                    break;
+
             case 'game over':
                 alert((this.currPlayer == 'r' ? 'Red Player': 'Yellow Player')+' won!!');
                 location = location;
@@ -514,6 +499,7 @@ class MyGameOrchestrator {
                 case 'waiting drop tile click':
                     if(obj.selected)
                     {
+                        this.dropTile = obj;
                         this.prolog.sendDropStone(this.gameboard.gameState, this.currPlayer, obj.line, obj.column);
                         this.gameboard.unselectAllTiles();
                         this.state = 'waiting drop stone result';
