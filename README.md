@@ -1,48 +1,41 @@
-# LAIG 2020/2021
+# LAIG(Graphical Interface Laboratories) Project
 
-## Group T05G04
-| Name             | Number    | E-Mail               |
-| ---------------- | --------- | -------------------- |
-| Iohan Soares     | 201801011 | up201801011@fe.up.pt |
-| Muriel Pinho     | 201700132 | up201700132@fe.up.pt |
+The project revolved around creating 3 scenes and developing 1 game. All scenes were built on Javascript using the WebCGF framework, the last scene which was made for the game used .obj files for the scene and Prolog for the game logic.
 
-----
+## 1st Project ##
 
-## Projects
+This project's goal was building a scene that contained the following elements: 
 
-### [TP1 - Scene Graph](TP1)
-**Versão**: tp1-v0.1
+- Primitives and geometry building.
+- Geometric transformations.
+- Materials.
+- Textures.
+- Graphical interface.
 
-**Data**: 25/10/2020
+ <img src="screenshots/proj1_2.png" height="200">  <img src="screenshots/proj1_3.png" height="200"> <img src="screenshots/proj1_1.png" height="200">
+ <br> 
 
-#### Funcionalidades: 
-* Todas as funcionalisdades implementadas
-* Primitivas e Geometrias
-* Transformações Geométricas
-* Materiais
-* Texturas
-* Luzes e câmeras
-* Interface gráfica
+## 2nd Project ##
 
-#### Cena:
-* A cena consiste numa versão 3D do quarto da Study Girl personagem criada para um canal de Youtube que faz streams de música Lo-Fi Hip Hop. 
-Com:
-    * Uma cama 
-    * Uma mesa de estudos com um computador e uma luminária
-    * Uma cadeira para sentar e estudar
-    * Uma bancada para sentar na janela, com duas plantas
-    * Uma prateleira com livros
-* [Diretorio Cena](TP1/scenes)
-* [Quarto Menina do Lo-Fi](TP1/scenes/demo.xml)
-* [Imagens da cena](TP1/scenes/images)
+This project's goal was enhancing the scene created for the 1st project the enhancements were: 
 
------
+- Animations using keyframes.
+- Spritesheets for text and animations.
+- 2D and 3D Surfaces (nurbs).
 
-### [TP2 - ...](TP2)
-- *TODO*
+ <img src="screenshots/proj2_1.png" height="200">  <img src="screenshots/proj2_2.png" height="200"> <img src="screenshots/proj2_3.png" height="200"> <img src="screenshots/proj2_4.png" height="200">
 
-----
+<br> 
 
-### [TP3 - ...](TP3)
-- *TODO*
+## 3rd Project ##
 
+This project's goal was implementing the graphical interface for a board game that had its logic implemented in prolog.The elements that were implemented were: 
+
+- Different scenes containing elements of the game and scenery.
+- Pieces and keyframe animations for them.
+- Different environments and illumination.
+- Game funcionality like difficulty and gamemodes.
+- Link with prolog gamelogic.
+- Additional features.
+
+ <img src="screenshots/proj3_1.png" height="200"> <img src="screenshots/proj3_3.png" height="200"> <img src="screenshots/proj3_4.png" height="200">  <img src="screenshots/proj3_2.png" height="200">
