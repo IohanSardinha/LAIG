@@ -12,7 +12,7 @@ This project's goal was building a scene that contained the following elements:
 - Textures.
 - Graphical interface.
 
- <img src="screenshots/proj1_2.png" height="200">  <img src="screenshots/proj1_3.png" height="200"> <img src="screenshots/proj1_1.png" height="200">
+ <img src="screenshots/Proj1_2.png" height="200">  <img src="screenshots/Proj1_3.png" height="200"> <img src="screenshots/Proj1_1.png" height="200">
  <br> 
 
 ## 2nd Project ##
@@ -23,7 +23,7 @@ This project's goal was enhancing the scene created for the 1st project the enha
 - Spritesheets for text and animations.
 - 2D and 3D Surfaces (nurbs).
 
- <img src="screenshots/proj2_1.png" height="200">  <img src="screenshots/proj2_2.png" height="200"> <img src="screenshots/proj2_3.png" height="200"> <img src="screenshots/proj2_4.png" height="200">
+ <img src="screenshots/Proj2_1.png" height="200">  <img src="screenshots/Proj2_2.png" height="200"> <img src="screenshots/Proj2_3.png" height="200"> <img src="screenshots/Proj2_4.png" height="200">
 
 <br> 
 
@@ -38,4 +38,4 @@ This project's goal was implementing the graphical interface for a board game th
 - Link with prolog gamelogic.
 - Additional features.
 
- <img src="screenshots/proj3_1.png" height="200"> <img src="screenshots/proj3_3.png" height="200"> <img src="screenshots/proj3_4.png" height="200">  <img src="screenshots/proj3_2.png" height="200">
+ <img src="screenshots/Proj3_1.png" height="200"> <img src="screenshots/Proj3_3.png" height="200"> <img src="screenshots/Proj3_4.png" height="200">  <img src="screenshots/Proj3_2.png" height="200">
